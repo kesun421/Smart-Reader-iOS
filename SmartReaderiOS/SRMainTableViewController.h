@@ -1,5 +1,5 @@
 //
-//  SRMainViewController.h
+//  SRMainTableViewController.h
 //  SmartReaderiOS
 //
 //  Created by Ke Sun on 11/25/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SRMainViewController : UIViewController
+@interface SRMainTableViewController : UITableViewController
 
 @end

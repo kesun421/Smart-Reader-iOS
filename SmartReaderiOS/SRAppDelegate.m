@@ -7,7 +7,7 @@
 //
 
 #import "SRAppDelegate.h"
-#import "SRMainViewController.h"
+#import "SRMainTableViewController.h"
 
 @implementation SRAppDelegate
 
@@ -15,7 +15,7 @@
 {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SRMainViewController new]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SRMainTableViewController new]];
     [self.window makeKeyAndVisible];
     return YES;
 }

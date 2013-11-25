@@ -19,13 +19,11 @@
 		9E41788C1844063900A9DA60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178741844063800A9DA60 /* UIKit.framework */; };
 		9E4178941844063900A9DA60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E4178921844063900A9DA60 /* InfoPlist.strings */; };
 		9E4178961844063900A9DA60 /* SmartReaderiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4178951844063900A9DA60 /* SmartReaderiOSTests.m */; };
-		9E4178A21844070400A9DA60 /* SRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4178A01844070400A9DA60 /* SRMainViewController.m */; };
-		9E4178A31844070400A9DA60 /* SRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E4178A11844070400A9DA60 /* SRMainViewController.xib */; };
 		9E4179C8184408FD00A9DA60 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179C5184408FD00A9DA60 /* HTMLNode.m */; };
 		9E4179C9184408FD00A9DA60 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179C7184408FD00A9DA60 /* HTMLParser.m */; };
-		9E4179D21844093400A9DA60 /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CD1844093400A9DA60 /* MWFeedParser.m */; };
-		9E4179D31844093400A9DA60 /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CF1844093400A9DA60 /* MWFeedInfo.m */; };
-		9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D11844093400A9DA60 /* MWFeedItem.m */; };
+		9E4179D21844093400A9DA60 /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CD1844093400A9DA60 /* MWFeedParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179D31844093400A9DA60 /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CF1844093400A9DA60 /* MWFeedInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D11844093400A9DA60 /* MWFeedItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9E4179E91844095C00A9DA60 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D71844095C00A9DA60 /* AFHTTPRequestOperation.m */; };
 		9E4179EA1844095C00A9DA60 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D91844095C00A9DA60 /* AFHTTPRequestOperationManager.m */; };
 		9E4179EB1844095C00A9DA60 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179DB1844095C00A9DA60 /* AFHTTPSessionManager.m */; };
@@ -35,6 +33,13 @@
 		9E4179EF1844095C00A9DA60 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E41844095C00A9DA60 /* AFURLRequestSerialization.m */; };
 		9E4179F01844095C00A9DA60 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E61844095C00A9DA60 /* AFURLResponseSerialization.m */; };
 		9E4179F11844095C00A9DA60 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E81844095C00A9DA60 /* AFURLSessionManager.m */; };
+		9E4179F918440E1500A9DA60 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F618440E1500A9DA60 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179FA18440E1500A9DA60 /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F818440E1500A9DA60 /* NSDate+InternetDateTime.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179FC18440E1D00A9DA60 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E417A0118440E5E00A9DA60 /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E417A021844108700A9DA60 /* libxml2.dylib */; };
+		9E417A07184410ED00A9DA60 /* SRMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */; };
+		9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +69,6 @@
 		9E4178911844063900A9DA60 /* SmartReaderiOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SmartReaderiOSTests-Info.plist"; sourceTree = "<group>"; };
 		9E4178931844063900A9DA60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9E4178951844063900A9DA60 /* SmartReaderiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartReaderiOSTests.m; sourceTree = "<group>"; };
-		9E41789F1844070400A9DA60 /* SRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainViewController.h; sourceTree = "<group>"; };
-		9E4178A01844070400A9DA60 /* SRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainViewController.m; sourceTree = "<group>"; };
-		9E4178A11844070400A9DA60 /* SRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainViewController.xib; sourceTree = "<group>"; };
 		9E4179C4184408FD00A9DA60 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Objective-C-HMTL-Parser/HTMLNode.h"; sourceTree = SOURCE_ROOT; };
 		9E4179C5184408FD00A9DA60 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Objective-C-HMTL-Parser/HTMLNode.m"; sourceTree = SOURCE_ROOT; };
 		9E4179C6184408FD00A9DA60 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "Objective-C-HMTL-Parser/HTMLParser.h"; sourceTree = SOURCE_ROOT; };
@@ -97,6 +99,18 @@
 		9E4179E61844095C00A9DA60 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFNetworking/AFURLResponseSerialization.m; sourceTree = SOURCE_ROOT; };
 		9E4179E71844095C00A9DA60 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFNetworking/AFURLSessionManager.h; sourceTree = SOURCE_ROOT; };
 		9E4179E81844095C00A9DA60 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFNetworking/AFURLSessionManager.m; sourceTree = SOURCE_ROOT; };
+		9E4179F518440E1500A9DA60 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "MWFeedParser/Classes/NSString+HTML.h"; sourceTree = SOURCE_ROOT; };
+		9E4179F618440E1500A9DA60 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "MWFeedParser/Classes/NSString+HTML.m"; sourceTree = SOURCE_ROOT; };
+		9E4179F718440E1500A9DA60 /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+InternetDateTime.h"; path = "MWFeedParser/Classes/NSDate+InternetDateTime.h"; sourceTree = SOURCE_ROOT; };
+		9E4179F818440E1500A9DA60 /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+InternetDateTime.m"; path = "MWFeedParser/Classes/NSDate+InternetDateTime.m"; sourceTree = SOURCE_ROOT; };
+		9E4179FB18440E1D00A9DA60 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "MWFeedParser/Classes/GTMNSString+HTML.h"; sourceTree = SOURCE_ROOT; };
+		9E4179FC18440E1D00A9DA60 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = SOURCE_ROOT; };
+		9E4179FF18440E5E00A9DA60 /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XMLEntities.h"; path = "MWFeedParser/Classes/NSString+XMLEntities.h"; sourceTree = SOURCE_ROOT; };
+		9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XMLEntities.m"; path = "MWFeedParser/Classes/NSString+XMLEntities.m"; sourceTree = SOURCE_ROOT; };
+		9E417A021844108700A9DA60 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		9E417A04184410ED00A9DA60 /* SRMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainTableViewController.h; sourceTree = "<group>"; };
+		9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainTableViewController.m; sourceTree = "<group>"; };
+		9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainTableViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */,
 				9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */,
 				9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */,
 				9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */,
@@ -145,6 +160,7 @@
 		9E41786F1844063800A9DA60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E417A021844108700A9DA60 /* libxml2.dylib */,
 				9E4178701844063800A9DA60 /* Foundation.framework */,
 				9E4178721844063800A9DA60 /* CoreGraphics.framework */,
 				9E4178741844063800A9DA60 /* UIKit.framework */,
@@ -161,9 +177,9 @@
 				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
 				9E4178821844063800A9DA60 /* Images.xcassets */,
 				9E4178771844063800A9DA60 /* Supporting Files */,
-				9E41789F1844070400A9DA60 /* SRMainViewController.h */,
-				9E4178A01844070400A9DA60 /* SRMainViewController.m */,
-				9E4178A11844070400A9DA60 /* SRMainViewController.xib */,
+				9E417A04184410ED00A9DA60 /* SRMainTableViewController.h */,
+				9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */,
+				9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";
@@ -221,6 +237,9 @@
 		9E4179CA1844092000A9DA60 /* MWFeedParser */ = {
 			isa = PBXGroup;
 			children = (
+				9E4179FE18440E5400A9DA60 /* Depreciated */,
+				9E4179F318440DF900A9DA60 /* Google Toolbox for Mac */,
+				9E4179F218440DF300A9DA60 /* Categories */,
 				9E4179CB1844093400A9DA60 /* MWFeedParser.h */,
 				9E4179CC1844093400A9DA60 /* MWFeedParser_Private.h */,
 				9E4179CD1844093400A9DA60 /* MWFeedParser.m */,
@@ -256,6 +275,35 @@
 				9E4179E81844095C00A9DA60 /* AFURLSessionManager.m */,
 			);
 			name = AFNetworking;
+			sourceTree = "<group>";
+		};
+		9E4179F218440DF300A9DA60 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9E4179F518440E1500A9DA60 /* NSString+HTML.h */,
+				9E4179F618440E1500A9DA60 /* NSString+HTML.m */,
+				9E4179F718440E1500A9DA60 /* NSDate+InternetDateTime.h */,
+				9E4179F818440E1500A9DA60 /* NSDate+InternetDateTime.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		9E4179F318440DF900A9DA60 /* Google Toolbox for Mac */ = {
+			isa = PBXGroup;
+			children = (
+				9E4179FB18440E1D00A9DA60 /* GTMNSString+HTML.h */,
+				9E4179FC18440E1D00A9DA60 /* GTMNSString+HTML.m */,
+			);
+			name = "Google Toolbox for Mac";
+			sourceTree = "<group>";
+		};
+		9E4179FE18440E5400A9DA60 /* Depreciated */ = {
+			isa = PBXGroup;
+			children = (
+				9E4179FF18440E5E00A9DA60 /* NSString+XMLEntities.h */,
+				9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */,
+			);
+			name = Depreciated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,9 +382,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E4178A31844070400A9DA60 /* SRMainViewController.xib in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
+				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,21 +403,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E417A0118440E5E00A9DA60 /* NSString+XMLEntities.m in Sources */,
 				9E4179F11844095C00A9DA60 /* AFURLSessionManager.m in Sources */,
 				9E4179EE1844095C00A9DA60 /* AFURLConnectionOperation.m in Sources */,
+				9E417A07184410ED00A9DA60 /* SRMainTableViewController.m in Sources */,
 				9E4179E91844095C00A9DA60 /* AFHTTPRequestOperation.m in Sources */,
 				9E4179C8184408FD00A9DA60 /* HTMLNode.m in Sources */,
+				9E4179F918440E1500A9DA60 /* NSString+HTML.m in Sources */,
 				9E4179EA1844095C00A9DA60 /* AFHTTPRequestOperationManager.m in Sources */,
-				9E4178A21844070400A9DA60 /* SRMainViewController.m in Sources */,
 				9E4179D21844093400A9DA60 /* MWFeedParser.m in Sources */,
 				9E4179EB1844095C00A9DA60 /* AFHTTPSessionManager.m in Sources */,
 				9E41787D1844063800A9DA60 /* main.m in Sources */,
+				9E4179FA18440E1500A9DA60 /* NSDate+InternetDateTime.m in Sources */,
 				9E4178811844063800A9DA60 /* SRAppDelegate.m in Sources */,
 				9E4179D31844093400A9DA60 /* MWFeedInfo.m in Sources */,
 				9E4179ED1844095C00A9DA60 /* AFSecurityPolicy.m in Sources */,
 				9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */,
 				9E4179EF1844095C00A9DA60 /* AFURLRequestSerialization.m in Sources */,
 				9E4179EC1844095C00A9DA60 /* AFNetworkReachabilityManager.m in Sources */,
+				9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */,
 				9E4179F01844095C00A9DA60 /* AFURLResponseSerialization.m in Sources */,
 				9E4179C9184408FD00A9DA60 /* HTMLParser.m in Sources */,
 			);
@@ -494,8 +546,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/include/libxml2/**",
+				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -507,8 +565,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/include/libxml2/**",
+				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
