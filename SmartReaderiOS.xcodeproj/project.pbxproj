@@ -42,8 +42,8 @@
 		9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */; };
 		9E417A0C18441E6000A9DA60 /* SRSecondaryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0A18441E6000A9DA60 /* SRSecondaryTableViewController.m */; };
 		9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */; };
-		9E417A1118441E7600A9DA60 /* SRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainViewController.m */; };
-		9E417A1218441E7600A9DA60 /* SRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainViewController.xib */; };
+		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
+		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,9 +118,9 @@
 		9E417A0918441E6000A9DA60 /* SRSecondaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSecondaryTableViewController.h; sourceTree = "<group>"; };
 		9E417A0A18441E6000A9DA60 /* SRSecondaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSecondaryTableViewController.m; sourceTree = "<group>"; };
 		9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRSecondaryTableViewController.xib; sourceTree = "<group>"; };
-		9E417A0E18441E7600A9DA60 /* SRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainViewController.h; sourceTree = "<group>"; };
-		9E417A0F18441E7600A9DA60 /* SRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainViewController.m; sourceTree = "<group>"; };
-		9E417A1018441E7600A9DA60 /* SRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainViewController.xib; sourceTree = "<group>"; };
+		9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainContentViewController.h; sourceTree = "<group>"; };
+		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
+		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,9 +193,9 @@
 				9E417A0918441E6000A9DA60 /* SRSecondaryTableViewController.h */,
 				9E417A0A18441E6000A9DA60 /* SRSecondaryTableViewController.m */,
 				9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */,
-				9E417A0E18441E7600A9DA60 /* SRMainViewController.h */,
-				9E417A0F18441E7600A9DA60 /* SRMainViewController.m */,
-				9E417A1018441E7600A9DA60 /* SRMainViewController.xib */,
+				9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */,
+				9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */,
+				9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
-				9E417A1218441E7600A9DA60 /* SRMainViewController.xib in Resources */,
+				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +441,7 @@
 				9E4179EF1844095C00A9DA60 /* AFURLRequestSerialization.m in Sources */,
 				9E4179EC1844095C00A9DA60 /* AFNetworkReachabilityManager.m in Sources */,
 				9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */,
-				9E417A1118441E7600A9DA60 /* SRMainViewController.m in Sources */,
+				9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */,
 				9E4179F01844095C00A9DA60 /* AFURLResponseSerialization.m in Sources */,
 				9E4179C9184408FD00A9DA60 /* HTMLParser.m in Sources */,
 			);

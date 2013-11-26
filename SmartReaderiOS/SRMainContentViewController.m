@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Ke Sun. All rights reserved.
 //
 
-#import "SRMainViewController.h"
+#import "SRMainContentViewController.h"
 
-@interface SRMainViewController ()
+@interface SRMainContentViewController ()
 
 @end
 
-@implementation SRMainViewController
+@implementation SRMainContentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
