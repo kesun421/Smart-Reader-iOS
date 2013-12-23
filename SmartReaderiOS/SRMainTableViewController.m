@@ -7,8 +7,19 @@
 //
 
 #import "SRMainTableViewController.h"
+#import "SRFileUtility.h"
+#import "SRSecondaryTableViewController.h"
+#import "SRAddSourceViewController.h"
+#import "SRSource.h"
+#import "MWFeedInfo.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface SRMainTableViewController ()
+#define kSourcesFileName @"sources.plist"
+
+@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate>
+
+/** List of feed sources. */
+@property (nonatomic, copy) NSArray *sources;
 
 @end
 
@@ -30,8 +41,8 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,16 +55,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.sources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +72,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
+    SRSource *source = self.sources[indexPath.row];
+    
+    [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
+    cell.textLabel.text = source.feedInfo.title;
+    cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:source.lastUpdatedDate
+                                                               dateStyle:NSDateFormatterShortStyle
+                                                               timeStyle:NSDateFormatterShortStyle];
     
     return cell;
 }
@@ -108,22 +122,76 @@
 }
 */
 
-/*
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] init] animated:YES];
 }
- 
+
+#pragma mark - SRAddSourceViewControllerDelegate methods
+
+- (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source
+{
+    
+}
+
+- (void)dismissAddSourceViewController:(SRAddSourceViewController *)controller
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UI related
+
+- (void)add
+{
+    SRAddSourceViewController *addSourceViewController = [SRAddSourceViewController new];
+    addSourceViewController.delegate = self;
+    
+    [self.navigationController presentViewController:addSourceViewController animated:YES completion:nil];
+}
+
+#pragma mark - Save/delete news sources
+
+/**
+ Tries to add what the url is pointing to as a news source.  If url points to feed, add the url as news source.  If url points to web page, parse web page for feed url, then add feed url as news source.  Return YES if news source added successfully.  If url points to neither feed nor web site with feed, return NO.
  */
+- (BOOL)add:(NSURL *)url
+{
+    return YES;
+}
+
+/**
+ Saves the news source list to disk.  If saved successfully, return YES, else return NO.
+ */
+- (BOOL)save
+{
+    return [self.sources writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
+}
+
+/**
+ Read the news source list from disk.  If read successfully, return YES, else return NO.
+ */
+- (BOOL)readSources
+{
+    NSArray *temp = [NSArray arrayWithContentsOfFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
+    
+    if (temp) {
+        self.sources = temp;
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+/**
+ Removes the news source list from disk.  If deletion is successful, return YES, else return NO.
+ */
+- (BOOL)delete
+{
+    return [[SRFileUtility sharedUtility] removeDocumentFile:kSourcesFileName];
+}
 
 @end
