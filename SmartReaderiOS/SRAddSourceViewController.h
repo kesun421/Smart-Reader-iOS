@@ -12,7 +12,6 @@
 @protocol SRAddSourceViewControllerDelegate <NSObject>
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source;
-- (void)dismissAddSourceViewController:(SRAddSourceViewController *)controller;
 
 @end
 

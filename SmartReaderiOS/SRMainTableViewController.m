@@ -81,7 +81,7 @@
     
     [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
     cell.textLabel.text = source.feedInfo.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.2f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
     
     return cell;
 }
@@ -139,11 +139,6 @@
 {
     [self.sources addObject:source];
     [self.tableView reloadData];
-}
-
-- (void)dismissAddSourceViewController:(SRAddSourceViewController *)controller
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UI related

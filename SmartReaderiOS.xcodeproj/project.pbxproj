@@ -232,15 +232,15 @@
 				9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */,
 				9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */,
 				9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */,
+				9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */,
+				9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */,
+				9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */,
 				9EEE4E4418451DAE00C0066E /* SRFileUtility.h */,
 				9EEE4E4518451DAE00C0066E /* SRFileUtility.m */,
 				9EEE4E4718452A3B00C0066E /* SRDebug.h */,
 				9EEE4E4818452A3B00C0066E /* SRDebug.m */,
 				9EEE4E4B184547F600C0066E /* SRSource.h */,
 				9EEE4E4C184547F600C0066E /* SRSource.m */,
-				9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */,
-				9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */,
-				9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";

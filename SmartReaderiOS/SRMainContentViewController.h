@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MWFeedItem;
+
 @interface SRMainContentViewController : UIViewController
+
+- (instancetype)initWithFeedItem:(MWFeedItem *)feedItem;
 
 @end

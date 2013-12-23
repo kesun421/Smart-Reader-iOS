@@ -55,11 +55,13 @@
 
 - (IBAction)dismiss:(id)sender
 {
-    [self.delegate dismissAddSourceViewController:self];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)add:(id)sender
 {
+    [self.urlField resignFirstResponder];
+    
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
     
@@ -104,6 +106,7 @@
         }
         else {
             // HTML, parse for feed url.
+            BOOL feedUrlExists = NO;
             for (HTMLNode *node in [[parser head] findChildTags:@"link"]) {
                 if ([[node getAttributeNamed:@"type"] isEqualToString:@"application/rss+xml"]) {
                     NSString *urlString = [node getAttributeNamed:@"href"];
@@ -118,8 +121,17 @@
                         urlString = [NSString stringWithFormat:@"http://%@", urlString];
                     }
                     
+                    feedUrlExists = YES;
                     [self parseForFeedFromUrl:[NSURL URLWithString:urlString]];
                 }
+            }
+            
+            if (!feedUrlExists) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Feed Found" message:@"No feeds were found in the url provided." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
             }
         }
         
@@ -157,7 +169,7 @@
     
     [self.delegate addSourceViewController:self didRetrieveSource:self.source];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error

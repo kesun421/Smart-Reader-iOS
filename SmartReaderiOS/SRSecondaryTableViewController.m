@@ -7,9 +7,11 @@
 //
 
 #import "SRSecondaryTableViewController.h"
+#import "SRMainContentViewController.h"
 #import "SRSource.h"
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
+#import "NSString+HTML.h"
 
 @interface SRSecondaryTableViewController ()
 
@@ -24,6 +26,7 @@
     self = [super init];
     if (self) {
         self.source = source;
+        self.navigationItem.title = self.source.feedInfo.title;
     }
     return self;
 }
@@ -77,7 +80,8 @@
     MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
-    cell.detailTextLabel.text = feedItem.summary;
+    cell.detailTextLabel.numberOfLines = 3;
+    cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
     
     return cell;
 }
@@ -121,22 +125,26 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    SRMainContentViewController *mainContentViewController = [[SRMainContentViewController alloc] initWithFeedItem:feedItem];
+    [self.navigationController pushViewController:mainContentViewController animated:YES];
 }
- 
- */
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    if (feedItem && [feedItem.summary stringByConvertingHTMLToPlainText].length) {
+        return 80.0;
+    }
+    else {
+        return 44.0;
+    }
+}
 
 @end
