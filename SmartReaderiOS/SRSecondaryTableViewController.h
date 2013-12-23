@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SRSource;
+
 @interface SRSecondaryTableViewController : UITableViewController
+
+- (instancetype)initWithSource:(SRSource *)source;
 
 @end

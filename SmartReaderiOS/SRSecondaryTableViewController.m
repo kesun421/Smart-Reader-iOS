@@ -7,12 +7,26 @@
 //
 
 #import "SRSecondaryTableViewController.h"
+#import "SRSource.h"
+#import "MWFeedInfo.h"
+#import "MWFeedItem.h"
 
 @interface SRSecondaryTableViewController ()
+
+@property (nonatomic) SRSource *source;
 
 @end
 
 @implementation SRSecondaryTableViewController
+
+- (instancetype)initWithSource:(SRSource *)source
+{
+    self = [super init];
+    if (self) {
+        self.source = source;
+    }
+    return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,16 +58,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.source.feedItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,10 +71,13 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    
+    cell.textLabel.text = feedItem.title;
+    cell.detailTextLabel.text = feedItem.summary;
     
     return cell;
 }

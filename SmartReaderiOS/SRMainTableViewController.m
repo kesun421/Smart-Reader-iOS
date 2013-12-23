@@ -19,7 +19,7 @@
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate>
 
 /** List of feed sources. */
-@property (nonatomic, copy) NSArray *sources;
+@property (nonatomic) NSMutableArray *sources;
 
 @end
 
@@ -40,7 +40,12 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
+    self.sources = [NSMutableArray new];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -69,16 +74,14 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     SRSource *source = self.sources[indexPath.row];
     
     [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
     cell.textLabel.text = source.feedInfo.title;
-    cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:source.lastUpdatedDate
-                                                               dateStyle:NSDateFormatterShortStyle
-                                                               timeStyle:NSDateFormatterShortStyle];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
     
     return cell;
 }
@@ -127,14 +130,15 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:self.sources[indexPath.row]] animated:YES];
 }
 
 #pragma mark - SRAddSourceViewControllerDelegate methods
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source
 {
-    
+    [self.sources addObject:source];
+    [self.tableView reloadData];
 }
 
 - (void)dismissAddSourceViewController:(SRAddSourceViewController *)controller

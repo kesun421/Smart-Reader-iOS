@@ -63,6 +63,10 @@
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
     
+    if (![self.urlField.text hasPrefix:@"http"]) {
+        self.urlField.text = [NSString stringWithFormat:@"http://%@", self.urlField.text];
+    }
+    
     NSURL *url = [NSURL URLWithString:self.urlField.text];
     
     [self parseForFeedFromUrl:url];
@@ -72,12 +76,16 @@
 {
     // Check if url is pointing to a website or a feed.  If it is pointing to a website, parse HTML for feed url.
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager setResponseSerializer:[AFHTTPResponseSerializer new]];
+    
+    // Customize the user agent string so the returned HTML is always for desktop, where there will most likely be an embedded link to the feed.
+    AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.73.11 (KHTML, like Gecko) Version/7.0.1 Safari/537.73.11" forHTTPHeaderField:@"User-Agent"];
+    
+    [manager setRequestSerializer:requestSerializer];
+    [manager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
     [manager GET:feedUrl.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
         NSError *error = nil;
-        HTMLParser *parser = [[HTMLParser alloc] initWithString:responseString error:&error];
+        HTMLParser *parser = [[HTMLParser alloc] initWithString:operation.responseString error:&error];
         if (error) {
             DebugLog(@"HTML parser error: %@", error);
             //TODO: Handle if response data can not be parsed.
@@ -86,22 +94,31 @@
         // Check if response is HTML or feed XML.
         if (![parser head] && ([[parser body] findChildTag:@"rss"] || [[parser body] findChildTag:@"feed"])) {
             // Feed XML.  Process into feed item.
+            // After feed is processed, will call delegate to pass along the feed source object.
             
             MWFeedParser *feedParser = [[MWFeedParser alloc] initWithFeedURL:operation.request.URL];
             feedParser.delegate = self;
             feedParser.feedParseType = ParseTypeFull;
             feedParser.connectionType = ConnectionTypeAsynchronously;
             [feedParser parse];
-            
-            [self.delegate addSourceViewController:self didRetrieveSource:[SRSource new]];
         }
         else {
             // HTML, parse for feed url.
             for (HTMLNode *node in [[parser head] findChildTags:@"link"]) {
                 if ([[node getAttributeNamed:@"type"] isEqualToString:@"application/rss+xml"]) {
-                    DebugLog(@"Found feed url: %@", [node getAttributeNamed:@"href"]);
+                    NSString *urlString = [node getAttributeNamed:@"href"];
                     
-                    [self parseForFeedFromUrl:[NSURL URLWithString:[node getAttributeNamed:@"href"]]];
+                    DebugLog(@"Found feed url: %@", urlString);
+                    
+                    if (![urlString hasPrefix:@"http"]) {
+                        if ([urlString hasPrefix:@"//"]) {
+                            urlString = [urlString stringByReplacingOccurrencesOfString:@"//" withString:@""];
+                        }
+                        
+                        urlString = [NSString stringWithFormat:@"http://%@", urlString];
+                    }
+                    
+                    [self parseForFeedFromUrl:[NSURL URLWithString:urlString]];
                 }
             }
         }
@@ -137,6 +154,10 @@
 - (void)feedParserDidFinish:(MWFeedParser *)parser
 {
     DebugLog(@"Feed parsing ended...");
+    
+    [self.delegate addSourceViewController:self didRetrieveSource:self.source];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error
