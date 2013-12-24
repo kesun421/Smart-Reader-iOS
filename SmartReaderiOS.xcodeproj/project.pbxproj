@@ -218,6 +218,7 @@
 		9E4178761844063800A9DA60 /* SmartReaderiOS */ = {
 			isa = PBXGroup;
 			children = (
+				9E9898DF186A4BAC00353440 /* Images */,
 				9E4178A41844084900A9DA60 /* External Libs */,
 				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
 				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
@@ -366,6 +367,13 @@
 				9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */,
 			);
 			name = Depreciated;
+			sourceTree = "<group>";
+		};
+		9E9898DF186A4BAC00353440 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		9EEE4E4E18454DA300C0066E /* UIKit+AFNetworking */ = {

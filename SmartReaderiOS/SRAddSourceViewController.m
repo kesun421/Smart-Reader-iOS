@@ -15,6 +15,9 @@
 #import "MWFeedParser.h"
 
 @interface SRAddSourceViewController () <MWFeedParserDelegate>
+{
+    NSString *_faviconLink;
+}
 
 @property (nonatomic) IBOutlet UIView *dialog;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -108,7 +111,12 @@
             // HTML, parse for feed url.
             BOOL feedUrlExists = NO;
             for (HTMLNode *node in [[parser head] findChildTags:@"link"]) {
-                if ([[node getAttributeNamed:@"type"] isEqualToString:@"application/rss+xml"]) {
+                if ([[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"icon"] ||
+                    [[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"shortcut icon"]) {
+                    _faviconLink = [node getAttributeNamed:@"href"];
+                }
+                
+                if ([[[node getAttributeNamed:@"type"] lowercaseString] isEqualToString:@"application/rss+xml"]) {
                     NSString *urlString = [node getAttributeNamed:@"href"];
                     
                     DebugLog(@"Found feed url: %@", urlString);
@@ -153,6 +161,7 @@
     
     self.source = [SRSource new];
     self.source.feedInfo = info;
+    self.source.faviconLink = _faviconLink;
     self.source.lastUpdatedDate = [NSDate date];
 }
 

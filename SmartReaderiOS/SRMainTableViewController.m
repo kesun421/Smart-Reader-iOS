@@ -14,7 +14,7 @@
 #import "MWFeedInfo.h"
 #import "UIImageView+AFNetworking.h"
 
-#define kSourcesFileName @"sources.plist"
+#define kSourcesFileName @"sources.bin"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate>
 
@@ -41,7 +41,7 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    self.sources = [NSMutableArray new];
+    [self loadSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,13 +75,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     SRSource *source = self.sources[indexPath.row];
     
     [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
     cell.textLabel.text = source.feedInfo.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.2f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.1f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
     
     return cell;
 }
@@ -139,6 +140,8 @@
 {
     [self.sources addObject:source];
     [self.tableView reloadData];
+    
+    [self save];
 }
 
 #pragma mark - UI related
@@ -166,21 +169,22 @@
  */
 - (BOOL)save
 {
-    return [self.sources writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
+    return [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
 }
 
 /**
- Read the news source list from disk.  If read successfully, return YES, else return NO.
+ Load the news source list from disk.  If read successfully, return YES, else return NO.
  */
-- (BOOL)readSources
+- (BOOL)loadSources
 {
-    NSArray *temp = [NSArray arrayWithContentsOfFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
+    NSArray *temp = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
     
     if (temp) {
-        self.sources = temp;
+        self.sources = [temp mutableCopy];
         return YES;
     }
     else {
+        self.sources = [NSMutableArray new];
         return NO;
     }
 }
