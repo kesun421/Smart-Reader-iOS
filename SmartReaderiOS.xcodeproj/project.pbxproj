@@ -21,9 +21,9 @@
 		9E4178961844063900A9DA60 /* SmartReaderiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4178951844063900A9DA60 /* SmartReaderiOSTests.m */; };
 		9E4179C8184408FD00A9DA60 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179C5184408FD00A9DA60 /* HTMLNode.m */; };
 		9E4179C9184408FD00A9DA60 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179C7184408FD00A9DA60 /* HTMLParser.m */; };
-		9E4179D21844093400A9DA60 /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CD1844093400A9DA60 /* MWFeedParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9E4179D31844093400A9DA60 /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CF1844093400A9DA60 /* MWFeedInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D11844093400A9DA60 /* MWFeedItem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179D21844093400A9DA60 /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CD1844093400A9DA60 /* MWFeedParser.m */; };
+		9E4179D31844093400A9DA60 /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179CF1844093400A9DA60 /* MWFeedInfo.m */; };
+		9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D11844093400A9DA60 /* MWFeedItem.m */; };
 		9E4179E91844095C00A9DA60 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D71844095C00A9DA60 /* AFHTTPRequestOperation.m */; };
 		9E4179EA1844095C00A9DA60 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179D91844095C00A9DA60 /* AFHTTPRequestOperationManager.m */; };
 		9E4179EB1844095C00A9DA60 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179DB1844095C00A9DA60 /* AFHTTPSessionManager.m */; };
@@ -33,10 +33,10 @@
 		9E4179EF1844095C00A9DA60 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E41844095C00A9DA60 /* AFURLRequestSerialization.m */; };
 		9E4179F01844095C00A9DA60 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E61844095C00A9DA60 /* AFURLResponseSerialization.m */; };
 		9E4179F11844095C00A9DA60 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179E81844095C00A9DA60 /* AFURLSessionManager.m */; };
-		9E4179F918440E1500A9DA60 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F618440E1500A9DA60 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9E4179FA18440E1500A9DA60 /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F818440E1500A9DA60 /* NSDate+InternetDateTime.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179FC18440E1D00A9DA60 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9E417A0118440E5E00A9DA60 /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9E4179F918440E1500A9DA60 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F618440E1500A9DA60 /* NSString+HTML.m */; };
+		9E4179FA18440E1500A9DA60 /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179F818440E1500A9DA60 /* NSDate+InternetDateTime.m */; };
+		9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4179FC18440E1D00A9DA60 /* GTMNSString+HTML.m */; };
+		9E417A0118440E5E00A9DA60 /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0018440E5E00A9DA60 /* NSString+XMLEntities.m */; };
 		9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E417A021844108700A9DA60 /* libxml2.dylib */; };
 		9E417A07184410ED00A9DA60 /* SRMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */; };
 		9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */; };
