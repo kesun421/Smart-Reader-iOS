@@ -44,6 +44,7 @@
 		9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */; };
 		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
 		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
+		9E9898E2186A591B00353440 /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9898E0186A58C000353440 /* 28-star.png */; };
 		9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4518451DAE00C0066E /* SRFileUtility.m */; };
 		9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4818452A3B00C0066E /* SRDebug.m */; };
 		9EEE4E4D184547F600C0066E /* SRSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4C184547F600C0066E /* SRSource.m */; };
@@ -133,6 +134,7 @@
 		9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainContentViewController.h; sourceTree = "<group>"; };
 		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
 		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
+		9E9898E0186A58C000353440 /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
 		9EEE4E4418451DAE00C0066E /* SRFileUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFileUtility.h; sourceTree = "<group>"; };
 		9EEE4E4518451DAE00C0066E /* SRFileUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRFileUtility.m; sourceTree = "<group>"; };
 		9EEE4E4718452A3B00C0066E /* SRDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDebug.h; sourceTree = "<group>"; };
@@ -218,30 +220,15 @@
 		9E4178761844063800A9DA60 /* SmartReaderiOS */ = {
 			isa = PBXGroup;
 			children = (
-				9E9898DF186A4BAC00353440 /* Images */,
-				9E4178A41844084900A9DA60 /* External Libs */,
-				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
-				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
 				9E4178821844063800A9DA60 /* Images.xcassets */,
 				9E4178771844063800A9DA60 /* Supporting Files */,
-				9E417A04184410ED00A9DA60 /* SRMainTableViewController.h */,
-				9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */,
-				9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */,
-				9E417A0918441E6000A9DA60 /* SRSecondaryTableViewController.h */,
-				9E417A0A18441E6000A9DA60 /* SRSecondaryTableViewController.m */,
-				9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */,
-				9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */,
-				9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */,
-				9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */,
-				9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */,
-				9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */,
-				9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */,
-				9EEE4E4418451DAE00C0066E /* SRFileUtility.h */,
-				9EEE4E4518451DAE00C0066E /* SRFileUtility.m */,
-				9EEE4E4718452A3B00C0066E /* SRDebug.h */,
-				9EEE4E4818452A3B00C0066E /* SRDebug.m */,
-				9EEE4E4B184547F600C0066E /* SRSource.h */,
-				9EEE4E4C184547F600C0066E /* SRSource.m */,
+				9E9898DF186A4BAC00353440 /* Images */,
+				9E4178A41844084900A9DA60 /* External Libs */,
+				9E9898E3186A5EF100353440 /* View Controllers */,
+				9E9898E5186A5F2B00353440 /* Utilities */,
+				9E9898E4186A5F1B00353440 /* Models */,
+				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
+				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";
@@ -372,8 +359,48 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E9898E0186A58C000353440 /* 28-star.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		9E9898E3186A5EF100353440 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E417A04184410ED00A9DA60 /* SRMainTableViewController.h */,
+				9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */,
+				9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */,
+				9E417A0918441E6000A9DA60 /* SRSecondaryTableViewController.h */,
+				9E417A0A18441E6000A9DA60 /* SRSecondaryTableViewController.m */,
+				9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */,
+				9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */,
+				9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */,
+				9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */,
+				9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */,
+				9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */,
+				9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9E9898E4186A5F1B00353440 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9EEE4E4B184547F600C0066E /* SRSource.h */,
+				9EEE4E4C184547F600C0066E /* SRSource.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9E9898E5186A5F2B00353440 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9EEE4E4418451DAE00C0066E /* SRFileUtility.h */,
+				9EEE4E4518451DAE00C0066E /* SRFileUtility.m */,
+				9EEE4E4718452A3B00C0066E /* SRDebug.h */,
+				9EEE4E4818452A3B00C0066E /* SRDebug.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		9EEE4E4E18454DA300C0066E /* UIKit+AFNetworking */ = {
@@ -475,6 +502,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E9898E2186A591B00353440 /* 28-star.png in Resources */,
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,

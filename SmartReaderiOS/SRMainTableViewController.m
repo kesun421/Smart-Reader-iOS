@@ -13,10 +13,16 @@
 #import "SRSource.h"
 #import "MWFeedInfo.h"
 #import "UIImageView+AFNetworking.h"
+#import "MWFeedParser.h"
+#import "MWFeedInfo.h"
+#import "MWFeedItem.h"
 
 #define kSourcesFileName @"sources.bin"
 
-@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate>
+@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceDelegate>
+{
+    int sourcesUpdated;
+}
 
 /** List of feed sources. */
 @property (nonatomic) NSMutableArray *sources;
@@ -46,8 +52,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    
+    sourcesUpdated = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +78,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return self.sources.count;
 }
 
@@ -139,8 +151,8 @@
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source
 {
     [self.sources addObject:source];
-    [self.tableView reloadData];
     
+    [self.tableView reloadData];
     [self save];
 }
 
@@ -154,15 +166,36 @@
     [self.navigationController presentViewController:addSourceViewController animated:YES completion:nil];
 }
 
-#pragma mark - Save/delete news sources
-
-/**
- Tries to add what the url is pointing to as a news source.  If url points to feed, add the url as news source.  If url points to web page, parse web page for feed url, then add feed url as news source.  Return YES if news source added successfully.  If url points to neither feed nor web site with feed, return NO.
- */
-- (BOOL)add:(NSURL *)url
+- (void)refresh:(id)sender
 {
-    return YES;
+    /*
+    [self.sources enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                   usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                       SRSource *source = (SRSource *)obj;
+                                       source.delegate = self;
+                                       [source refresh];
+                                   }];
+     */
+    
+    for (SRSource *source in self.sources) {
+        source.delegate = self;
+        [source refresh];
+    }
 }
+
+- (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
+{
+    [self.tableView reloadData];
+    [self save];
+    
+    sourcesUpdated++;
+    if (sourcesUpdated == self.sources.count) {
+        sourcesUpdated = 0;
+        [self.refreshControl endRefreshing];
+    }
+}
+
+#pragma mark - Save/delete news sources
 
 /**
  Saves the news source list to disk.  If saved successfully, return YES, else return NO.
@@ -181,10 +214,12 @@
     
     if (temp) {
         self.sources = [temp mutableCopy];
+        DebugLog(@"Successfully loaded data file...");
         return YES;
     }
     else {
         self.sources = [NSMutableArray new];
+        DebugLog(@"Error loading data file...");
         return NO;
     }
 }

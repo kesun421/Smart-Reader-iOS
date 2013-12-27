@@ -14,15 +14,16 @@
 #import "MWFeedInfo.h"
 #import "MWFeedParser.h"
 
-@interface SRAddSourceViewController () <MWFeedParserDelegate>
+@interface SRAddSourceViewController () <SRSourceDelegate>
 {
     NSString *_faviconLink;
+    int sourcesProcessed;
 }
 
 @property (nonatomic) IBOutlet UIView *dialog;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) IBOutlet UITextField *urlField;
-@property (nonatomic) SRSource *source;
+@property (nonatomic) NSMutableArray *sources;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)add:(id)sender;
@@ -50,10 +51,23 @@
     [self.activityIndicator stopAnimating];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.sources = [NSMutableArray new];
+    sourcesProcessed = 0;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (IBAction)dismiss:(id)sender
@@ -101,11 +115,12 @@
             // Feed XML.  Process into feed item.
             // After feed is processed, will call delegate to pass along the feed source object.
             
-            MWFeedParser *feedParser = [[MWFeedParser alloc] initWithFeedURL:operation.request.URL];
-            feedParser.delegate = self;
-            feedParser.feedParseType = ParseTypeFull;
-            feedParser.connectionType = ConnectionTypeAsynchronously;
-            [feedParser parse];
+            [self.sources addObject:[SRSource new]];
+            SRSource *source = (SRSource *)self.sources.lastObject;
+            source.feedLink = operation.request.URL.absoluteString;
+            source.faviconLink = _faviconLink;
+            source.delegate = self;
+            [source refresh];
         }
         else {
             // HTML, parse for feed url.
@@ -148,42 +163,18 @@
     }];
 }
 
-#pragma mark - MWFeedParserDelegate methods
+#pragma mark - SRSourceDelegate
 
-- (void)feedParserDidStart:(MWFeedParser *)parser
+- (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
 {
-    DebugLog(@"Feed parsing stated...");
-}
-
-- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info
-{
-    DebugLog(@"Parsed feed info: %@", info);
+    DebugLog(@"Source parsing ended...");
     
-    self.source = [SRSource new];
-    self.source.feedInfo = info;
-    self.source.faviconLink = _faviconLink;
-    self.source.lastUpdatedDate = [NSDate date];
-}
-
-- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item
-{
-    DebugLog(@"Parsed feed item: %@", item);
+    [self.delegate addSourceViewController:self didRetrieveSource:source];
     
-    [self.source addFeedItem:item];
-}
-
-- (void)feedParserDidFinish:(MWFeedParser *)parser
-{
-    DebugLog(@"Feed parsing ended...");
-    
-    [self.delegate addSourceViewController:self didRetrieveSource:self.source];
-    
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error
-{
-    DebugLog(@"Feed parsing failed with error: %@", error);
+    sourcesProcessed++;
+    if (sourcesProcessed == self.sources.count) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

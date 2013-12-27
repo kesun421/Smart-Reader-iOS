@@ -15,10 +15,14 @@
 
 #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
-@interface SRMainContentViewController ()
+@interface SRMainContentViewController () <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (nonatomic) MWFeedItem *feedItem;
+
+- (IBAction)markArticle:(id)sender;
 
 @end
 
@@ -47,6 +51,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
+    
+    self.webView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,6 +77,37 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Custom actions
+
+- (IBAction)markArticle:(id)sender
+{
+    DebugLog(@"Marked article...");
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
 }
 
 @end
