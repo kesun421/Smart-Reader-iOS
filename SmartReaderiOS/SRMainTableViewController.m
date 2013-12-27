@@ -167,16 +167,7 @@
 }
 
 - (void)refresh:(id)sender
-{
-    /*
-    [self.sources enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                   usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                       SRSource *source = (SRSource *)obj;
-                                       source.delegate = self;
-                                       [source refresh];
-                                   }];
-     */
-    
+{    
     for (SRSource *source in self.sources) {
         source.delegate = self;
         [source refresh];
