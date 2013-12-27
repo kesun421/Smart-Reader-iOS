@@ -13,7 +13,7 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 
-#define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
+// #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
 @interface SRMainContentViewController () <UIWebViewDelegate>
 
@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (nonatomic) MWFeedItem *feedItem;
 
+- (IBAction)switchArticleView:(id)sender;
 - (IBAction)markArticle:(id)sender;
 
 @end
@@ -61,9 +62,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
+    /*
     NSString *readabilityApiUrl = [NSString stringWithFormat:@"https://readability.com/api/content/v1/parser?url=%@&token=%@", self.feedItem.link, READABILITY_KEY];
-    
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager GET:readabilityApiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -71,6 +73,11 @@
         [self.webView loadHTMLString:dict[@"content"] baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
+     */
+    
+    NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +87,29 @@
 }
 
 #pragma mark - Custom actions
+
+- (IBAction)switchArticleView:(id)sender
+{
+    static BOOL readingOriginal = NO;
+    
+    UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
+    
+    if (!readingOriginal) {
+        [barButtonItem setImage:[UIImage imageNamed:@"163-glasses-1.png"]];
+        
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
+        
+        readingOriginal = YES;
+    }
+    else {
+        [barButtonItem setImage:[UIImage imageNamed:@"113-navigation.png"]];
+        
+        NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
+        
+        readingOriginal = NO;
+    }
+}
 
 - (IBAction)markArticle:(id)sender
 {

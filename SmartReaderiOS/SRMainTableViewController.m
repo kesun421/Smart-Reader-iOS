@@ -16,16 +16,14 @@
 #import "MWFeedParser.h"
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
+#import "SRSourceManager.h"
 
-#define kSourcesFileName @"sources.bin"
-
-@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceDelegate>
+@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate>
 {
     int sourcesUpdated;
 }
 
-/** List of feed sources. */
-@property (nonatomic) NSMutableArray *sources;
+@property (nonatomic) SRSourceManager *sourceManager;
 
 @end
 
@@ -35,7 +33,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.sourceManager = [SRSourceManager sharedManager];
     }
     return self;
 }
@@ -47,7 +45,7 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    [self loadSources];
+    [self.sourceManager loadSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -61,6 +59,8 @@
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     
     sourcesUpdated = 0;
+    
+    self.sourceManager.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +78,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.sources.count;
+    return self.sourceManager.sources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,7 +90,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    SRSource *source = self.sources[indexPath.row];
+    SRSource *source = self.sourceManager.sources[indexPath.row];
     
     [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
     cell.textLabel.text = source.feedInfo.title;
@@ -143,17 +143,17 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:self.sources[indexPath.row]] animated:YES];
+    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:self.sourceManager.sources[indexPath.row]] animated:YES];
 }
 
 #pragma mark - SRAddSourceViewControllerDelegate methods
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source
 {
-    [self.sources addObject:source];
+    [self.sourceManager addSource:source];
+    [self.sourceManager saveSources];
     
     [self.tableView reloadData];
-    [self save];
 }
 
 #pragma mark - UI related
@@ -167,60 +167,16 @@
 }
 
 - (void)refresh:(id)sender
-{    
-    for (SRSource *source in self.sources) {
-        source.delegate = self;
-        [source refresh];
-    }
+{
+    [self.sourceManager refreshSources];
 }
 
-- (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
+#pragma mark - SRSourceManagerDelegate methods
+
+- (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
 {
     [self.tableView reloadData];
-    [self save];
-    
-    sourcesUpdated++;
-    if (sourcesUpdated == self.sources.count) {
-        sourcesUpdated = 0;
-        [self.refreshControl endRefreshing];
-    }
-}
-
-#pragma mark - Save/delete news sources
-
-/**
- Saves the news source list to disk.  If saved successfully, return YES, else return NO.
- */
-- (BOOL)save
-{
-    return [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
-}
-
-/**
- Load the news source list from disk.  If read successfully, return YES, else return NO.
- */
-- (BOOL)loadSources
-{
-    NSArray *temp = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
-    
-    if (temp) {
-        self.sources = [temp mutableCopy];
-        DebugLog(@"Successfully loaded data file...");
-        return YES;
-    }
-    else {
-        self.sources = [NSMutableArray new];
-        DebugLog(@"Error loading data file...");
-        return NO;
-    }
-}
-
-/**
- Removes the news source list from disk.  If deletion is successful, return YES, else return NO.
- */
-- (BOOL)delete
-{
-    return [[SRFileUtility sharedUtility] removeDocumentFile:kSourcesFileName];
+    [self.refreshControl endRefreshing];
 }
 
 @end

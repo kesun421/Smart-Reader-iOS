@@ -47,7 +47,7 @@
 
 - (void)feedParserDidStart:(MWFeedParser *)parser
 {
-    DebugLog(@"Feed parsing stated...");
+    DebugLog(@"Feed parsing started...");
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info
@@ -61,8 +61,6 @@
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item
 {
-    DebugLog(@"Parsed feed item: %@", item);
-    
     __block BOOL itemExists = NO;
     
     [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
@@ -74,6 +72,7 @@
                                      }];
     
     if (!itemExists) {
+        DebugLog(@"Added feed item: %@", item);
         [self addFeedItem:item];
     }
 }

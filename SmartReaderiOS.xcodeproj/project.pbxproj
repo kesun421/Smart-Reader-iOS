@@ -44,6 +44,8 @@
 		9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */; };
 		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
 		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
+		9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A7186DF65900AA8D1A /* 113-navigation.png */; };
+		9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */; };
 		9E9898E2186A591B00353440 /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9898E0186A58C000353440 /* 28-star.png */; };
 		9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4518451DAE00C0066E /* SRFileUtility.m */; };
 		9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4818452A3B00C0066E /* SRDebug.m */; };
@@ -57,6 +59,8 @@
 		9EEE4E6418454DA300C0066E /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E5D18454DA300C0066E /* UIWebView+AFNetworking.m */; };
 		9EEE4E68184550C800C0066E /* SRAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */; };
 		9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */; };
+		9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF8C000186E260F00AD627F /* MapKit.framework */; };
+		9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8C003186E281900AD627F /* SRSourceManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +138,8 @@
 		9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainContentViewController.h; sourceTree = "<group>"; };
 		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
 		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
+		9E9848A7186DF65900AA8D1A /* 113-navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "113-navigation.png"; sourceTree = "<group>"; };
+		9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "163-glasses-1.png"; sourceTree = "<group>"; };
 		9E9898E0186A58C000353440 /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
 		9EEE4E4418451DAE00C0066E /* SRFileUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFileUtility.h; sourceTree = "<group>"; };
 		9EEE4E4518451DAE00C0066E /* SRFileUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRFileUtility.m; sourceTree = "<group>"; };
@@ -159,6 +165,9 @@
 		9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAddSourceViewController.h; sourceTree = "<group>"; };
 		9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAddSourceViewController.m; sourceTree = "<group>"; };
 		9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRAddSourceViewController.xib; sourceTree = "<group>"; };
+		9EF8C000186E260F00AD627F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9EF8C002186E281900AD627F /* SRSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSourceManager.h; sourceTree = "<group>"; };
+		9EF8C003186E281900AD627F /* SRSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSourceManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +177,7 @@
 			files = (
 				9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */,
 				9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */,
+				9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */,
 				9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */,
 				9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */,
 			);
@@ -208,6 +218,7 @@
 		9E41786F1844063800A9DA60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EF8C000186E260F00AD627F /* MapKit.framework */,
 				9E417A021844108700A9DA60 /* libxml2.dylib */,
 				9E4178701844063800A9DA60 /* Foundation.framework */,
 				9E4178721844063800A9DA60 /* CoreGraphics.framework */,
@@ -359,6 +370,8 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */,
+				9E9848A7186DF65900AA8D1A /* 113-navigation.png */,
 				9E9898E0186A58C000353440 /* 28-star.png */,
 			);
 			path = Images;
@@ -388,6 +401,8 @@
 			children = (
 				9EEE4E4B184547F600C0066E /* SRSource.h */,
 				9EEE4E4C184547F600C0066E /* SRSource.m */,
+				9EF8C002186E281900AD627F /* SRSourceManager.h */,
+				9EF8C003186E281900AD627F /* SRSourceManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -474,6 +489,16 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Ke Sun";
 				TargetAttributes = {
+					9E41786C1844063800A9DA60 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					9E4178871844063900A9DA60 = {
 						TestTargetID = 9E41786C1844063800A9DA60;
 					};
@@ -503,12 +528,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E9898E2186A591B00353440 /* 28-star.png in Resources */,
+				9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */,
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
+				9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EEE4E6318454DA300C0066E /* UIProgressView+AFNetworking.m in Sources */,
+				9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */,
 				9EEE4E6218454DA300C0066E /* UIImageView+AFNetworking.m in Sources */,
 				9E417A0118440E5E00A9DA60 /* NSString+XMLEntities.m in Sources */,
 				9E4179F11844095C00A9DA60 /* AFURLSessionManager.m in Sources */,
