@@ -19,9 +19,6 @@
 #import "SRSourceManager.h"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate>
-{
-    int sourcesUpdated;
-}
 
 @property (nonatomic) SRSourceManager *sourceManager;
 
@@ -46,6 +43,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     [self.sourceManager loadSources];
+    self.sourceManager.mainDelegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,10 +55,6 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    
-    sourcesUpdated = 0;
-    
-    self.sourceManager.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning

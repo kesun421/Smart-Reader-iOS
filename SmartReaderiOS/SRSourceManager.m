@@ -13,10 +13,6 @@
 #define kSourcesFileName @"sources.bin"
 
 @interface SRSourceManager () <SRSourceDelegate>
-{
-    int sourcesUpdated;
-}
-
 @end
 
 @implementation SRSourceManager
@@ -87,7 +83,9 @@
 #pragma mark - SRSourceDelegate
 
 - (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
-{ 
+{
+    static int sourcesUpdated = 0;
+    
     if (!error) {
         [self saveSources];
     }
@@ -95,7 +93,12 @@
     sourcesUpdated++;
     if (sourcesUpdated == self.sources.count) {
         sourcesUpdated = 0;
-        [self.delegate didFinishRefreshingAllSourcesWithError:nil];
+        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
+            [self.backgroundDelegate didFinishRefreshingAllSourcesWithError:nil];
+        }
+        else {
+            [self.mainDelegate didFinishRefreshingAllSourcesWithError:nil];
+        }
     }
 }
 

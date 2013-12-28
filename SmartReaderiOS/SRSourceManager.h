@@ -14,7 +14,9 @@
 @interface SRSourceManager : NSObject
 
 @property (nonatomic) NSArray *sources;
-@property (nonatomic, weak) id<SRSourceManagerDelegate> delegate;
+@property (nonatomic, weak) id<SRSourceManagerDelegate> backgroundDelegate;
+@property (nonatomic, weak) id<SRSourceManagerDelegate> mainDelegate;
+@property (nonatomic, weak) id<SRSourceManagerDelegate> secondaryDelegate;
 
 + (instancetype)sharedManager;
 

@@ -10,6 +10,15 @@
 #import "SRMainTableViewController.h"
 #import "SRSourceManager.h"
 
+typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
+
+@interface SRAppDelegate () <SRSourceManagerDelegate>
+{
+    BackgroundFetchBlock backgroundFetchResultBlock;
+}
+
+@end
+
 @implementation SRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -52,9 +61,19 @@
 
 #pragma mark - Background fetch
 
--(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    backgroundFetchResultBlock = completionHandler;
+    
+    [SRSourceManager sharedManager].backgroundDelegate = self;
     [[SRSourceManager sharedManager] refreshSources];
+}
+
+#pragma mark - SRSourceManagerDelegate methods
+
+- (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
+{
+    backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
 }
 
 @end
