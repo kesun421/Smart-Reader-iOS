@@ -43,6 +43,13 @@
     return [self.documentsPath stringByAppendingPathComponent:fileName];
 }
 
+- (NSString *)documentSizeForFile:(NSString *)fileName
+{
+    NSDictionary *fileAttributes = [self.fileManager attributesOfItemAtPath:[self documentPathForFile:fileName] error:nil];
+    
+    return [NSString stringWithFormat:@"%llu", fileAttributes.fileSize];
+}
+
 - (BOOL)removeDocumentFile:(NSString *)fileName
 {
     return [self.fileManager removeItemAtPath:[self.documentsPath stringByAppendingPathComponent:fileName] error:nil];

@@ -13,6 +13,8 @@
 + (instancetype)sharedUtility;
 
 - (NSString *)documentPathForFile:(NSString *)fileName;
+/** Returns number of bytes that the file utilizes on disk. */
+- (NSString *)documentSizeForFile:(NSString *)fileName;
 - (BOOL)removeDocumentFile:(NSString *)fileName;
 
 @property (nonatomic, readonly) NSString *documentsPath;

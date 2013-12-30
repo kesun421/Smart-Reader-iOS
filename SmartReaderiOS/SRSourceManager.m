@@ -40,7 +40,7 @@
 
 - (void)loadSources
 {
-    DebugLog(@"Loading sources...");
+    DebugLog(@"Loading sources... Source file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
     
     NSArray *temp = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
     
@@ -58,9 +58,9 @@
 
 - (void)saveSources
 {
-    DebugLog(@"Saving sources...");
-    
     [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
+    
+    DebugLog(@"Saving sources... Source saved, file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
 }
 
 - (void)refreshSources
