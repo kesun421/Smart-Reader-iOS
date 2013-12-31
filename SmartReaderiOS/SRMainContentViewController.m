@@ -9,9 +9,11 @@
 #import "SRMainContentViewController.h"
 #import "MWFeedItem.h"
 #import "NSString+HTML.h"
-#import "AFHTTPRequestOperationManager.h"
+//#import "AFHTTPRequestOperationManager.h"
 #import "HTMLParser.h"
 #import "HTMLNode.h"
+#import "SRTextFilteringManager.h"
+#import "SRSourceManager.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
@@ -23,7 +25,8 @@
 @property (nonatomic) MWFeedItem *feedItem;
 
 - (IBAction)switchArticleView:(id)sender;
-- (IBAction)markArticle:(id)sender;
+- (IBAction)likeArticle:(id)sender;
+- (IBAction)unlikeArticle:(id)sender;
 
 @end
 
@@ -111,9 +114,20 @@
     }
 }
 
-- (IBAction)markArticle:(id)sender
+- (IBAction)likeArticle:(id)sender
 {
-    DebugLog(@"Marked article...");
+    DebugLog(@"Liked article.");
+    
+    [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:YES];
+    
+    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+}
+
+- (IBAction)unlikeArticle:(id)sender
+{
+    DebugLog(@"Unliked article.");
+    
+    [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:NO];
 }
 
 #pragma mark - UIWebViewDelegate

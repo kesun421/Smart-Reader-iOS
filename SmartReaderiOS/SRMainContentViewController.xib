@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <webView contentMode="scaleToFill" id="cds-Cu-S9i">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </webView>
@@ -39,10 +39,16 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="FXO-Zt-Imp"/>
                         <barButtonItem image="28-star.png" id="Kfp-9S-Wdh">
                             <connections>
-                                <action selector="markArticle:" destination="-1" id="gwp-Oy-mrI"/>
+                                <action selector="likeArticle:" destination="-1" id="Yfj-3m-xlB"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LT7-hk-R3R"/>
+                        <barButtonItem image="21-skull.png" id="fAl-J1-SjO">
+                            <connections>
+                                <action selector="unlikeArticle:" destination="-1" id="VZZ-Fr-88Q"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="tjs-Sd-Wi6"/>
                     </items>
                 </toolbar>
             </subviews>
@@ -53,6 +59,7 @@
     </objects>
     <resources>
         <image name="113-navigation.png" width="28" height="28"/>
+        <image name="21-skull.png" width="22" height="24"/>
         <image name="28-star.png" width="26" height="26"/>
     </resources>
 </document>

@@ -47,6 +47,8 @@
 		9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A7186DF65900AA8D1A /* 113-navigation.png */; };
 		9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */; };
 		9E9898E2186A591B00353440 /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9898E0186A58C000353440 /* 28-star.png */; };
+		9EED5E51187359C3007C922F /* 21-skull.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EED5E50187359C3007C922F /* 21-skull.png */; };
+		9EED5E5418735B01007C922F /* SRTextFilteringManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EED5E5318735B01007C922F /* SRTextFilteringManager.m */; };
 		9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4518451DAE00C0066E /* SRFileUtility.m */; };
 		9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4818452A3B00C0066E /* SRDebug.m */; };
 		9EEE4E4D184547F600C0066E /* SRSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4C184547F600C0066E /* SRSource.m */; };
@@ -141,6 +143,9 @@
 		9E9848A7186DF65900AA8D1A /* 113-navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "113-navigation.png"; sourceTree = "<group>"; };
 		9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "163-glasses-1.png"; sourceTree = "<group>"; };
 		9E9898E0186A58C000353440 /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
+		9EED5E50187359C3007C922F /* 21-skull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "21-skull.png"; sourceTree = "<group>"; };
+		9EED5E5218735B01007C922F /* SRTextFilteringManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTextFilteringManager.h; sourceTree = "<group>"; };
+		9EED5E5318735B01007C922F /* SRTextFilteringManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRTextFilteringManager.m; sourceTree = "<group>"; };
 		9EEE4E4418451DAE00C0066E /* SRFileUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFileUtility.h; sourceTree = "<group>"; };
 		9EEE4E4518451DAE00C0066E /* SRFileUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRFileUtility.m; sourceTree = "<group>"; };
 		9EEE4E4718452A3B00C0066E /* SRDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDebug.h; sourceTree = "<group>"; };
@@ -370,6 +375,7 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9EED5E50187359C3007C922F /* 21-skull.png */,
 				9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */,
 				9E9848A7186DF65900AA8D1A /* 113-navigation.png */,
 				9E9898E0186A58C000353440 /* 28-star.png */,
@@ -403,6 +409,8 @@
 				9EEE4E4C184547F600C0066E /* SRSource.m */,
 				9EF8C002186E281900AD627F /* SRSourceManager.h */,
 				9EF8C003186E281900AD627F /* SRSourceManager.m */,
+				9EED5E5218735B01007C922F /* SRTextFilteringManager.h */,
+				9EED5E5318735B01007C922F /* SRTextFilteringManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -533,6 +541,7 @@
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
+				9EED5E51187359C3007C922F /* 21-skull.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
 				9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */,
@@ -582,6 +591,7 @@
 				9E4179ED1844095C00A9DA60 /* AFSecurityPolicy.m in Sources */,
 				9E4179D41844093400A9DA60 /* MWFeedItem.m in Sources */,
 				9E4179EF1844095C00A9DA60 /* AFURLRequestSerialization.m in Sources */,
+				9EED5E5418735B01007C922F /* SRTextFilteringManager.m in Sources */,
 				9E4179EC1844095C00A9DA60 /* AFNetworkReachabilityManager.m in Sources */,
 				9E4179FD18440E1D00A9DA60 /* GTMNSString+HTML.m in Sources */,
 				9EEE4E6118454DA300C0066E /* UIButton+AFNetworking.m in Sources */,
