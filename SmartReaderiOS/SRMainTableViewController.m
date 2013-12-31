@@ -171,7 +171,10 @@
 - (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
 {
     [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
+    
+    if (self.refreshControl.isRefreshing) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 @end
