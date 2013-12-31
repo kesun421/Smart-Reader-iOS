@@ -172,9 +172,9 @@
 {
     [self.tableView reloadData];
     
-    if (self.refreshControl.isRefreshing) {
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
-    }
+    });
 }
 
 @end
