@@ -139,7 +139,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    MWFeedItem *feedItem = self.source.feedItems[self.source.feedItems.count - 1 - indexPath.row];
     if (feedItem && [feedItem.summary stringByConvertingHTMLToPlainText].length) {
         return 80.0;
     }

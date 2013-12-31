@@ -43,11 +43,27 @@
     [feedParser parse];
 }
 
+- (void)removeOldFeedItems
+{
+    NSMutableArray *tempArray = [self.feedItems mutableCopy];
+    
+    for (MWFeedItem *feedItem in self.feedItems) {
+        if ([feedItem.date timeIntervalSinceNow] < -60 * 60 * 14) {
+            [tempArray removeObject:feedItem];
+        }
+    }
+    
+    self.feedItems = [tempArray copy];
+}
+
 #pragma mark - MWFeedParserDelegate
 
 - (void)feedParserDidStart:(MWFeedParser *)parser
 {
     DebugLog(@"Feed parsing started...");
+    
+    _newCount = 0;
+    _interestingCount = 0;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info
@@ -73,7 +89,9 @@
     
     if (!itemExists) {
         DebugLog(@"Added feed item: %@", item);
+        
         [self addFeedItem:item];
+        _newCount++;
     }
 }
 
@@ -102,6 +120,8 @@
         self.feedLink = [decoder decodeObjectForKey:@"feedLink"];
         self.lastUpdatedDate = [decoder decodeObjectForKey:@"lastUpdatedDate"];
         self.uuid = [decoder decodeObjectForKey:@"uuid"];
+        _newCount = [decoder decodeIntForKey:@"newCount"];
+        _interestingCount = [decoder decodeIntForKey:@"interestingCount"];
     }
     
     return self;
@@ -115,6 +135,8 @@
     [encoder encodeObject:self.feedLink forKey:@"feedLink"];
     [encoder encodeObject:self.lastUpdatedDate forKey:@"lastUpdatedDate"];
     [encoder encodeObject:self.uuid forKey:@"uuid"];
+    [encoder encodeInt:self.newCount forKey:@"newCount"];
+    [encoder encodeInt:self.interestingCount forKey:@"interestingCount"];
 }
 
 @end

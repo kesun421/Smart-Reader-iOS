@@ -9,6 +9,7 @@
 #import "SRSourceManager.h"
 #import "SRSource.h"
 #import "SRFileUtility.h"
+#import "MWFeedItem.h"
 
 #define kSourcesFileName @"sources.bin"
 
@@ -60,7 +61,7 @@
 {
     [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
     
-    DebugLog(@"Saving sources... Source saved, file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
+    DebugLog(@"Saving sources... Source file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
 }
 
 - (void)refreshSources
@@ -84,12 +85,9 @@
 
 - (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
 {
+    [source removeOldFeedItems];
+    
     static int sourcesUpdated = 0;
-    
-    if (!error) {
-        [self saveSources];
-    }
-    
     sourcesUpdated++;
     if (sourcesUpdated == self.sources.count) {
         sourcesUpdated = 0;
@@ -99,6 +97,10 @@
         else {
             [self.mainDelegate didFinishRefreshingAllSourcesWithError:nil];
         }
+    }
+    
+    if (!error) {
+        [self saveSources];
     }
 }
 

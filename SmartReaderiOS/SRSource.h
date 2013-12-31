@@ -19,11 +19,14 @@
 @property (nonatomic, copy) NSString *feedLink;
 @property (nonatomic, copy) NSDate *lastUpdatedDate;
 @property (nonatomic, copy) NSString *uuid;
-
 @property (nonatomic, weak) id<SRSourceDelegate> delegate;
+@property (assign, readonly) int newCount;
+@property (assign, readonly) int interestingCount;
 
 - (void)addFeedItem:(MWFeedItem *)feedItem;
 - (void)refresh;
+/** Remove entries that are older than two weeks. */
+- (void)removeOldFeedItems;
 
 @end
 

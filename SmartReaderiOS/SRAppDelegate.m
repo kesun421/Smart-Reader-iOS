@@ -9,6 +9,7 @@
 #import "SRAppDelegate.h"
 #import "SRMainTableViewController.h"
 #import "SRSourceManager.h"
+#import "SRSource.h"
 
 typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
@@ -65,6 +66,10 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     backgroundFetchResultBlock = completionHandler;
     
+    if (![SRSourceManager sharedManager].sources.count) {
+        [[SRSourceManager sharedManager] loadSources];
+    }
+    
     [SRSourceManager sharedManager].backgroundDelegate = self;
     [[SRSourceManager sharedManager] refreshSources];
 }
@@ -73,6 +78,18 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 - (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
 {
+    int totalNewCount = 0;
+    for (SRSource *source in [SRSourceManager sharedManager].sources) {
+        totalNewCount += source.newCount;
+    }
+    
+    if (totalNewCount != 0) {
+        UILocalNotification *notification = [UILocalNotification new];
+        notification.alertBody = [NSString stringWithFormat:@"%d new items for reading!", totalNewCount];
+        notification.fireDate = [NSDate date];
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+    
     backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
 }
 

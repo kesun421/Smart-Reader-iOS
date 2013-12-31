@@ -44,6 +44,7 @@
     
     [self.sourceManager loadSources];
     self.sourceManager.mainDelegate = self;
+    [self.sourceManager refreshSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated
