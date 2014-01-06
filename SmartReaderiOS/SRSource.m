@@ -98,7 +98,7 @@
                                          
                                          if (dictCopy.count) {
                                              feedItem.tokens = [dictCopy copy];
-                                             //DebugLog(@"Finished parsing tokens for feed item: %@, with tokens: %@", feedItem, feedItem.tokens);
+                                             DebugLog(@"Finished parsing tokens for feed item: %@", feedItem);
                                          }
                                      }];
 }

@@ -88,9 +88,13 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         notification.alertBody = [NSString stringWithFormat:@"%d new items for reading!", totalNewCount];
         notification.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        
+        backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
+    }
+    else {
+        backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
     }
     
-    backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
 }
 
 @end

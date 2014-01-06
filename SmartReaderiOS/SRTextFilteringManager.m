@@ -133,23 +133,38 @@
                                                                              }
                                                                          }
                                                                          
+                                                                         // There is no value of continuing since a comparison can not be made from existing data.
+                                                                         if (likeableProbability == 1.0 || unlikeableProbability == 1.0) {
+                                                                             return;
+                                                                         }
+                                                                         
                                                                          likeableProbability = likeableProbability * _likedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
+                                                                         
                                                                          unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
-                                                                         //DebugLog(@"Feed item: %@, has likeable probability: %f", feedItem, likeableProbability);
-                                                                         //DebugLog(@"Ulikeable probability: %f", unlikeableProbability);
-                                                                         
-                                                                         if (likeableProbability >= 0.5 && likeableProbability != 1.0) {
-                                                                         //if (likeableProbability >= unlikeableProbability && likeableProbability != 1.0) {
-                                                                             DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f", feedItem, feedItem.link, likeableProbability);
+                                                                         if (log(likeableProbability) > log(unlikeableProbability)) {
+                                                                             DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
+                                                                             
                                                                              feedItem.like = YES;
                                                                          }
                                                                          else {
-                                                                             DebugLog(@"Feed item: %@, with link: %@, has unlikeable probability: %f", feedItem, feedItem.link, unlikeableProbability);
                                                                              feedItem.like = NO;
                                                                          }
                                                                      }];
                               }];
+    
+    // Call to delegate to refresh with suggested news items.
+    NSMutableArray *likeableFeedItems = [NSMutableArray new];
+    
+    for (SRSource *source in sources) {
+        for (MWFeedItem *feedItem in source.feedItems) {
+            if (feedItem.like) {
+                [likeableFeedItems addObject:feedItem];
+            }
+        }
+    }
+    
+    [self.delegate didFinishFindingLikeableFeedItems:[likeableFeedItems copy]];
 }
 
 @end

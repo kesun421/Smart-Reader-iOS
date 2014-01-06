@@ -19,9 +19,10 @@
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
 
-@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate>
+@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate>
 
 @property (nonatomic) SRSourceManager *sourceManager;
+@property (nonatomic) NSArray *likeableFeedItems;
 
 @end
 
@@ -74,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.sourceManager.sources.count;
+    return self.likeableFeedItems.count ? self.sourceManager.sources.count + 1 : self.sourceManager.sources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,11 +87,19 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    SRSource *source = self.sourceManager.sources[indexPath.row];
-    
-    [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
-    cell.textLabel.text = source.feedInfo.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.1f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
+    if (self.likeableFeedItems.count && indexPath.row == 0) {
+        [cell.imageView setImageWithURL:nil];
+        cell.textLabel.text = [NSString stringWithFormat:@"Suggested Reading - %d", self.likeableFeedItems.count];
+        cell.detailTextLabel.text = nil;
+    }
+    else {
+        int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        SRSource *source = self.sourceManager.sources[index];
+        
+        [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
+        cell.textLabel.text = source.feedInfo.title;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.1f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
+    }
     
     return cell;
 }
@@ -139,7 +148,17 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:self.sourceManager.sources[indexPath.row]] animated:YES];
+    SRSource *source = nil;
+    if (self.likeableFeedItems.count && indexPath.row == 0) {
+        source = [SRSource new];
+        source.feedItems = [self.likeableFeedItems copy];
+    }
+    else {
+        int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        source = self.sourceManager.sources[index];
+    }
+    
+    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:source] animated:YES];
 }
 
 #pragma mark - SRAddSourceViewControllerDelegate methods
@@ -165,7 +184,6 @@
 - (void)refresh:(id)sender
 {
     [self.sourceManager refreshSources];
-    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
 
 #pragma mark - SRSourceManagerDelegate methods
@@ -177,6 +195,27 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
     });
+    
+    [SRTextFilteringManager sharedManager].delegate = self;
+    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+}
+
+#pragma mark - SRTextFilteringManagerDelegate methods
+
+- (void)didFinishFindingLikeableFeedItems:(NSArray *)feedItems
+{
+    DebugLog(@"Found these likeable items: %@", feedItems);
+    
+    self.likeableFeedItems = [feedItems copy];
+    
+    if (self.likeableFeedItems.count) {
+        UILocalNotification *notification = [UILocalNotification new];
+        notification.alertBody = [NSString stringWithFormat:@"Found %d items you might like!", self.likeableFeedItems.count];
+        notification.fireDate = [NSDate date];
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+    
+    [self.tableView reloadData];
 }
 
 @end

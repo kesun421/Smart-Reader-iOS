@@ -79,6 +79,8 @@
     DebugLog(@"Adding new source...");
     
     self.sources = [self.sources arrayByAddingObject:source];
+    
+    [source parseFeedItemTokens];
 }
 
 #pragma mark - SRSourceDelegate
