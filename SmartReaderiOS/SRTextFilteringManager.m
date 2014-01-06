@@ -64,137 +64,92 @@
 
 - (void)processFeedItem:(MWFeedItem *)feedItem AsLiked:(BOOL)liked
 {
-    NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", feedItem.link];
+    if (!feedItem.tokens.count) {
+        return;
+    }
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:readabilityUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *htmlString = operation.responseString;
+    NSMutableDictionary *dictCopy = liked ? [self.likedFeedItemTokens mutableCopy] : [self.unlikedFeedItemTokens mutableCopy];
+    if (!dictCopy) {
+        dictCopy = [NSMutableDictionary new];
+    }
+    
+    for (NSString *key in feedItem.tokens.allKeys) {
+        NSNumber *value = feedItem.tokens[key];
         
-        HTMLParser *parser = [[HTMLParser alloc] initWithString:htmlString error:nil];
-        if (parser.body) {
-            NSMutableDictionary *dictCopy = liked ? [self.likedFeedItemTokens mutableCopy] : [self.unlikedFeedItemTokens mutableCopy];
-            
-            for (HTMLNode *node in[parser.body findChildTags:@"p"]) {
-                NSString *content = [[node allContents] stringByConvertingHTMLToPlainText];
-                NSArray *tokens = [content componentsSeparatedByString:@" "];
-                
-                for (NSString *token in tokens) {
-                    NSString *tokenCopy = [token copy];
-                    
-                    // Remove from tokens, the characters that does not contribute too much meaning.
-                    tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
-                    tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
-                    tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                    
-                    // Only consider the tokens that are between 3 to 44 characters long.
-                    if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
-                        continue;
-                    }
-                    
-                    // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
-                    if (dictCopy[tokenCopy]) {
-                        NSNumber *count = dictCopy[tokenCopy];
-                        dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
-                    }
-                    else {
-                        dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
-                    }
-                }
-            }
-            
-            if (liked) {
-                self.likedFeedItemTokens = [dictCopy copy];
-                
-                DebugLog(@"Liked feed items tokens: %@", self.likedFeedItemTokens);
-            }
-            else {
-                self.unlikedFeedItemTokens = [dictCopy copy];
-                
-                DebugLog(@"Unliked feed items tokens: %@", self.unlikedFeedItemTokens);
-            }
-            
-            [self saveTokens];
+        if (dictCopy[key]) {
+            NSNumber *count = dictCopy[key];
+            dictCopy[key] = [NSNumber numberWithInt:[count intValue] + [value intValue]];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+        else {
+            dictCopy[key] = [NSNumber numberWithInt:1];
+        }
+    }
+    
+    if (liked) {
+        self.likedFeedItemTokens = [dictCopy copy];
+        DebugLog(@"Liked feed items tokens: %@", self.likedFeedItemTokens);
+    }
+    else {
+        self.unlikedFeedItemTokens = [dictCopy copy];
+        DebugLog(@"Unliked feed items tokens: %@", self.unlikedFeedItemTokens);
+    }
+    
+    [self saveTokens];
 }
 
-- (NSArray *)findLikeableFeedItemsFromSources:(NSArray *)sources
+- (void)findLikeableFeedItemsFromSources:(NSArray *)sources
 {
-    __block NSMutableArray *likeableFeedItems = [NSMutableArray new];
-    
     [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
                               usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                   SRSource *source = (SRSource *)obj;
+                                  
                                   [source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                                      usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                                          MWFeedItem *feedItem = (MWFeedItem *)obj;
                                                                          
-                                                                         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", feedItem.link];
-                                                                         
-                                                                         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                                                                         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-                                                                         [manager GET:readabilityUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                             NSString *htmlString = operation.responseString;
-                                                                             
-                                                                             HTMLParser *parser = [[HTMLParser alloc] initWithString:htmlString error:nil];
-                                                                             if (parser.body) {
-                                                                                 NSMutableDictionary *tokenDict = [NSMutableDictionary new];
-                                                                                 
-                                                                                 for (HTMLNode *node in[parser.body findChildTags:@"p"]) {
-                                                                                     NSString *content = [[node allContents] stringByConvertingHTMLToPlainText];
-                                                                                     NSArray *tokens = [content componentsSeparatedByString:@" "];
-                                                                                     
-                                                                                     for (NSString *token in tokens) {
-                                                                                         NSString *tokenCopy = [token copy];
-                                                                                         
-                                                                                         // Remove from tokens, the characters that does not contribute too much meaning.
-                                                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
-                                                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
-                                                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                                                                                         
-                                                                                         // Only consider the tokens that are between 3 to 44 characters long.
-                                                                                         if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
-                                                                                             continue;
-                                                                                         }
-                                                                                         
-                                                                                         // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
-                                                                                         if (tokenDict[tokenCopy]) {
-                                                                                             NSNumber *count = tokenDict[tokenCopy];
-                                                                                             tokenDict[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
-                                                                                         }
-                                                                                         else {
-                                                                                             tokenDict[tokenCopy] = [NSNumber numberWithInt:1];
-                                                                                         }
-                                                                                     }
-                                                                                 }
-                                                                                 
-                                                                                 // Sort the keys in order of largest value, so the keys with the highest values are placed first.
-                                                                                 NSArray *sortedKeys = [tokenDict keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                                                                                     return -[(NSNumber *)obj1 compare:(NSNumber *)obj2];
-                                                                                 }];
-                                                                                 
-                                                                                 // Only take the first 15 tokens for use.
-                                                                                 if (sortedKeys.count > 15) {
-                                                                                     sortedKeys = [sortedKeys subarrayWithRange:NSMakeRange(0, 15)];
-                                                                                 }
-                                                                                 
-                                                                                 DebugLog(@"Token dict: %@", tokenDict);
-                                                                                 
-                                                                                 DebugLog(@"Sorted token dict keys: %@", sortedKeys);
-                                                                                 
-                                                                                 // Take dict and do Bayesian text filtering...
-                                                                                 [likeableFeedItems addObject:feedItem];
-                                                                             }
-                                                                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                             
+                                                                         // Sort the keys in order of largest value, so the keys with the highest values are placed first.
+                                                                         NSArray *sortedKeys = [feedItem.tokens keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                                                                             return -[(NSNumber *)obj1 compare:(NSNumber *)obj2];
                                                                          }];
+                                                                         
+                                                                         if (!sortedKeys.count) {
+                                                                             return;
+                                                                         }
+                                                                         
+                                                                         // Only take the first 15 tokens for use.
+                                                                         if (sortedKeys.count > 15) {
+                                                                             sortedKeys = [sortedKeys subarrayWithRange:NSMakeRange(0, 15)];
+                                                                         }
+                                                                         
+                                                                         float likeableProbability = 1.0;
+                                                                         float unlikeableProbability = 1.0;
+                                                                         for (NSString *token in sortedKeys) {
+                                                                             if (_likedFeedItemTokens[token]) {
+                                                                                 likeableProbability = likeableProbability * ([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
+                                                                             }
+                                                                             
+                                                                             if (_unlikedFeedItemTokens[token]) {
+                                                                                 unlikeableProbability = unlikeableProbability * ([_unlikedFeedItemTokens[token] floatValue] / _unlikedFeedItemTokens.count);
+                                                                             }
+                                                                         }
+                                                                         
+                                                                         likeableProbability = likeableProbability * _likedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
+                                                                         unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
+                                                                         
+                                                                         //DebugLog(@"Feed item: %@, has likeable probability: %f", feedItem, likeableProbability);
+                                                                         //DebugLog(@"Ulikeable probability: %f", unlikeableProbability);
+                                                                         
+                                                                         if (likeableProbability >= 0.5 && likeableProbability != 1.0) {
+                                                                         //if (likeableProbability >= unlikeableProbability && likeableProbability != 1.0) {
+                                                                             DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f", feedItem, feedItem.link, likeableProbability);
+                                                                             feedItem.like = YES;
+                                                                         }
+                                                                         else {
+                                                                             DebugLog(@"Feed item: %@, with link: %@, has unlikeable probability: %f", feedItem, feedItem.link, unlikeableProbability);
+                                                                             feedItem.like = NO;
+                                                                         }
                                                                      }];
                               }];
-    
-    return likeableFeedItems;
 }
 
 @end

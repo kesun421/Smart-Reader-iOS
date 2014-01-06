@@ -10,6 +10,10 @@
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
 #import "MWFeedParser.h"
+#import "HTMLNode.h"
+#import "HTMLParser.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "NSString+HTML.h"
 
 @interface SRSource () <MWFeedParserDelegate>
 
@@ -54,6 +58,49 @@
     }
     
     self.feedItems = [tempArray copy];
+}
+
+- (void)parseFeedItemTokens
+{
+    [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                     usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                         MWFeedItem *feedItem = (MWFeedItem *)obj;
+                                         if ((!feedItem.content.length && !feedItem.summary.length) || feedItem.tokens.count) {
+                                             return;
+                                         }
+                                         
+                                         NSMutableDictionary *dictCopy = feedItem.tokens ? [feedItem.tokens mutableCopy] : [NSMutableDictionary new];
+                                         NSString *content = feedItem.content.length ? [feedItem.content stringByConvertingHTMLToPlainText] : [feedItem.summary stringByConvertingHTMLToPlainText];
+                                         NSArray *tokens = [content componentsSeparatedByString:@" "];
+                                         
+                                         for (NSString *token in tokens) {
+                                             NSString *tokenCopy = [token copy];
+                                             
+                                             // Remove from tokens, the characters that does not contribute too much meaning.
+                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
+                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                             
+                                             // Only consider the tokens that are between 3 to 44 characters long.
+                                             if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
+                                                 continue;
+                                             }
+                                             
+                                             // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
+                                             if (dictCopy[tokenCopy]) {
+                                                 NSNumber *count = dictCopy[tokenCopy];
+                                                 dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
+                                             }
+                                             else {
+                                                 dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
+                                             }
+                                         }
+                                         
+                                         if (dictCopy.count) {
+                                             feedItem.tokens = [dictCopy copy];
+                                             //DebugLog(@"Finished parsing tokens for feed item: %@, with tokens: %@", feedItem, feedItem.tokens);
+                                         }
+                                     }];
 }
 
 #pragma mark - MWFeedParserDelegate

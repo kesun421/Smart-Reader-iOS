@@ -17,6 +17,7 @@
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
 #import "SRSourceManager.h"
+#import "SRTextFilteringManager.h"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate>
 
@@ -164,6 +165,7 @@
 - (void)refresh:(id)sender
 {
     [self.sourceManager refreshSources];
+    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
 
 #pragma mark - SRSourceManagerDelegate methods

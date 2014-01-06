@@ -14,6 +14,6 @@
 
 + (instancetype)sharedManager;
 - (void)processFeedItem:(MWFeedItem *)feedItem AsLiked:(BOOL)liked;
-- (NSArray *)findLikeableFeedItemsFromSources:(NSArray *)sources;
+- (void)findLikeableFeedItemsFromSources:(NSArray *)sources;
 
 @end

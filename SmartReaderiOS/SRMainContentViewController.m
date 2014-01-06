@@ -13,7 +13,6 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "SRTextFilteringManager.h"
-#import "SRSourceManager.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
@@ -65,18 +64,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    /*
-    NSString *readabilityApiUrl = [NSString stringWithFormat:@"https://readability.com/api/content/v1/parser?url=%@&token=%@", self.feedItem.link, READABILITY_KEY];
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:readabilityApiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        [self.webView loadHTMLString:dict[@"content"] baseURL:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    }];
-     */
     
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
@@ -119,8 +106,6 @@
     DebugLog(@"Liked article.");
     
     [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:YES];
-    
-    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
 
 - (IBAction)unlikeArticle:(id)sender

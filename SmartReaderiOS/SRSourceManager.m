@@ -101,6 +101,7 @@
     
     if (!error) {
         [self saveSources];
+        [source parseFeedItemTokens];
     }
 }
 

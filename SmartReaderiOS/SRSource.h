@@ -27,6 +27,7 @@
 - (void)refresh;
 /** Remove entries that are older than two weeks. */
 - (void)removeOldFeedItems;
+- (void)parseFeedItemTokens;
 
 @end
 
