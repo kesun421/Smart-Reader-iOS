@@ -21,7 +21,6 @@
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate>
 
-@property (nonatomic) SRSourceManager *sourceManager;
 @property (nonatomic) NSArray *likeableFeedItems;
 
 @end
@@ -32,7 +31,6 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.sourceManager = [SRSourceManager sharedManager];
     }
     return self;
 }
@@ -44,9 +42,9 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    [self.sourceManager loadSources];
-    self.sourceManager.mainDelegate = self;
-    [self.sourceManager refreshSources];
+    [[SRSourceManager sharedManager] loadSources];
+    [SRSourceManager sharedManager].mainDelegate = self;
+    [[SRSourceManager sharedManager] refreshSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.likeableFeedItems.count ? self.sourceManager.sources.count + 1 : self.sourceManager.sources.count;
+    return self.likeableFeedItems.count ? [SRSourceManager sharedManager].sources.count + 1 : [SRSourceManager sharedManager].sources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +92,7 @@
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
-        SRSource *source = self.sourceManager.sources[index];
+        SRSource *source = [SRSourceManager sharedManager].sources[index];
         
         [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
         cell.textLabel.text = source.feedInfo.title;
@@ -154,7 +152,7 @@
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
-        source = self.sourceManager.sources[index];
+        source = [SRSourceManager sharedManager].sources[index];
     }
     
     [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:source] animated:YES];
@@ -164,8 +162,8 @@
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source
 {
-    [self.sourceManager addSource:source];
-    [self.sourceManager saveSources];
+    [[SRSourceManager sharedManager] addSource:source];
+    [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
 }
@@ -182,7 +180,7 @@
 
 - (void)refresh:(id)sender
 {
-    [self.sourceManager refreshSources];
+    [[SRSourceManager sharedManager] refreshSources];
 }
 
 #pragma mark - SRSourceManagerDelegate methods
