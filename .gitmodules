@@ -1,9 +1,0 @@
-[submodule "AFNetworking"]
-	path = AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
-[submodule "Objective-C-HMTL-Parser"]
-	path = Objective-C-HMTL-Parser
-	url = https://github.com/zootreeves/Objective-C-HMTL-Parser.git
-[submodule "MWFeedParser"]
-	path = MWFeedParser
-	url = https://github.com/mwaterfall/MWFeedParser.git
