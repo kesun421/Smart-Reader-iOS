@@ -52,9 +52,20 @@
 
 - (void)deleteSources
 {
-    DebugLog(@"Deleting sources...");
+    DebugLog(@"Deleting all sources...");
     
     [[SRFileUtility sharedUtility] removeDocumentFile:kSourcesFileName];
+}
+
+- (void)deleteSourceAtIndex:(NSInteger)index
+{
+    DebugLog(@"Deleting source at index: %d, source: %@", index, self.sources[index]);
+    
+    NSMutableArray *sourcesCopy = [self.sources mutableCopy];
+    [sourcesCopy removeObjectAtIndex:index];
+    self.sources = [sourcesCopy copy];
+    
+    [self saveSources];
 }
 
 - (void)saveSources

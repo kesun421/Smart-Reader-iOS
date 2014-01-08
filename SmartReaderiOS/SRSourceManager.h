@@ -22,6 +22,7 @@
 
 - (void)loadSources;
 - (void)deleteSources;
+- (void)deleteSourceAtIndex:(NSInteger)index;
 - (void)saveSources;
 - (void)refreshSources;
 - (void)addSource:(SRSource *)source;
