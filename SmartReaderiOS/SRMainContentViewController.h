@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @class MWFeedItem;
+@protocol SRMainContentViewControllerDelegate;
 
 @interface SRMainContentViewController : UIViewController
 
 - (instancetype)initWithFeedItem:(MWFeedItem *)feedItem;
+
+@property (nonatomic, weak) id<SRMainContentViewControllerDelegate> delegate;
+
+@end
+
+@protocol SRMainContentViewControllerDelegate <NSObject>
+
+- (void)refresh:(id)sender;
 
 @end

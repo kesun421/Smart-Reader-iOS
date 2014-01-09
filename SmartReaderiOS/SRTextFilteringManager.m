@@ -9,6 +9,7 @@
 #import "SRTextFilteringManager.h"
 #import "MWFeedItem.h"
 #import "SRSource.h"
+#import "SRSourceManager.h"
 #import "SRFileUtility.h"
 #import "NSString+HTML.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -68,6 +69,9 @@
         return;
     }
     
+    feedItem.userLiked = liked;
+    feedItem.userUnliked = !liked;
+    
     NSMutableDictionary *dictCopy = liked ? [self.likedFeedItemTokens mutableCopy] : [self.unlikedFeedItemTokens mutableCopy];
     if (!dictCopy) {
         dictCopy = [NSMutableDictionary new];
@@ -95,6 +99,8 @@
     }
     
     [self saveTokens];
+    
+    [[SRSourceManager sharedManager] saveSources];
 }
 
 - (void)findLikeableFeedItemsFromSources:(NSArray *)sources
@@ -153,17 +159,18 @@
                                                                      }];
                               }];
     
-    // Call to delegate to refresh with suggested news items.
+    // Find all the news items that are marked as likeable by algorithm, but not marked as unlikeable by the user.
     NSMutableArray *likeableFeedItems = [NSMutableArray new];
     
     for (SRSource *source in sources) {
         for (MWFeedItem *feedItem in source.feedItems) {
-            if (feedItem.like) {
+            if (feedItem.like && !feedItem.userUnliked) {
                 [likeableFeedItems addObject:feedItem];
             }
         }
     }
     
+    // Call to delegate to refresh with suggested news items.
     [self.delegate didFinishFindingLikeableFeedItems:[likeableFeedItems copy]];
 }
 

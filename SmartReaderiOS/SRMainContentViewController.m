@@ -13,6 +13,7 @@
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "SRTextFilteringManager.h"
+#import "SRSourceManager.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
@@ -68,6 +69,22 @@
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.feedItem.read = YES;
+    
+    [[SRSourceManager sharedManager] saveSources];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.delegate refresh:self];
 }
 
 - (void)didReceiveMemoryWarning

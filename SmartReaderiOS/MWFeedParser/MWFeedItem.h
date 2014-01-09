@@ -50,8 +50,17 @@
     /** KS: Saving tokens parsed from feed item's source. */
     NSDictionary *tokens;
     
-    /** KS: Indicates of the article is likeable. */
+    /** KS: Indicates if the article is likeable by computation. */
     BOOL like;
+    
+    /** KS: Indicates if the user marked the article as liked.  */
+    BOOL userLiked;
+    
+    /** KS: Indicates if the user marked the article as not liked. */
+    BOOL userDisliked;
+    
+    /** KS: Indicates if the user has read the article. */
+    BOOL read;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -65,5 +74,8 @@
 @property (nonatomic, copy) NSArray *enclosures;
 @property (nonatomic, copy) NSDictionary *tokens;
 @property (nonatomic, assign) BOOL like;
+@property (nonatomic, assign) BOOL userLiked;
+@property (nonatomic, assign) BOOL userUnliked;
+@property (nonatomic, assign) BOOL read;
 
 @end

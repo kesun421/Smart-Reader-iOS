@@ -86,17 +86,31 @@
     }
     
     if (self.likeableFeedItems.count && indexPath.row == 0) {
+        int count = 0;
+        for (MWFeedItem *feedItem in self.likeableFeedItems) {
+            if (feedItem.read) {
+                count++;
+            }
+        }
+        
         [cell.imageView setImageWithURL:nil];
-        cell.textLabel.text = [NSString stringWithFormat:@"Suggested Reading - %d", self.likeableFeedItems.count];
-        cell.detailTextLabel.text = nil;
+        cell.textLabel.text = @"Suggested Reading...";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, self.likeableFeedItems.count];
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         SRSource *source = [SRSourceManager sharedManager].sources[index];
         
+        int count = 0;
+        for (MWFeedItem *feedItem in source.feedItems) {
+            if (feedItem.read) {
+                count++;
+            }
+        }
+        
         [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
         cell.textLabel.text = source.feedInfo.title;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"updated %1.1f seconds ago", -[source.lastUpdatedDate timeIntervalSinceNow]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, source.feedItems.count];
     }
     
     return cell;

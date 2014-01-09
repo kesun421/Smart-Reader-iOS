@@ -33,7 +33,7 @@
 
 @implementation MWFeedItem
 
-@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, tokens, like;
+@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, tokens, like, userLiked, userUnliked, read;
 
 #pragma mark NSObject
 
@@ -61,7 +61,10 @@
 		author = [decoder decodeObjectForKey:@"author"];
 		enclosures = [decoder decodeObjectForKey:@"enclosures"];
         tokens = [decoder decodeObjectForKey:@"tokens"];
-        like = [decoder decodeBoolForKey:@"like"];
+        //like = [decoder decodeBoolForKey:@"like"]; // No need to save this value as it will be evaluated in real time.
+        userLiked = [decoder decodeBoolForKey:@"userLiked"];
+        userUnliked = [decoder decodeBoolForKey:@"userUnliked"];
+        read = [decoder decodeBoolForKey:@"read"];
 	}
 	return self;
 }
@@ -77,7 +80,10 @@
 	if (author) [encoder encodeObject:author forKey:@"author"];
 	if (enclosures) [encoder encodeObject:enclosures forKey:@"enclosures"];
     if (tokens) [encoder encodeObject:tokens forKey:@"tokens"];
-    if (like) [encoder encodeBool:like forKey:@"like"];
+    //if (like) [encoder encodeBool:like forKey:@"like"]; // No need to save this value as it will be evaluated in real time.
+    if (userLiked) [encoder encodeBool:userLiked forKey:@"userLiked"];
+    if (userUnliked) [encoder encodeBool:userUnliked forKey:@"userUnliked"];
+    if (read) [encoder encodeBool:read forKey:@"read"];
 }
 
 @end

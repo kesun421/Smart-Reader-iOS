@@ -13,7 +13,7 @@
 #import "MWFeedItem.h"
 #import "NSString+HTML.h"
 
-@interface SRSecondaryTableViewController ()
+@interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate>
 
 @property (nonatomic) SRSource *source;
 
@@ -83,6 +83,15 @@
     cell.textLabel.text = feedItem.title;
     cell.detailTextLabel.numberOfLines = 3;
     cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
+
+    if (feedItem.read) {
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    }
+    else {
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
+    }
     
     return cell;
 }
@@ -134,6 +143,7 @@
 {
     MWFeedItem *feedItem = self.source.feedItems[self.source.feedItems.count - 1 - indexPath.row];
     SRMainContentViewController *mainContentViewController = [[SRMainContentViewController alloc] initWithFeedItem:feedItem];
+    mainContentViewController.delegate = self;
     [self.navigationController pushViewController:mainContentViewController animated:YES];
 }
 
@@ -146,6 +156,13 @@
     else {
         return 44.0;
     }
+}
+
+#pragma mark - SRMainContentViewControllerDelegate methods
+
+- (void)refresh:(id)sender
+{
+    [self.tableView reloadData];
 }
 
 @end
