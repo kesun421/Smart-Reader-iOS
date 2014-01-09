@@ -19,7 +19,7 @@
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
 
-@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate>
+@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 
 @property (nonatomic) NSArray *likeableFeedItems;
 
@@ -55,7 +55,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning
@@ -169,7 +169,10 @@
         source = [SRSourceManager sharedManager].sources[index];
     }
     
-    [self.navigationController pushViewController:[[SRSecondaryTableViewController alloc] initWithSource:source] animated:YES];
+    SRSecondaryTableViewController *secondaryViewController = [[SRSecondaryTableViewController alloc] initWithSource:source];
+    secondaryViewController.delegate = self;
+    
+    [self.navigationController pushViewController:secondaryViewController animated:YES];
 }
 
 #pragma mark - SRAddSourceViewControllerDelegate methods
@@ -192,7 +195,7 @@
     [self.navigationController presentViewController:addSourceViewController animated:YES completion:nil];
 }
 
-- (void)refresh:(id)sender
+- (void)refreshSources:(id)sender
 {
     [[SRSourceManager sharedManager] refreshSources];
 }
@@ -226,6 +229,13 @@
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     }
     
+    [self.tableView reloadData];
+}
+
+#pragma mark - SRSecondaryTableViewControllerDelegate methods
+
+- (void)refresh:(id)sender
+{
     [self.tableView reloadData];
 }
 

@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @class SRSource;
+@protocol SRSecondaryTableViewControllerDelegate;
 
 @interface SRSecondaryTableViewController : UITableViewController
 
 - (instancetype)initWithSource:(SRSource *)source;
+
+@property (nonatomic, weak) id<SRSecondaryTableViewControllerDelegate> delegate;
+
+@end
+
+@protocol SRSecondaryTableViewControllerDelegate <NSObject>
+
+- (void)refresh:(id)sender;
 
 @end
