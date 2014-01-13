@@ -10,6 +10,7 @@
 #import "SRSource.h"
 #import "SRFileUtility.h"
 #import "MWFeedItem.h"
+#import "MWFeedInfo.h"
 
 #define kSourcesFileName @"sources.bin"
 
@@ -46,7 +47,7 @@
     NSArray *temp = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName]];
     
     if (temp) {
-        self.sources = temp;
+        self.sources = [temp copy];
     }
 }
 
@@ -90,6 +91,12 @@
     DebugLog(@"Adding new source...");
     
     self.sources = [self.sources arrayByAddingObject:source];
+    
+    self.sources = [self.sources sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        SRSource *firstSource = (SRSource *)obj1;
+        SRSource *secondSource = (SRSource *)obj2;
+        return [firstSource.feedInfo.title compare:secondSource.feedInfo.title];
+    }];
     
     [source parseFeedItemTokens];
 }
