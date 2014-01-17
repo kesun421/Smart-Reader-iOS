@@ -169,6 +169,7 @@
     if (self.likeableFeedItems.count && indexPath.row == 0) {
         source = [SRSource new];
         source.feedItems = [self.likeableFeedItems copy];
+        source.sourceForInterestingItems = YES;
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;

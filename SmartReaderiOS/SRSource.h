@@ -22,6 +22,7 @@
 @property (nonatomic, weak) id<SRSourceDelegate> delegate;
 @property (assign, readonly) int newCount;
 @property (assign, readonly) int interestingCount;
+@property (nonatomic, assign) BOOL sourceForInterestingItems;
 
 - (void)addFeedItem:(MWFeedItem *)feedItem;
 - (void)refresh;

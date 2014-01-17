@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         self.source = source;
-        self.navigationItem.title = self.source.feedInfo.title;
+        self.navigationItem.title = self.source.sourceForInterestingItems ? @"Suggested Reading..." : self.source.feedInfo.title;
     }
     return self;
 }
