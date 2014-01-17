@@ -85,6 +85,10 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    // Set back to default.
+    cell.textLabel.font = [UIFont systemFontOfSize:18];
+    cell.backgroundColor = [UIColor whiteColor];
+    
     if (self.likeableFeedItems.count && indexPath.row == 0) {
         int count = 0;
         for (MWFeedItem *feedItem in self.likeableFeedItems) {
@@ -95,7 +99,9 @@
         
         [cell.imageView setImageWithURL:nil];
         cell.textLabel.text = @"Suggested Reading...";
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, self.likeableFeedItems.count];
+        cell.backgroundColor = [UIColor colorWithRed:207.0f/255.0f green:226.0f/255.0f blue:243.0f/255.0f alpha:1.0];
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
@@ -223,10 +229,14 @@
     self.likeableFeedItems = [feedItems copy];
     
     if (self.likeableFeedItems.count) {
-        UILocalNotification *notification = [UILocalNotification new];
-        notification.alertBody = [NSString stringWithFormat:@"Found %d items you might like!", self.likeableFeedItems.count];
-        notification.fireDate = [NSDate date];
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+            UILocalNotification *notification = [UILocalNotification new];
+            notification.alertBody = [NSString stringWithFormat:@"Found %d items you might like!", self.likeableFeedItems.count];
+            notification.fireDate = [NSDate date];
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        }
+        
+        // TODO: Animate a view that "toasts" with message about found likeable items.
     }
     
     [self.tableView reloadData];
