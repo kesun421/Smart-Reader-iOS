@@ -85,7 +85,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    MWFeedItem *feedItem = self.source.feedItems[self.source.feedItems.count - 1 - indexPath.row];
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
     cell.detailTextLabel.numberOfLines = 3;
@@ -148,7 +148,7 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.source.feedItems[self.source.feedItems.count - 1 - indexPath.row];
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
     SRMainContentViewController *mainContentViewController = [[SRMainContentViewController alloc] initWithFeedItem:feedItem];
     mainContentViewController.delegate = self;
     [self.navigationController pushViewController:mainContentViewController animated:YES];
@@ -156,7 +156,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.source.feedItems[self.source.feedItems.count - 1 - indexPath.row];
+    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
     if (feedItem && [feedItem.summary stringByConvertingHTMLToPlainText].length) {
         return 80.0;
     }

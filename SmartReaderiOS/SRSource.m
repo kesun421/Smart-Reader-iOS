@@ -25,6 +25,7 @@
 {
     if (self = [super init]) {
         self.uuid = [[NSUUID UUID] UUIDString];
+        self.feedItems = [NSArray array];
     }
     return self;
 }
@@ -33,7 +34,7 @@
 
 - (void)addFeedItem:(MWFeedItem *)feedItem
 {
-    NSMutableArray *tempArray = [[NSMutableArray arrayWithArray:self.feedItems] mutableCopy];
+    NSMutableArray *tempArray = [self.feedItems mutableCopy];
     [tempArray addObject:feedItem];
     self.feedItems = [tempArray copy];
 }
