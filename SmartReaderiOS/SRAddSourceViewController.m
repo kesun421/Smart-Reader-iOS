@@ -129,6 +129,12 @@
                 if ([[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"icon"] ||
                     [[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"shortcut icon"]) {
                     _faviconLink = [node getAttributeNamed:@"href"];
+                    
+                    if (![_faviconLink hasPrefix:@"http"] && [_faviconLink hasPrefix:@"//"]) {
+                        _faviconLink = [_faviconLink stringByReplacingOccurrencesOfString:@"//" withString:@"http://"];
+                    }
+                    
+                    DebugLog(@"Favicon link: %@", _faviconLink);
                 }
                 
                 if ([[[node getAttributeNamed:@"type"] lowercaseString] isEqualToString:@"application/rss+xml"]) {
@@ -136,12 +142,8 @@
                     
                     DebugLog(@"Found feed url: %@", urlString);
                     
-                    if (![urlString hasPrefix:@"http"]) {
-                        if ([urlString hasPrefix:@"//"]) {
-                            urlString = [urlString stringByReplacingOccurrencesOfString:@"//" withString:@""];
-                        }
-                        
-                        urlString = [NSString stringWithFormat:@"http://%@", urlString];
+                    if (![urlString hasPrefix:@"http"] && [urlString hasPrefix:@"//"]) {
+                        urlString = [urlString stringByReplacingOccurrencesOfString:@"//" withString:@"http://"];
                     }
                     
                     feedUrlExists = YES;
