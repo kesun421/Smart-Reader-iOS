@@ -27,6 +27,8 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIView appearance] setTintColor:[UIColor grayColor]];
+    
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:30 * 60];
     
     // Override point for customization after application launch.
