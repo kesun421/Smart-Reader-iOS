@@ -10,12 +10,15 @@
 #import "SRMainTableViewController.h"
 #import "SRSourceManager.h"
 #import "SRSource.h"
+#import "SRTextFilteringManager.h"
 
 typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
-@interface SRAppDelegate () <SRSourceManagerDelegate>
+@interface SRAppDelegate () <SRSourceManagerDelegate, SRTextFilteringManagerDelegate>
 {
     BackgroundFetchBlock backgroundFetchResultBlock;
+    int _totalNewCount;
+    int _interestingItemsCount;
 }
 
 @end
@@ -24,7 +27,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:15 * 60];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:30 * 60];
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -78,14 +81,33 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 - (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
 {
-    int totalNewCount = 0;
+    _totalNewCount = 0;
     for (SRSource *source in [SRSourceManager sharedManager].sources) {
-        totalNewCount += source.newCount;
+        _totalNewCount += source.newCount;
     }
     
-    if (totalNewCount != 0) {
+    [SRTextFilteringManager sharedManager].delegate = self;
+    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+}
+
+#pragma mark - SRTextFilteringManagerDelegate methods
+
+- (void)didFinishFindingLikeableFeedItems:(NSArray *)feedItems
+{
+    _interestingItemsCount = feedItems.count;
+    
+    NSString *message = nil;
+    
+    if (_totalNewCount != 0 && _interestingItemsCount == 0) {
+        message = [NSString stringWithFormat:@"%d new items for reading!", _totalNewCount];
+    }
+    else if (_totalNewCount != 0 && _interestingItemsCount != 0){
+        message = [NSString stringWithFormat:@"%d new items for reading, %d you might find interesting!", _totalNewCount, _interestingItemsCount];
+    }
+    
+    if (message.length) {
         UILocalNotification *notification = [UILocalNotification new];
-        notification.alertBody = [NSString stringWithFormat:@"%d new items for reading!", totalNewCount];
+        notification.alertBody = message;
         notification.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         
@@ -94,7 +116,6 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
     }
-    
 }
 
 @end
