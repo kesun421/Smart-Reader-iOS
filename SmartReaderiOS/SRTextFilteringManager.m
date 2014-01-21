@@ -149,7 +149,7 @@
                                                                          unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
                                                                          if (log(likeableProbability) > log(unlikeableProbability)) {
-                                                                             DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
+                                                                             //DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
                                                                              
                                                                              feedItem.like = YES;
                                                                          }
