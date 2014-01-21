@@ -105,6 +105,13 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, self.likeableFeedItems.count];
         cell.backgroundColor = [UIColor colorWithRed:207.0f/255.0f green:226.0f/255.0f blue:243.0f/255.0f alpha:1.0];
+        
+        CABasicAnimation* rotationAnimation;
+        rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
+        rotationAnimation.duration = 2.0;
+        
+        [cell.imageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     }
     else {
         int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
