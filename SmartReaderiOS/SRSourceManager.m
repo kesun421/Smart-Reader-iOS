@@ -60,7 +60,7 @@
 
 - (void)deleteSourceAtIndex:(NSInteger)index
 {
-    DebugLog(@"Deleting source at index: %d, source: %@", index, self.sources[index]);
+    DebugLog(@"Deleting source at index: %lu, source: %@", index, self.sources[index]);
     
     NSMutableArray *sourcesCopy = [self.sources mutableCopy];
     [sourcesCopy removeObjectAtIndex:index];
