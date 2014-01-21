@@ -134,17 +134,25 @@
                         _faviconLink = [_faviconLink stringByReplacingOccurrencesOfString:@"//" withString:@"http://"];
                     }
                     
+                    if ([_faviconLink hasPrefix:@"/"]) {
+                        _faviconLink = [operation.request.URL.absoluteString stringByAppendingString:_faviconLink];
+                    }
+                    
                     DebugLog(@"Favicon link: %@", _faviconLink);
                 }
                 
                 if ([[[node getAttributeNamed:@"type"] lowercaseString] isEqualToString:@"application/rss+xml"]) {
                     NSString *urlString = [node getAttributeNamed:@"href"];
                     
-                    DebugLog(@"Found feed url: %@", urlString);
-                    
                     if (![urlString hasPrefix:@"http"] && [urlString hasPrefix:@"//"]) {
                         urlString = [urlString stringByReplacingOccurrencesOfString:@"//" withString:@"http://"];
                     }
+                    
+                    if ([urlString hasPrefix:@"/"]) {
+                        urlString = [operation.request.URL.absoluteString stringByAppendingString:urlString];
+                    }
+                    
+                    DebugLog(@"Found feed url: %@", urlString);
                     
                     feedUrlExists = YES;
                     [self parseForFeedFromUrl:[NSURL URLWithString:urlString]];
