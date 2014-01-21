@@ -103,7 +103,7 @@
         cell.imageView.image = [[[UIImage imageNamed:@"28-star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, self.likeableFeedItems.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
         cell.backgroundColor = [UIColor colorWithRed:207.0f/255.0f green:226.0f/255.0f blue:243.0f/255.0f alpha:1.0];
         
         CABasicAnimation* rotationAnimation;
@@ -114,7 +114,7 @@
         [cell.imageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     }
     else {
-        int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        long index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         SRSource *source = [SRSourceManager sharedManager].sources[index];
         
         int count = 0;
@@ -135,7 +135,7 @@
                                        failure:nil];
 
         cell.textLabel.text = source.feedInfo.title;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, source.feedItems.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)source.feedItems.count];
     }
     
     return cell;
@@ -191,7 +191,7 @@
         source.sourceForInterestingItems = YES;
     }
     else {
-        int index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        long index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         source = [SRSourceManager sharedManager].sources[index];
     }
     
@@ -251,7 +251,7 @@
     if (self.likeableFeedItems.count) {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
             UILocalNotification *notification = [UILocalNotification new];
-            notification.alertBody = [NSString stringWithFormat:@"Found %d items you might like!", self.likeableFeedItems.count];
+            notification.alertBody = [NSString stringWithFormat:@"Found %lu items you might like!", (unsigned long)self.likeableFeedItems.count];
             notification.fireDate = [NSDate date];
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         }
