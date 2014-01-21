@@ -90,6 +90,8 @@
     cell.textLabel.font = [UIFont systemFontOfSize:18];
     cell.backgroundColor = [UIColor whiteColor];
     
+    CGSize newImageSize = CGSizeMake(30.0, 30.0);
+    
     if (self.likeableFeedItems.count && indexPath.row == 0) {
         int count = 0;
         for (MWFeedItem *feedItem in self.likeableFeedItems) {
@@ -98,7 +100,7 @@
             }
         }
         
-        [cell.imageView setImageWithURL:nil];
+        cell.imageView.image = [[[UIImage imageNamed:@"28-star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, self.likeableFeedItems.count];
@@ -116,7 +118,6 @@
         }
         
         __weak UITableViewCell *weakCell = cell;
-        CGSize newImageSize = CGSizeMake(30.0, 30.0);
         UIImage *placeholderImage = [[[UIImage imageNamed:@"166-newspaper.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:source.faviconLink]]
