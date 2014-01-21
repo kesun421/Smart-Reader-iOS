@@ -18,6 +18,7 @@
 #import "MWFeedItem.h"
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
+#import "UIImage+Extensions.h"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 
@@ -114,7 +115,17 @@
             }
         }
         
-        [cell.imageView setImageWithURL:[NSURL URLWithString:source.faviconLink]];
+        __weak UITableViewCell *weakCell = cell;
+        CGSize newImageSize = CGSizeMake(30.0, 30.0);
+        UIImage *placeholderImage = [[[UIImage imageNamed:@"166-newspaper.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:source.faviconLink]]
+                              placeholderImage:placeholderImage
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                           weakCell.imageView.image = [image resizeImageToSize:newImageSize];
+                                       }
+                                       failure:nil];
+
         cell.textLabel.text = source.feedInfo.title;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %d", count, source.feedItems.count];
     }

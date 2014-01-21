@@ -26,6 +26,9 @@
 		9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */; };
 		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
 		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
+		9E655FFC188E1EB1004FF3D0 /* 71-compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E655FFB188E1EB1004FF3D0 /* 71-compass.png */; };
+		9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */; };
+		9E656001188E20CA004FF3D0 /* 166-newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E656000188E20CA004FF3D0 /* 166-newspaper.png */; };
 		9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A7186DF65900AA8D1A /* 113-navigation.png */; };
 		9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */; };
 		9E9898E2186A591B00353440 /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9898E0186A58C000353440 /* 28-star.png */; };
@@ -102,6 +105,10 @@
 		9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainContentViewController.h; sourceTree = "<group>"; };
 		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
 		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
+		9E655FFB188E1EB1004FF3D0 /* 71-compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "71-compass.png"; sourceTree = "<group>"; };
+		9E655FFD188E1F16004FF3D0 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
+		9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
+		9E656000188E20CA004FF3D0 /* 166-newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "166-newspaper.png"; sourceTree = "<group>"; };
 		9E9848A7186DF65900AA8D1A /* 113-navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "113-navigation.png"; sourceTree = "<group>"; };
 		9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "163-glasses-1.png"; sourceTree = "<group>"; };
 		9E9898E0186A58C000353440 /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
@@ -292,8 +299,10 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E655FFB188E1EB1004FF3D0 /* 71-compass.png */,
 				9EED5E50187359C3007C922F /* 21-skull.png */,
 				9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */,
+				9E656000188E20CA004FF3D0 /* 166-newspaper.png */,
 				9E9848A7186DF65900AA8D1A /* 113-navigation.png */,
 				9E9898E0186A58C000353440 /* 28-star.png */,
 			);
@@ -339,6 +348,8 @@
 				9EEE4E4518451DAE00C0066E /* SRFileUtility.m */,
 				9EEE4E4718452A3B00C0066E /* SRDebug.h */,
 				9EEE4E4818452A3B00C0066E /* SRDebug.m */,
+				9E655FFD188E1F16004FF3D0 /* UIImage+Extensions.h */,
+				9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -517,8 +528,10 @@
 				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
 				9EED5E51187359C3007C922F /* 21-skull.png in Resources */,
+				9E656001188E20CA004FF3D0 /* 166-newspaper.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
+				9E655FFC188E1EB1004FF3D0 /* 71-compass.png in Resources */,
 				9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,6 +569,7 @@
 				9EBD2A43187E097A00F53DED /* HTMLParser.m in Sources */,
 				9EBD2A40187E097A00F53DED /* UIProgressView+AFNetworking.m in Sources */,
 				9EBD2A52187E097A00F53DED /* NSString+HTML.m in Sources */,
+				9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */,
 				9E4178811844063800A9DA60 /* SRAppDelegate.m in Sources */,
 				9EBD2A4D187E097A00F53DED /* GTMNSString+HTML.m in Sources */,
 				9EBD2A46187E097A00F53DED /* AFHTTPSessionManager.m in Sources */,
