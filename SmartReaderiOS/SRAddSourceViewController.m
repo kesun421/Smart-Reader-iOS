@@ -14,7 +14,7 @@
 #import "MWFeedInfo.h"
 #import "MWFeedParser.h"
 
-@interface SRAddSourceViewController () <SRSourceDelegate>
+@interface SRAddSourceViewController () <SRSourceDelegate, UITextFieldDelegate>
 {
     NSString *_faviconLink;
     int sourcesProcessed;
@@ -177,6 +177,14 @@
     if (sourcesProcessed == self.sources.count) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self add:self];
+    return YES;
 }
 
 @end
