@@ -88,16 +88,18 @@
     MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     cell.detailTextLabel.numberOfLines = 3;
     cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
 
     if (feedItem.read) {
-        cell.textLabel.textColor = [UIColor lightGrayColor];
-        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        UIColor *lightGrayColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f blue:204.0f/255.0f alpha:1.0];
+        cell.textLabel.textColor = lightGrayColor;
+        cell.detailTextLabel.textColor = lightGrayColor;
     }
     else {
         cell.textLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
     }
     
     return cell;
