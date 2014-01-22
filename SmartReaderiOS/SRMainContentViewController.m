@@ -153,7 +153,8 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
 }
 
 @end
