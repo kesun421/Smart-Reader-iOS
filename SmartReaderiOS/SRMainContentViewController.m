@@ -14,6 +14,7 @@
 #import "HTMLNode.h"
 #import "SRTextFilteringManager.h"
 #import "SRSourceManager.h"
+#import "SRMessageViewController.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
@@ -132,6 +133,10 @@
     
     self.likeButton.enabled = NO;
     self.dislikeButton.enabled = YES;
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Liked!"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
 }
 
 - (IBAction)unlikeArticle:(id)sender
@@ -142,6 +147,10 @@
     
     self.likeButton.enabled = YES;
     self.dislikeButton.enabled = NO;
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Unliked!"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
 }
 
 #pragma mark - UIWebViewDelegate
