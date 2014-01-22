@@ -82,6 +82,11 @@
 
 - (void)refreshSources
 {
+    if (!self.sources.count) {
+        [self.mainDelegate didFinishRefreshingAllSourcesWithError:nil];
+        return;
+    }
+    
     if (_workInProgress) {
         DebugLog(@"Already refreshing sources...");
         return;
