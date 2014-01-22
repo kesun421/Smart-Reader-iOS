@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *switchArticleViewButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *likeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *dislikeButton;
 @property (nonatomic) MWFeedItem *feedItem;
 
 - (IBAction)switchArticleView:(id)sender;
@@ -69,6 +72,9 @@
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
+    
+    self.likeButton.enabled = !self.feedItem.userLiked;
+    self.dislikeButton.enabled = !self.feedItem.userUnliked;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -123,6 +129,9 @@
     DebugLog(@"Liked article.");
     
     [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:YES];
+    
+    self.likeButton.enabled = NO;
+    self.dislikeButton.enabled = YES;
 }
 
 - (IBAction)unlikeArticle:(id)sender
@@ -130,6 +139,9 @@
     DebugLog(@"Unliked article.");
     
     [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:NO];
+    
+    self.likeButton.enabled = YES;
+    self.dislikeButton.enabled = NO;
 }
 
 #pragma mark - UIWebViewDelegate
