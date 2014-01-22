@@ -13,7 +13,6 @@
 		9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E4178791844063800A9DA60 /* InfoPlist.strings */; };
 		9E41787D1844063800A9DA60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E41787C1844063800A9DA60 /* main.m */; };
 		9E4178811844063800A9DA60 /* SRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4178801844063800A9DA60 /* SRAppDelegate.m */; };
-		9E4178831844063800A9DA60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4178821844063800A9DA60 /* Images.xcassets */; };
 		9E41788A1844063900A9DA60 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178891844063900A9DA60 /* XCTest.framework */; };
 		9E41788B1844063900A9DA60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178701844063800A9DA60 /* Foundation.framework */; };
 		9E41788C1844063900A9DA60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178741844063800A9DA60 /* UIKit.framework */; };
@@ -32,6 +31,11 @@
 		9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A7186DF65900AA8D1A /* 113-navigation.png */; };
 		9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */; };
 		9E9898E2186A591B00353440 /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9898E0186A58C000353440 /* 28-star.png */; };
+		9EB135E6188F991C00CC4009 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E2188F991C00CC4009 /* icon-58.png */; };
+		9EB135E7188F991C00CC4009 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E3188F991C00CC4009 /* icon-80.png */; };
+		9EB135E8188F991C00CC4009 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E4188F991C00CC4009 /* icon-120.png */; };
+		9EB135E9188F991C00CC4009 /* icon-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E5188F991C00CC4009 /* icon-512.png */; };
+		9EB135EB188F994400CC4009 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135EA188F994400CC4009 /* Images.xcassets */; };
 		9EBD2A3B187E097A00F53DED /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A04187E097A00F53DED /* AFNetworkActivityIndicatorManager.m */; };
 		9EBD2A3C187E097A00F53DED /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A06187E097A00F53DED /* UIActivityIndicatorView+AFNetworking.m */; };
 		9EBD2A3D187E097A00F53DED /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A08187E097A00F53DED /* UIAlertView+AFNetworking.m */; };
@@ -90,7 +94,6 @@
 		9E41787E1844063800A9DA60 /* SmartReaderiOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartReaderiOS-Prefix.pch"; sourceTree = "<group>"; };
 		9E41787F1844063800A9DA60 /* SRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRAppDelegate.h; sourceTree = "<group>"; };
 		9E4178801844063800A9DA60 /* SRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRAppDelegate.m; sourceTree = "<group>"; };
-		9E4178821844063800A9DA60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9E4178881844063900A9DA60 /* SmartReaderiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartReaderiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4178891844063900A9DA60 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9E4178911844063900A9DA60 /* SmartReaderiOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SmartReaderiOSTests-Info.plist"; sourceTree = "<group>"; };
@@ -113,6 +116,11 @@
 		9E9848A7186DF65900AA8D1A /* 113-navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "113-navigation.png"; sourceTree = "<group>"; };
 		9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "163-glasses-1.png"; sourceTree = "<group>"; };
 		9E9898E0186A58C000353440 /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
+		9EB135E2188F991C00CC4009 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-58.png"; path = "Icons/icon-58.png"; sourceTree = "<group>"; };
+		9EB135E3188F991C00CC4009 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-80.png"; path = "Icons/icon-80.png"; sourceTree = "<group>"; };
+		9EB135E4188F991C00CC4009 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-120.png"; path = "Icons/icon-120.png"; sourceTree = "<group>"; };
+		9EB135E5188F991C00CC4009 /* icon-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-512.png"; path = "Icons/icon-512.png"; sourceTree = "<group>"; };
+		9EB135EA188F994400CC4009 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9EBD2A03187E097A00F53DED /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		9EBD2A04187E097A00F53DED /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		9EBD2A05187E097A00F53DED /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -246,8 +254,8 @@
 		9E4178761844063800A9DA60 /* SmartReaderiOS */ = {
 			isa = PBXGroup;
 			children = (
-				9E4178821844063800A9DA60 /* Images.xcassets */,
 				9E4178771844063800A9DA60 /* Supporting Files */,
+				9EB135E1188F990D00CC4009 /* Icons */,
 				9E9898DF186A4BAC00353440 /* Images */,
 				9E4178A41844084900A9DA60 /* External Libs */,
 				9E9898E3186A5EF100353440 /* View Controllers */,
@@ -255,6 +263,7 @@
 				9E9898E4186A5F1B00353440 /* Models */,
 				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
 				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
+				9EB135EA188F994400CC4009 /* Images.xcassets */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";
@@ -357,6 +366,17 @@
 				9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		9EB135E1188F990D00CC4009 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9EB135E2188F991C00CC4009 /* icon-58.png */,
+				9EB135E3188F991C00CC4009 /* icon-80.png */,
+				9EB135E4188F991C00CC4009 /* icon-120.png */,
+				9EB135E5188F991C00CC4009 /* icon-512.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		9EBD2A02187E097A00F53DED /* UIKit+AFNetworking */ = {
@@ -527,17 +547,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E9898E2186A591B00353440 /* 28-star.png in Resources */,
+				9EB135EB188F994400CC4009 /* Images.xcassets in Resources */,
 				9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */,
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
-				9E4178831844063800A9DA60 /* Images.xcassets in Resources */,
+				9EB135E7188F991C00CC4009 /* icon-80.png in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
+				9EB135E6188F991C00CC4009 /* icon-58.png in Resources */,
 				9EED5E51187359C3007C922F /* 21-skull.png in Resources */,
+				9EB135E8188F991C00CC4009 /* icon-120.png in Resources */,
 				9E656001188E20CA004FF3D0 /* 166-newspaper.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
 				9E655FFC188E1EB1004FF3D0 /* 71-compass.png in Resources */,
 				9E9848A8186DF65900AA8D1A /* 113-navigation.png in Resources */,
+				9EB135E9188F991C00CC4009 /* icon-512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,8 +736,8 @@
 		9E41789A1844063900A9DA60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (L2T7YREY63)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -723,6 +747,8 @@
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D3983805-BACE-4D5E-B7FD-1C0DBAA7D097";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -731,8 +757,8 @@
 		9E41789B1844063900A9DA60 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (L2T7YREY63)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -742,6 +768,8 @@
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D3983805-BACE-4D5E-B7FD-1C0DBAA7D097";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
