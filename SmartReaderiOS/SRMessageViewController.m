@@ -52,6 +52,7 @@
         self.view.layer.shadowRadius = 5;
         self.view.layer.shadowOpacity = 0.5;
         self.view.layer.backgroundColor = [[UIColor colorWithRed:249.0f/255.0f green:253.0f/255.0f blue:255.0f/255.0f alpha:1.0] CGColor];
+        self.view.alpha = 0.0;
 
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, _width - 10.0 * 2, _height)];
         textField.textAlignment = NSTextAlignmentCenter;
@@ -68,6 +69,7 @@
                           delay:0.25
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
+                         self.view.alpha = 1.0;
                          self.view.center = CGPointMake(_centerX, _centerY);
                      }
                      completion:^(BOOL finished) {
