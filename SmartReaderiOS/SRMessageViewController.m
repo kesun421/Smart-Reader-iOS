@@ -36,11 +36,11 @@
         
         if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
             _centerX = [UIScreen mainScreen].bounds.size.height / 2.0;
-            _centerY = [UIScreen mainScreen].bounds.size.width / 2.0;
+            _centerY = [UIScreen mainScreen].bounds.size.width - 80.0;
         }
         else {
             _centerX = [UIScreen mainScreen].bounds.size.width / 2.0;
-            _centerY = [UIScreen mainScreen].bounds.size.height / 2.0;
+            _centerY = [UIScreen mainScreen].bounds.size.height - 80.0;
         }
         
         self.view = [[UIView alloc] initWithFrame:CGRectMake(_centerX - _width / 2.0, [UIScreen mainScreen].bounds.size.height, _width, _height)];
@@ -52,7 +52,7 @@
         self.view.layer.shadowRadius = 5;
         self.view.layer.shadowOpacity = 0.5;
         self.view.layer.backgroundColor = [[UIColor colorWithRed:249.0f/255.0f green:253.0f/255.0f blue:255.0f/255.0f alpha:1.0] CGColor];
-        self.view.alpha = 0.0;
+        self.view.alpha = 0.5;
 
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, _width - 10.0 * 2, _height)];
         textField.textAlignment = NSTextAlignmentCenter;
