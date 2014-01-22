@@ -196,6 +196,13 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Stop the refresh control from continued spinning.  If we don't do this, it's possible that we navigated to another view controller
+    // while the refresh control was spinning, when we navigate back to the main cview controller, there will be a gap left in the UI that
+    // used to hold the refresh control.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl endRefreshing];
+    });
+    
     SRSource *source = nil;
     if (self.likeableFeedItems.count && indexPath.row == 0) {
         source = [SRSource new];
