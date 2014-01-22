@@ -19,6 +19,7 @@
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
 #import "UIImage+Extensions.h"
+#import "SRMessageViewController.h"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 
@@ -105,13 +106,6 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
         cell.backgroundColor = [UIColor colorWithRed:207.0f/255.0f green:226.0f/255.0f blue:243.0f/255.0f alpha:1.0];
-        
-        CABasicAnimation* rotationAnimation;
-        rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
-        rotationAnimation.duration = 2.0;
-        
-        [cell.imageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     }
     else {
         long index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
@@ -211,6 +205,13 @@
     [self.tableView reloadData];
 }
 
+- (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
+{
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(210.0, 60.0) message:@"News source added!"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+}
+
 #pragma mark - UI related
 
 - (void)add
@@ -256,7 +257,11 @@
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         }
         
-        // TODO: Animate a view that "toasts" with message about found likeable items.
+        // A toast message about found likeable items.
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0)
+                                                                                       message:[NSString stringWithFormat:@"Found %d interesting items!", self.likeableFeedItems.count]];
+        [self.navigationController.view addSubview:msgController.view];
+        [msgController animate];
     }
     
     [self.tableView reloadData];

@@ -17,6 +17,8 @@
 @interface SRAddSourceViewController () <SRSourceDelegate, UITextFieldDelegate>
 {
     NSString *_faviconLink;
+    
+    /** It's possible that there are multiple RSS feed sources in one HTML page, thus we should process all of them. */
     int sourcesProcessed;
 }
 
@@ -184,6 +186,7 @@
     sourcesProcessed++;
     if (sourcesProcessed == self.sources.count) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate addSourceViewControllerDidFinishAddingAllSources:self];
     }
 }
 

@@ -15,6 +15,10 @@
 #define kSourcesFileName @"sources.bin"
 
 @interface SRSourceManager () <SRSourceDelegate>
+{
+    BOOL _workInProgress;
+}
+
 @end
 
 @implementation SRSourceManager
@@ -60,7 +64,7 @@
 
 - (void)deleteSourceAtIndex:(NSInteger)index
 {
-    DebugLog(@"Deleting source at index: %lu, source: %@", index, self.sources[index]);
+    DebugLog(@"Deleting source at index: %lu, source: %@", (long)index, self.sources[index]);
     
     NSMutableArray *sourcesCopy = [self.sources mutableCopy];
     [sourcesCopy removeObjectAtIndex:index];
@@ -78,6 +82,13 @@
 
 - (void)refreshSources
 {
+    if (_workInProgress) {
+        DebugLog(@"Already refreshing sources...");
+        return;
+    }
+    
+    _workInProgress = YES;
+    
     DebugLog(@"Refreshing sources...");
     
     for (SRSource *source in self.sources) {
@@ -110,6 +121,8 @@
     static int sourcesUpdated = 0;
     sourcesUpdated++;
     if (sourcesUpdated == self.sources.count) {
+        _workInProgress = NO;
+        
         sourcesUpdated = 0;
         if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
             [self.backgroundDelegate didFinishRefreshingAllSourcesWithError:nil];
