@@ -91,6 +91,8 @@
     float titleFontSize = 18.0;
     cell.textLabel.font = [UIFont systemFontOfSize:titleFontSize];
     cell.backgroundColor = [UIColor whiteColor];
+    cell.imageView.layer.cornerRadius = 5.0;
+    cell.imageView.clipsToBounds = YES;
     
     CGSize newImageSize = CGSizeMake(30.0, 30.0);
     
