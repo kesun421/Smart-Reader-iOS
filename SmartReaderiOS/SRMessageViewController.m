@@ -33,8 +33,15 @@
     if (self) {
         _width = size.width;
         _height = size.height;
-        _centerX = [UIScreen mainScreen].bounds.size.width / 2.0;
-        _centerY = [UIScreen mainScreen].bounds.size.height / 2.0;
+        
+        if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
+            _centerX = [UIScreen mainScreen].bounds.size.height / 2.0;
+            _centerY = [UIScreen mainScreen].bounds.size.width / 2.0;
+        }
+        else {
+            _centerX = [UIScreen mainScreen].bounds.size.width / 2.0;
+            _centerY = [UIScreen mainScreen].bounds.size.height / 2.0;
+        }
         
         self.view = [[UIView alloc] initWithFrame:CGRectMake(_centerX - _width / 2.0, [UIScreen mainScreen].bounds.size.height, _width, _height)];
         self.view.layer.borderColor = [[UIColor grayColor] CGColor];
