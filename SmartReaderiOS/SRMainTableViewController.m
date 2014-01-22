@@ -22,6 +22,9 @@
 #import "SRMessageViewController.h"
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
+{
+    BOOL _refreshingSourcesTableCellAnimationSwitch;
+}
 
 @property (nonatomic) NSArray *likeableFeedItems;
 
@@ -46,7 +49,8 @@
     
     [[SRSourceManager sharedManager] loadSources];
     [SRSourceManager sharedManager].mainDelegate = self;
-    [[SRSourceManager sharedManager] refreshSources];
+    
+    [self refreshSources:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,6 +95,8 @@
     float titleFontSize = 18.0;
     cell.textLabel.font = [UIFont systemFontOfSize:titleFontSize];
     cell.backgroundColor = [UIColor whiteColor];
+    
+    // Add rounded corner to favicons.
     cell.imageView.layer.cornerRadius = 5.0;
     cell.imageView.clipsToBounds = YES;
     
@@ -109,6 +115,15 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+        
+        if (_refreshingSourcesTableCellAnimationSwitch) {
+            CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
+            rotationAnimation.duration = 1.0;
+            [cell.imageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+            
+            _refreshingSourcesTableCellAnimationSwitch = NO;
+        }
     }
     else {
         long index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
@@ -227,6 +242,8 @@
 
 - (void)refreshSources:(id)sender
 {
+    _refreshingSourcesTableCellAnimationSwitch = YES;
+    
     [[SRSourceManager sharedManager] refreshSources];
 }
 
