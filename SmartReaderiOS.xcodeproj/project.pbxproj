@@ -463,9 +463,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E41786C1844063800A9DA60 /* SmartReaderiOS */ = {
+		9E41786C1844063800A9DA60 /* Smart Reader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E4178991844063900A9DA60 /* Build configuration list for PBXNativeTarget "SmartReaderiOS" */;
+			buildConfigurationList = 9E4178991844063900A9DA60 /* Build configuration list for PBXNativeTarget "Smart Reader" */;
 			buildPhases = (
 				9E4178691844063800A9DA60 /* Sources */,
 				9E41786A1844063800A9DA60 /* Frameworks */,
@@ -475,14 +475,14 @@
 			);
 			dependencies = (
 			);
-			name = SmartReaderiOS;
+			name = "Smart Reader";
 			productName = SmartReaderiOS;
 			productReference = 9E41786D1844063800A9DA60 /* SmartReaderiOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9E4178871844063900A9DA60 /* SmartReaderiOSTests */ = {
+		9E4178871844063900A9DA60 /* Smart Reader Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E41789C1844063900A9DA60 /* Build configuration list for PBXNativeTarget "SmartReaderiOSTests" */;
+			buildConfigurationList = 9E41789C1844063900A9DA60 /* Build configuration list for PBXNativeTarget "Smart Reader Tests" */;
 			buildPhases = (
 				9E4178841844063900A9DA60 /* Sources */,
 				9E4178851844063900A9DA60 /* Frameworks */,
@@ -493,7 +493,7 @@
 			dependencies = (
 				9E41788E1844063900A9DA60 /* PBXTargetDependency */,
 			);
-			name = SmartReaderiOSTests;
+			name = "Smart Reader Tests";
 			productName = SmartReaderiOSTests;
 			productReference = 9E4178881844063900A9DA60 /* SmartReaderiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -535,8 +535,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9E41786C1844063800A9DA60 /* SmartReaderiOS */,
-				9E4178871844063900A9DA60 /* SmartReaderiOSTests */,
+				9E41786C1844063800A9DA60 /* Smart Reader */,
+				9E4178871844063900A9DA60 /* Smart Reader Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -634,7 +634,7 @@
 /* Begin PBXTargetDependency section */
 		9E41788E1844063900A9DA60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9E41786C1844063800A9DA60 /* SmartReaderiOS */;
+			target = 9E41786C1844063800A9DA60 /* Smart Reader */;
 			targetProxy = 9E41788D1844063900A9DA60 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -829,7 +829,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E4178991844063900A9DA60 /* Build configuration list for PBXNativeTarget "SmartReaderiOS" */ = {
+		9E4178991844063900A9DA60 /* Build configuration list for PBXNativeTarget "Smart Reader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E41789A1844063900A9DA60 /* Debug */,
@@ -838,7 +838,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E41789C1844063900A9DA60 /* Build configuration list for PBXNativeTarget "SmartReaderiOSTests" */ = {
+		9E41789C1844063900A9DA60 /* Build configuration list for PBXNativeTarget "Smart Reader Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9E41789D1844063900A9DA60 /* Debug */,
