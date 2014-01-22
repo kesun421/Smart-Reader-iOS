@@ -105,7 +105,7 @@
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
-        cell.backgroundColor = [UIColor colorWithRed:207.0f/255.0f green:226.0f/255.0f blue:243.0f/255.0f alpha:1.0];
+        cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
     }
     else {
         long index = self.likeableFeedItems.count ? indexPath.row - 1 : indexPath.row;
