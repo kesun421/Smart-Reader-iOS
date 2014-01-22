@@ -88,7 +88,8 @@
     }
     
     // Set back to default.
-    cell.textLabel.font = [UIFont systemFontOfSize:18];
+    float titleFontSize = 18.0;
+    cell.textLabel.font = [UIFont systemFontOfSize:titleFontSize];
     cell.backgroundColor = [UIColor whiteColor];
     
     CGSize newImageSize = CGSizeMake(30.0, 30.0);
@@ -103,7 +104,7 @@
         
         cell.imageView.image = [[[UIImage imageNamed:@"28-star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
     }
