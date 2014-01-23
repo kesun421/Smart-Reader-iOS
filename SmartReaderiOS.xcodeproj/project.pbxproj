@@ -25,6 +25,10 @@
 		9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A0B18441E6000A9DA60 /* SRSecondaryTableViewController.xib */; };
 		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
 		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
+		9E47362D1890E26A003D268C /* no-entry.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E47362C1890E26A003D268C /* no-entry.png */; };
+		9E47362F1890E2C3003D268C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E47362E1890E2C3003D268C /* star.png */; };
+		9E4736311890E3BE003D268C /* forbidden.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4736301890E3BE003D268C /* forbidden.png */; };
+		9E4736331890E428003D268C /* link.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4736321890E428003D268C /* link.png */; };
 		9E655FFC188E1EB1004FF3D0 /* 71-compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E655FFB188E1EB1004FF3D0 /* 71-compass.png */; };
 		9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */; };
 		9E656001188E20CA004FF3D0 /* 166-newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E656000188E20CA004FF3D0 /* 166-newspaper.png */; };
@@ -109,6 +113,10 @@
 		9E417A0E18441E7600A9DA60 /* SRMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainContentViewController.h; sourceTree = "<group>"; };
 		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
 		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
+		9E47362C1890E26A003D268C /* no-entry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-entry.png"; sourceTree = "<group>"; };
+		9E47362E1890E2C3003D268C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		9E4736301890E3BE003D268C /* forbidden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forbidden.png; sourceTree = "<group>"; };
+		9E4736321890E428003D268C /* link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = link.png; sourceTree = "<group>"; };
 		9E655FFB188E1EB1004FF3D0 /* 71-compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "71-compass.png"; sourceTree = "<group>"; };
 		9E655FFD188E1F16004FF3D0 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
@@ -311,6 +319,9 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E4736321890E428003D268C /* link.png */,
+				9E4736301890E3BE003D268C /* forbidden.png */,
+				9E47362E1890E2C3003D268C /* star.png */,
 				9E655FFB188E1EB1004FF3D0 /* 71-compass.png */,
 				9EED5E50187359C3007C922F /* 21-skull.png */,
 				9E9848A9186DF76700AA8D1A /* 163-glasses-1.png */,
@@ -371,6 +382,7 @@
 		9EB135E1188F990D00CC4009 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				9E47362C1890E26A003D268C /* no-entry.png */,
 				9EB135E2188F991C00CC4009 /* icon-58.png */,
 				9EB135E3188F991C00CC4009 /* icon-80.png */,
 				9EB135E4188F991C00CC4009 /* icon-120.png */,
@@ -547,15 +559,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E9898E2186A591B00353440 /* 28-star.png in Resources */,
+				9E4736331890E428003D268C /* link.png in Resources */,
+				9E47362D1890E26A003D268C /* no-entry.png in Resources */,
 				9EB135EB188F994400CC4009 /* Images.xcassets in Resources */,
 				9E9848AA186DF76700AA8D1A /* 163-glasses-1.png in Resources */,
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
 				9EB135E7188F991C00CC4009 /* icon-80.png in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
+				9E4736311890E3BE003D268C /* forbidden.png in Resources */,
 				9EB135E6188F991C00CC4009 /* icon-58.png in Resources */,
 				9EED5E51187359C3007C922F /* 21-skull.png in Resources */,
 				9EB135E8188F991C00CC4009 /* icon-120.png in Resources */,
+				9E47362F1890E2C3003D268C /* star.png in Resources */,
 				9E656001188E20CA004FF3D0 /* 166-newspaper.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
