@@ -279,8 +279,12 @@
     self.likeableFeedItems = [feedItems copy];
     
     if (self.likeableFeedItems.count) {
-        // A toast message about found likeable items.
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0) message:[NSString stringWithFormat:@"Found %d interesting items!", self.likeableFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0) message:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)self.likeableFeedItems.count]];
+        [self.navigationController.view addSubview:msgController.view];
+        [msgController animate];
+    }
+    else {
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(300.0, 60.0) message:@"Train me to get suggested articles!"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
