@@ -100,13 +100,29 @@
     
     cell.textLabel.text = feedItem.title;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
-    cell.detailTextLabel.numberOfLines = 3;
     
     if (self.source.sourceForInterestingItems) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@", feedItem.source.feedInfo.title,[feedItem.summary stringByConvertingHTMLToPlainText]];
+        NSMutableAttributedString *detailText = [NSMutableAttributedString new];
+        
+        NSMutableAttributedString *sourceTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", feedItem.source.feedInfo.title]
+                                                                                        attributes:@{
+                                                                                              NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
+                                                                                              }];
+        
+        NSMutableAttributedString *feedSummary = [[NSMutableAttributedString alloc] initWithString:[feedItem.summary stringByConvertingHTMLToPlainText]
+                                                                                        attributes:@{
+                                                                                              NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                                                                              }];
+        
+        [detailText appendAttributedString:sourceTitle];
+        [detailText appendAttributedString:feedSummary];
+        
+        cell.detailTextLabel.attributedText = detailText;
+        cell.detailTextLabel.numberOfLines = 4;
     }
     else {
         cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
+        cell.detailTextLabel.numberOfLines = 3;
     }
 
     if (feedItem.read) {
@@ -176,8 +192,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
-    if (feedItem && [feedItem.summary stringByConvertingHTMLToPlainText].length) {
-        return 80.0;
+    if ([feedItem.summary stringByConvertingHTMLToPlainText].length) {
+        if (self.source.sourceForInterestingItems) {
+            return 95.0;
+        }
+        else {
+            return 80.0;
+        }
     }
     else {
         return 44.0;
