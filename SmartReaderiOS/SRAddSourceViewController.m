@@ -40,6 +40,7 @@
     if (self) {
         self.view.backgroundColor = [UIColor lightGrayColor];
         self.dialog.layer.cornerRadius = 20.0;
+        self.urlField.autocorrectionType = UITextAutocorrectionTypeNo;
     }
     return self;
 }
