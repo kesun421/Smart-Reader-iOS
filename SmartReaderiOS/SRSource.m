@@ -147,6 +147,14 @@
 {
     DebugLog(@"Feed parsing ended...");
     
+    // Sort the feed items according to their publish date.
+    self.feedItems = [self.feedItems sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MWFeedItem *item1 = (MWFeedItem *)obj1;
+        MWFeedItem *item2 = (MWFeedItem *)obj2;
+        
+        return [item2.date compare:item1.date];
+    }];
+    
     [self.delegate didFinishRefreshingSource:self withError:nil];
 }
 
