@@ -65,16 +65,16 @@
 
 - (void)animate
 {
-    [UIView animateWithDuration:0.75
-                          delay:0.25
+    [UIView animateWithDuration:0.5
+                          delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.view.alpha = 1.0;
                          self.view.center = CGPointMake(_centerX, _centerY);
                      }
                      completion:^(BOOL finished) {
-                         [UIView animateWithDuration:1.0
-                                               delay:0.5
+                         [UIView animateWithDuration:0.5
+                                               delay:1.0
                                              options:UIViewAnimationOptionCurveEaseOut
                                           animations:^{
                                               self.view.alpha = 0.0;
