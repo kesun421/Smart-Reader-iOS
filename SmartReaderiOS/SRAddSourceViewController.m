@@ -129,8 +129,6 @@
             // HTML, parse for feed url.
             BOOL feedUrlExists = NO;
             for (HTMLNode *node in [[parser head] findChildTags:@"link"]) {
-                _faviconLink = nil;
-                
                 if ([[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"icon"] ||
                     [[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"shortcut icon"]) {
                     _faviconLink = [node getAttributeNamed:@"href"];
@@ -165,6 +163,8 @@
             }
             
             if (!feedUrlExists) {
+                _faviconLink = nil;
+                
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Feed Found" message:@"No feeds were found in the url provided." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 
@@ -174,7 +174,9 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DebugLog(@"Error: %@", error);
+        _faviconLink = nil;
+        
+        DebugLog(@"Error trying to add news source: %@, error: %@", operation.request.URL, error);
     }];
 }
 
