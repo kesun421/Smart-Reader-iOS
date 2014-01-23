@@ -134,7 +134,7 @@
     self.likeButton.enabled = NO;
     self.dislikeButton.enabled = YES;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Liked!"];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Liked..."];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }
@@ -148,7 +148,7 @@
     self.likeButton.enabled = YES;
     self.dislikeButton.enabled = NO;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Unliked!"];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(180.0, 40.0) message:@"Unliked..."];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }
