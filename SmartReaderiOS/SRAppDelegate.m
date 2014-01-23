@@ -10,6 +10,7 @@
 #import "SRMainTableViewController.h"
 #import "SRSourceManager.h"
 #import "SRSource.h"
+#import "MWFeedItem.h"
 #import "SRTextFilteringManager.h"
 
 typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
@@ -48,6 +49,17 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    _interestingItemsCount = 0;
+    for (SRSource *source in [SRSourceManager sharedManager].sources) {
+        for (MWFeedItem *feedItem in source.feedItems) {
+            if (feedItem.like && !feedItem.read && !feedItem.userLiked && !feedItem.userUnliked) {
+                _interestingItemsCount++;
+            }
+        }
+    }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = _interestingItemsCount;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -98,6 +110,8 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     _interestingItemsCount = feedItems.count;
     
+    [UIApplication sharedApplication].applicationIconBadgeNumber = _interestingItemsCount;
+    
     NSString *message = nil;
     
     if (_totalNewCount != 0 && _interestingItemsCount == 0) {
@@ -114,9 +128,13 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         
         backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
+        
+        DebugLog(@"Background fetch completed with new items: %d, and interesting items: %lu", _totalNewCount, _interestingItemsCount);
     }
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
+        
+        DebugLog(@"Background fetch completed with no new items...  Interesting items count: %lu", _interestingItemsCount);
     }
 }
 
