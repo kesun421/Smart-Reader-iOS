@@ -129,6 +129,8 @@
             // HTML, parse for feed url.
             BOOL feedUrlExists = NO;
             for (HTMLNode *node in [[parser head] findChildTags:@"link"]) {
+                _faviconLink = nil;
+                
                 if ([[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"icon"] ||
                     [[[node getAttributeNamed:@"rel"] lowercaseString] isEqualToString:@"shortcut icon"]) {
                     _faviconLink = [node getAttributeNamed:@"href"];
