@@ -51,6 +51,8 @@
     [SRSourceManager sharedManager].mainDelegate = self;
     
     [self refreshSources:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSources:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
