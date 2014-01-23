@@ -52,7 +52,7 @@
     
     [self refreshSources:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSources:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
