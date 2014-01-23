@@ -104,7 +104,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         message = [NSString stringWithFormat:@"%d new items for reading!", _totalNewCount];
     }
     else if (_totalNewCount != 0 && _interestingItemsCount != 0){
-        message = [NSString stringWithFormat:@"%d new items for reading, %lu you might find interesting!", _totalNewCount, _interestingItemsCount];
+        message = [NSString stringWithFormat:@"%d new items for reading! You might find %lu new items among all feeds to be interesting...", _totalNewCount, _interestingItemsCount];
     }
     
     if (message.length) {
