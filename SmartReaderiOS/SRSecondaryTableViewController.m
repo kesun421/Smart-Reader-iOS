@@ -101,7 +101,13 @@
     cell.textLabel.text = feedItem.title;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     cell.detailTextLabel.numberOfLines = 3;
-    cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
+    
+    if (self.source.sourceForInterestingItems) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@", feedItem.source.feedInfo.title,[feedItem.summary stringByConvertingHTMLToPlainText]];
+    }
+    else {
+        cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
+    }
 
     if (feedItem.read) {
         UIColor *lightGrayColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f blue:204.0f/255.0f alpha:1.0];

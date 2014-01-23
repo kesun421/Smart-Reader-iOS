@@ -28,6 +28,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SRSource.h"
 
 @interface MWFeedItem : NSObject <NSCoding> {
 	
@@ -61,6 +62,8 @@
     
     /** KS: Indicates if the user has read the article. */
     BOOL read;
+    
+    __weak SRSource *source;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -73,6 +76,7 @@
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSArray *enclosures;
 @property (nonatomic, copy) NSDictionary *tokens;
+@property (nonatomic, weak) SRSource *source;
 @property (nonatomic, assign) BOOL like;
 @property (nonatomic, assign) BOOL userLiked;
 @property (nonatomic, assign) BOOL userUnliked;

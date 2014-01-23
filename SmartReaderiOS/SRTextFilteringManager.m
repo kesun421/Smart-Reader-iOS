@@ -166,6 +166,7 @@
         for (MWFeedItem *feedItem in source.feedItems) {
             // Only show those items that were liked by the algorithm.
             if (feedItem.like && !feedItem.userLiked && !feedItem.userUnliked && !feedItem.read) {
+                feedItem.source = source;
                 [likeableFeedItems addObject:feedItem];
             }
         }
