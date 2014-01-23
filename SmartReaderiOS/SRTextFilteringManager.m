@@ -164,7 +164,8 @@
     
     for (SRSource *source in sources) {
         for (MWFeedItem *feedItem in source.feedItems) {
-            if (feedItem.like && !feedItem.userUnliked) {
+            // Only show those items that were liked by the algorithm.
+            if (feedItem.like && !feedItem.userLiked && !feedItem.userUnliked && !feedItem.read) {
                 [likeableFeedItems addObject:feedItem];
             }
         }

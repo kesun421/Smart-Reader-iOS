@@ -105,7 +105,7 @@
     if (self.likeableFeedItems.count && indexPath.row == 0) {
         int count = 0;
         for (MWFeedItem *feedItem in self.likeableFeedItems) {
-            if (feedItem.read) {
+            if (!feedItem.read) {
                 count++;
             }
         }
@@ -113,7 +113,7 @@
         cell.imageView.image = [[[UIImage imageNamed:@"28-star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)self.likeableFeedItems.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         
         if (_refreshingSourcesTableCellAnimationSwitch) {
@@ -131,7 +131,7 @@
         
         int count = 0;
         for (MWFeedItem *feedItem in source.feedItems) {
-            if (feedItem.read) {
+            if (!feedItem.read) {
                 count++;
             }
         }
@@ -147,7 +147,7 @@
                                        failure:nil];
 
         cell.textLabel.text = source.feedInfo.title;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"read %d out of %lu", count, (unsigned long)source.feedItems.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
     }
     
     return cell;
@@ -277,16 +277,8 @@
     self.likeableFeedItems = [feedItems copy];
     
     if (self.likeableFeedItems.count) {
-        if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-            UILocalNotification *notification = [UILocalNotification new];
-            notification.alertBody = [NSString stringWithFormat:@"Found %lu items you might like!", (unsigned long)self.likeableFeedItems.count];
-            notification.fireDate = [NSDate date];
-            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        }
-        
         // A toast message about found likeable items.
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0)
-                                                                                       message:[NSString stringWithFormat:@"Found %d interesting items!", self.likeableFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0) message:[NSString stringWithFormat:@"Found %d interesting items!", self.likeableFeedItems.count]];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }

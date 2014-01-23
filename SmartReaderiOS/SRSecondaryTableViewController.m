@@ -16,6 +16,7 @@
 @interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate>
 
 @property (nonatomic) SRSource *source;
+@property (nonatomic, copy) NSArray *ureadFeedItems;
 
 @end
 
@@ -27,6 +28,16 @@
     if (self) {
         self.source = source;
         self.navigationItem.title = self.source.sourceForInterestingItems ? @"Suggested Reading..." : self.source.feedInfo.title;
+        
+        // Only show the unread items.
+        NSMutableArray *temp = [NSMutableArray new];
+        for (MWFeedItem *feedItem in source.feedItems) {
+            if (!feedItem.read) {
+                [temp addObject:feedItem];
+            }
+        }
+        
+        self.ureadFeedItems = [temp copy];
     }
     return self;
 }
@@ -73,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.source.feedItems.count;
+    return self.ureadFeedItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,7 +96,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
@@ -150,7 +161,7 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
     SRMainContentViewController *mainContentViewController = [[SRMainContentViewController alloc] initWithFeedItem:feedItem];
     mainContentViewController.delegate = self;
     [self.navigationController pushViewController:mainContentViewController animated:YES];
@@ -158,7 +169,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.source.feedItems[indexPath.row];
+    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
     if (feedItem && [feedItem.summary stringByConvertingHTMLToPlainText].length) {
         return 80.0;
     }
