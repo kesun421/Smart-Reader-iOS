@@ -116,7 +116,7 @@
         readingOriginal = YES;
     }
     else {
-        [barButtonItem setImage:[UIImage imageNamed:@"113-navigation.png"]];
+        [barButtonItem setImage:[UIImage imageNamed:@"link.png"]];
         
         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];

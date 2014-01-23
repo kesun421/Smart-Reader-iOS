@@ -110,7 +110,7 @@
             }
         }
         
-        cell.imageView.image = [[[UIImage imageNamed:@"28-star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.image = [[[UIImage imageNamed:@"star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
