@@ -88,7 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E41786D1844063800A9DA60 /* SmartReaderiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartReaderiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E41786D1844063800A9DA60 /* Smart Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4178701844063800A9DA60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E4178721844063800A9DA60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9E4178741844063800A9DA60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -98,7 +98,7 @@
 		9E41787E1844063800A9DA60 /* SmartReaderiOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartReaderiOS-Prefix.pch"; sourceTree = "<group>"; };
 		9E41787F1844063800A9DA60 /* SRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRAppDelegate.h; sourceTree = "<group>"; };
 		9E4178801844063800A9DA60 /* SRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRAppDelegate.m; sourceTree = "<group>"; };
-		9E4178881844063900A9DA60 /* SmartReaderiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartReaderiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E4178881844063900A9DA60 /* Smart Reader Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Reader Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4178891844063900A9DA60 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9E4178911844063900A9DA60 /* SmartReaderiOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SmartReaderiOSTests-Info.plist"; sourceTree = "<group>"; };
 		9E4178931844063900A9DA60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -240,8 +240,8 @@
 		9E41786E1844063800A9DA60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9E41786D1844063800A9DA60 /* SmartReaderiOS.app */,
-				9E4178881844063900A9DA60 /* SmartReaderiOSTests.xctest */,
+				9E41786D1844063800A9DA60 /* Smart Reader.app */,
+				9E4178881844063900A9DA60 /* Smart Reader Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 			);
 			name = "Smart Reader";
 			productName = SmartReaderiOS;
-			productReference = 9E41786D1844063800A9DA60 /* SmartReaderiOS.app */;
+			productReference = 9E41786D1844063800A9DA60 /* Smart Reader.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9E4178871844063900A9DA60 /* Smart Reader Tests */ = {
@@ -507,7 +507,7 @@
 			);
 			name = "Smart Reader Tests";
 			productName = SmartReaderiOSTests;
-			productReference = 9E4178881844063900A9DA60 /* SmartReaderiOSTests.xctest */;
+			productReference = 9E4178881844063900A9DA60 /* Smart Reader Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -753,7 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (L2T7YREY63)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -763,7 +763,7 @@
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D3983805-BACE-4D5E-B7FD-1C0DBAA7D097";
+				PROVISIONING_PROFILE = "400EFA64-E0A9-419F-BDF4-9C1960B1EBC9";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -774,7 +774,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (L2T7YREY63)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -784,7 +784,7 @@
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D3983805-BACE-4D5E-B7FD-1C0DBAA7D097";
+				PROVISIONING_PROFILE = "400EFA64-E0A9-419F-BDF4-9C1960B1EBC9";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
