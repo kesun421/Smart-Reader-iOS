@@ -129,6 +129,9 @@
         _workInProgress = NO;
         
         sourcesUpdated = 0;
+        
+        [self saveSources];
+        
         if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
             [self.backgroundDelegate didFinishRefreshingAllSourcesWithError:nil];
         }
@@ -138,7 +141,6 @@
     }
     
     if (!error) {
-        [self saveSources];
         [source parseFeedItemTokens];
     }
 }
