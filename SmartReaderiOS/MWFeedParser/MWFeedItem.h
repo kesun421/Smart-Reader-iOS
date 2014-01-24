@@ -64,6 +64,8 @@
     BOOL read;
     
     __weak SRSource *source;
+    
+    float likeableProbability;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -81,5 +83,6 @@
 @property (nonatomic, assign) BOOL userLiked;
 @property (nonatomic, assign) BOOL userUnliked;
 @property (nonatomic, assign) BOOL read;
+@property (nonatomic, assign) float likeableProbability;
 
 @end

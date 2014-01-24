@@ -148,10 +148,11 @@
                                                                          
                                                                          unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
+                                                                         
                                                                          if (log(likeableProbability) > log(unlikeableProbability)) {
-                                                                             //DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
-                                                                             
                                                                              feedItem.like = YES;
+                                                                             feedItem.likeableProbability = log(likeableProbability);
                                                                          }
                                                                          else {
                                                                              feedItem.like = NO;
@@ -162,6 +163,7 @@
     // Find all the news items that are marked as likeable by algorithm, but not marked as unlikeable by the user.
     NSMutableArray *likeableFeedItems = [NSMutableArray new];
     
+    int totalFeedItemsCount = 0;
     for (SRSource *source in sources) {
         for (MWFeedItem *feedItem in source.feedItems) {
             // Only show those items that were liked by the algorithm.
@@ -169,11 +171,25 @@
                 feedItem.source = source;
                 [likeableFeedItems addObject:feedItem];
             }
+            
+            totalFeedItemsCount++;
         }
     }
     
+    // Sort the likeable feed items by their likeable probability...
+    [likeableFeedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
+        MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
+        
+        return feedItem2.likeableProbability > feedItem1.likeableProbability;
+    }];
+    
+    // Only show as much as 10 percent of the total items.
+    int tenPercentCount = floorf(totalFeedItemsCount / 10);
+    NSArray *topTenPercentItems = likeableFeedItems.count > tenPercentCount ? [likeableFeedItems subarrayWithRange:NSMakeRange(0, floorf(totalFeedItemsCount / 10))] : [likeableFeedItems copy];
+    
     // Call to delegate to refresh with suggested news items.
-    [self.delegate didFinishFindingLikeableFeedItems:[likeableFeedItems copy]];
+    [self.delegate didFinishFindingLikeableFeedItems:topTenPercentItems];
 }
 
 @end
