@@ -181,7 +181,12 @@
         MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
         MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
         
-        return feedItem2.likeableProbability > feedItem1.likeableProbability;
+        if (feedItem1.likeableProbability < feedItem2.likeableProbability) {
+            return (NSComparisonResult)NSOrderedDescending;
+        } else if(feedItem1.likeableProbability > feedItem2.likeableProbability) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
     }];
     
     // Only show as much as 10 percent of the total items.
