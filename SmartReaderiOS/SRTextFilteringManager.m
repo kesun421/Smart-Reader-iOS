@@ -113,23 +113,12 @@
                                                                      usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                                          MWFeedItem *feedItem = (MWFeedItem *)obj;
                                                                          
-                                                                         // Sort the keys in order of largest value, so the keys with the highest values are placed first.
-                                                                         NSArray *sortedKeys = [feedItem.tokens keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                                                                             return -[(NSNumber *)obj1 compare:(NSNumber *)obj2];
-                                                                         }];
-                                                                         
-                                                                         if (!sortedKeys.count) {
+                                                                         if (!feedItem.tokens.count)
                                                                              return;
-                                                                         }
-                                                                         
-                                                                         // Only take the first 15 tokens for use.
-                                                                         if (sortedKeys.count > 15) {
-                                                                             sortedKeys = [sortedKeys subarrayWithRange:NSMakeRange(0, 15)];
-                                                                         }
                                                                          
                                                                          float likeableProbability = 1.0;
                                                                          float unlikeableProbability = 1.0;
-                                                                         for (NSString *token in sortedKeys) {
+                                                                         for (NSString *token in feedItem.tokens.allKeys) {
                                                                              if (_likedFeedItemTokens[token]) {
                                                                                  likeableProbability = likeableProbability * ([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
                                                                              }
@@ -148,11 +137,14 @@
                                                                          
                                                                          unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, log(likeableProbability), log(unlikeableProbability));
+                                                                         likeableProbability = log(likeableProbability);
+                                                                         unlikeableProbability = log(unlikeableProbability);
                                                                          
-                                                                         if (log(likeableProbability) > log(unlikeableProbability)) {
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, likeableProbability, unlikeableProbability);
+                                                                         
+                                                                         if (likeableProbability > unlikeableProbability) {
                                                                              feedItem.like = YES;
-                                                                             feedItem.likeableProbability = log(likeableProbability);
+                                                                             feedItem.likeableProbability = likeableProbability;
                                                                          }
                                                                          else {
                                                                              feedItem.like = NO;
