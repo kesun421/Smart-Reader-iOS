@@ -126,7 +126,7 @@
     cell.textLabel.text = feedItem.title;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     
-    if (self.source.sourceForInterestingItems) {
+    if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
         NSMutableAttributedString *detailText = [NSMutableAttributedString new];
         
         NSMutableAttributedString *sourceTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", feedItem.source.feedInfo.title]
@@ -218,7 +218,7 @@
 {
     MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
     if ([feedItem.summary stringByConvertingHTMLToPlainText].length) {
-        if (self.source.sourceForInterestingItems) {
+        if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
             return 95.0;
         }
         else {

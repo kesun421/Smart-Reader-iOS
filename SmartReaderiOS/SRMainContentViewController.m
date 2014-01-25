@@ -93,6 +93,10 @@
                                                           target:self
                                                           action:@selector(bookmarkArticle:)];
     
+    if (self.feedItem.bookmarked) {
+        self.bookmarkButton.image = [[UIImage imageNamed:@"bookmark-7-remove.png"] resizeImageToSize:IMAGE_SIZE];
+    }
+    
     self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
     
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];

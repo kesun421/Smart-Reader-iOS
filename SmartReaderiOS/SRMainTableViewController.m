@@ -271,6 +271,7 @@
     for (SRSource *src in [SRSourceManager sharedManager].sources) {
         for (MWFeedItem *feedItem in src.feedItems) {
             if (feedItem.bookmarked) {
+                feedItem.source = src;
                 [bookmarkedItems addObject:feedItem];
             }
         }
