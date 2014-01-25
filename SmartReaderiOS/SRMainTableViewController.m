@@ -174,6 +174,8 @@
         [[SRSourceManager sharedManager] deleteSourceAtIndex:index];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [tableView reloadData];
     }
 }
 
