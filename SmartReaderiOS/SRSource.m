@@ -72,6 +72,11 @@
                                          
                                          NSMutableDictionary *dictCopy = feedItem.tokens ? [feedItem.tokens mutableCopy] : [NSMutableDictionary new];
                                          NSString *content = feedItem.content.length ? [feedItem.content stringByConvertingHTMLToPlainText] : [feedItem.summary stringByConvertingHTMLToPlainText];
+                                         
+                                         if (!content.length) {
+                                             content = [feedItem.title stringByConvertingHTMLToPlainText];
+                                         }
+                                         
                                          NSArray *tokens = [content componentsSeparatedByString:@" "];
                                          
                                          for (NSString *token in tokens) {
