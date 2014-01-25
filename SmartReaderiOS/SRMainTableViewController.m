@@ -281,7 +281,7 @@
     self.likableFeedItems = [feedItems copy];
     
     if (self.likableFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(250.0, 60.0) message:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)self.likableFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(240.0, 60.0) message:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)self.likableFeedItems.count]];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }

@@ -36,14 +36,14 @@
         
         if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
             _centerX = [UIScreen mainScreen].bounds.size.height / 2.0;
-            _centerY = [UIScreen mainScreen].bounds.size.width - 80.0;
+            _centerY = 60.0;
         }
         else {
             _centerX = [UIScreen mainScreen].bounds.size.width / 2.0;
-            _centerY = [UIScreen mainScreen].bounds.size.height - 80.0;
+            _centerY = 60.0;
         }
         
-        self.view = [[UIView alloc] initWithFrame:CGRectMake(_centerX - _width / 2.0, [UIScreen mainScreen].bounds.size.height, _width, _height)];
+        self.view = [[UIView alloc] initWithFrame:CGRectMake(_centerX - _width / 2.0, -_height, _width, _height)];
         self.view.layer.borderColor = [[UIColor grayColor] CGColor];
         self.view.layer.borderWidth = 0.25;
         self.view.layer.cornerRadius = 10.0;
