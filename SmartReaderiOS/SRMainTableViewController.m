@@ -139,7 +139,7 @@
         }
         
         __weak UITableViewCell *weakCell = cell;
-        UIImage *placeholderImage = [[[UIImage imageNamed:@"166-newspaper.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *placeholderImage = [[[UIImage imageNamed:@"compass.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:source.faviconLink]]
                               placeholderImage:placeholderImage

@@ -126,16 +126,18 @@
     static BOOL readingOriginal = NO;
     
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
+
+    CGSize imageSize = CGSizeMake(20.0, 20.0);
     
     if (!readingOriginal) {
-        [barButtonItem setImage:[UIImage imageNamed:@"163-glasses-1.png"]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:imageSize]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
         readingOriginal = YES;
     }
     else {
-        [barButtonItem setImage:[UIImage imageNamed:@"link.png"]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:imageSize]];
         
         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
