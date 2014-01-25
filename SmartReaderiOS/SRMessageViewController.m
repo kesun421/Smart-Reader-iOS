@@ -38,7 +38,7 @@
                                                object:nil];
     
     if (self) {
-        _width = message.length > 20 ? 260.0 : 140.0;
+        _width = message.length > 15 ? 260.0 : 160.0;
         _height = 40.0;
         
         if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {

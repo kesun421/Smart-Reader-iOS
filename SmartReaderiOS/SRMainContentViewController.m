@@ -28,6 +28,7 @@
 @property (nonatomic) UIBarButtonItem *switchArticleViewButton;
 @property (nonatomic) UIBarButtonItem *likeButton;
 @property (nonatomic) UIBarButtonItem *dislikeButton;
+@property (nonatomic) UIBarButtonItem *bookmarkButton;
 @property (nonatomic) MWFeedItem *feedItem;
 
 - (void)switchArticleView:(id)sender;
@@ -62,6 +63,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
+    
+    self.webView.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star.png"] resizeImageToSize:IMAGE_SIZE]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
@@ -77,17 +88,12 @@
                                                                    target:self
                                                                    action:@selector(switchArticleView:)];
     
-    self.activityIndicator.hidden = NO;
-    [self.activityIndicator startAnimating];
+    self.bookmarkButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"bookmark-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(bookmarkArticle:)];
     
-    self.webView.delegate = self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.switchArticleViewButton ];
+    self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
     
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
@@ -126,18 +132,16 @@
     static BOOL readingOriginal = NO;
     
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
-
-    CGSize imageSize = CGSizeMake(20.0, 20.0);
     
     if (!readingOriginal) {
-        [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:imageSize]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:IMAGE_SIZE]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
         readingOriginal = YES;
     }
     else {
-        [barButtonItem setImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:imageSize]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:IMAGE_SIZE]];
         
         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
@@ -155,7 +159,7 @@
     self.likeButton.enabled = NO;
     self.dislikeButton.enabled = YES;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Liked..."];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Liked"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }
@@ -169,7 +173,37 @@
     self.likeButton.enabled = YES;
     self.dislikeButton.enabled = NO;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Unliked..."];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Unliked"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+}
+
+- (void)bookmarkArticle:(id)sender
+{
+    NSString *message;
+    
+    UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
+    
+    if (self.feedItem.bookmarked) {
+        DebugLog(@"Unbookmared article: %@", self.feedItem);
+        message = @"Unbookmarked";
+        
+        self.feedItem.bookmarked = NO;
+        
+        [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7.png"] resizeImageToSize:IMAGE_SIZE]];
+    }
+    else {
+        DebugLog(@"Bookmared article: %@", self.feedItem);
+        message = @"Bookmarked";
+        
+        self.feedItem.bookmarked = YES;
+        
+        [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7-remove.png"] resizeImageToSize:IMAGE_SIZE]];
+    }
+    
+    [[SRSourceManager sharedManager] saveSources];
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }

@@ -35,12 +35,21 @@
     self = [super init];
     if (self) {
         self.source = source;
-        self.navigationItem.title = self.source.sourceForInterestingItems ? @"Suggested Reading..." : self.source.feedInfo.title;
+        
+        if (self.source.sourceForInterestingItems) {
+            self.navigationItem.title = @"Suggested Reading...";
+        }
+        else if (self.source.sourceForBookmarkedItems) {
+            self.navigationItem.title = @"Bookmarked Items";
+        }
+        else {
+            self.navigationItem.title = self.source.feedInfo.title;
+        }
         
         // Only show the unread items.
         NSMutableArray *temp = [NSMutableArray new];
         for (MWFeedItem *feedItem in source.feedItems) {
-            if (!feedItem.read) {
+            if (!feedItem.read || self.source.sourceForBookmarkedItems) {
                 [temp addObject:feedItem];
             }
         }

@@ -48,7 +48,7 @@
     [[SRSourceManager sharedManager] loadSources];
     [SRSourceManager sharedManager].mainDelegate = self;
     
-    [self refreshSources:self];
+    [self refreshSources];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
@@ -57,11 +57,17 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
+    self.navigationItem.leftBarButtonItems = @[
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"bookmark.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(showBookmarks)],
+                                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)]
+                                               ];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning
@@ -249,11 +255,33 @@
     [self.navigationController presentViewController:addSourceViewController animated:YES completion:nil];
 }
 
-- (void)refreshSources:(id)sender
+- (void)refreshSources
 {
     _refreshingSourcesTableCellAnimationSwitch = YES;
     
     [[SRSourceManager sharedManager] refreshSources];
+}
+
+- (void)showBookmarks
+{
+    SRSource *source = [SRSource new];
+    source.sourceForBookmarkedItems = YES;
+    NSMutableArray *bookmarkedItems = [NSMutableArray new];
+    
+    for (SRSource *src in [SRSourceManager sharedManager].sources) {
+        for (MWFeedItem *feedItem in src.feedItems) {
+            if (feedItem.bookmarked) {
+                [bookmarkedItems addObject:feedItem];
+            }
+        }
+    }
+    
+    source.feedItems = [bookmarkedItems copy];
+    
+    SRSecondaryTableViewController *secondaryViewController = [[SRSecondaryTableViewController alloc] initWithSource:source];
+    secondaryViewController.delegate = self;
+    
+    [self.navigationController pushViewController:secondaryViewController animated:YES];
 }
 
 #pragma mark - SRSourceManagerDelegate methods

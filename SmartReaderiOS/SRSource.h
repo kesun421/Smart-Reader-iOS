@@ -23,6 +23,7 @@
 @property (assign, readonly) int newCount;
 @property (assign, readonly) int interestingCount;
 @property (nonatomic, assign) BOOL sourceForInterestingItems;
+@property (nonatomic, assign) BOOL sourceForBookmarkedItems;
 
 - (void)addFeedItem:(MWFeedItem *)feedItem;
 - (void)refresh;
