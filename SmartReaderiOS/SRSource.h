@@ -26,7 +26,7 @@
 
 - (void)addFeedItem:(MWFeedItem *)feedItem;
 - (void)refresh;
-/** Remove entries that are older than two weeks. */
+/** Remove entries that are older than 30 days. */
 - (void)removeOldFeedItems;
 - (void)parseFeedItemTokens;
 

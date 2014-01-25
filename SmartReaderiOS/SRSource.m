@@ -53,7 +53,7 @@
     NSMutableArray *tempArray = [self.feedItems mutableCopy];
     
     for (MWFeedItem *feedItem in self.feedItems) {
-        if ([feedItem.date timeIntervalSinceNow] < -60 * 60 * 24 * 14) {
+        if ([feedItem.date timeIntervalSinceNow] < -60 * 60 * 24 * 30 && !feedItem.bookmarked) {
             [tempArray removeObject:feedItem];
         }
     }
