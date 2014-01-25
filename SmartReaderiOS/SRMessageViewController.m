@@ -74,7 +74,7 @@
                      }
                      completion:^(BOOL finished) {
                          [UIView animateWithDuration:0.5
-                                               delay:1.0
+                                               delay:2.0
                                              options:UIViewAnimationOptionCurveEaseOut
                                           animations:^{
                                               self.view.alpha = 0.0;
