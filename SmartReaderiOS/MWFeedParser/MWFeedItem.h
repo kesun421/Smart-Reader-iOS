@@ -51,7 +51,7 @@
     /** KS: Saving tokens parsed from feed item's source. */
     NSDictionary *tokens;
     
-    /** KS: Indicates if the article is likeable by computation. */
+    /** KS: Indicates if the article is likable by computation. */
     BOOL like;
     
     /** KS: Indicates if the user marked the article as liked.  */
@@ -65,7 +65,7 @@
     
     __weak SRSource *source;
     
-    float likeableProbability;
+    float likableProbability;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -83,6 +83,6 @@
 @property (nonatomic, assign) BOOL userLiked;
 @property (nonatomic, assign) BOOL userUnliked;
 @property (nonatomic, assign) BOOL read;
-@property (nonatomic, assign) float likeableProbability;
+@property (nonatomic, assign) float likableProbability;
 
 @end

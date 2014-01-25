@@ -101,12 +101,12 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     }
     
     [SRTextFilteringManager sharedManager].delegate = self;
-    [[SRTextFilteringManager sharedManager] findLikeableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+    [[SRTextFilteringManager sharedManager] findlikableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
 
 #pragma mark - SRTextFilteringManagerDelegate methods
 
-- (void)didFinishFindingLikeableFeedItems:(NSArray *)feedItems
+- (void)didFinishFindinglikableFeedItems:(NSArray *)feedItems
 {
     _interestingItemsCount = feedItems.count;
     

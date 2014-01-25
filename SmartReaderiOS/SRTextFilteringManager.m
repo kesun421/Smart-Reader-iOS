@@ -103,7 +103,7 @@
     [[SRSourceManager sharedManager] saveSources];
 }
 
-- (void)findLikeableFeedItemsFromSources:(NSArray *)sources
+- (void)findlikableFeedItemsFromSources:(NSArray *)sources
 {
     [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
                               usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -116,35 +116,35 @@
                                                                          if (!feedItem.tokens.count)
                                                                              return;
                                                                          
-                                                                         float likeableProbability = 1.0;
-                                                                         float unlikeableProbability = 1.0;
+                                                                         float likableProbability = 1.0;
+                                                                         float unlikableProbability = 1.0;
                                                                          for (NSString *token in feedItem.tokens.allKeys) {
                                                                              if (_likedFeedItemTokens[token]) {
-                                                                                 likeableProbability = likeableProbability * ([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
+                                                                                 likableProbability = likableProbability * ([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
                                                                              }
                                                                              
                                                                              if (_unlikedFeedItemTokens[token]) {
-                                                                                 unlikeableProbability = unlikeableProbability * ([_unlikedFeedItemTokens[token] floatValue] / _unlikedFeedItemTokens.count);
+                                                                                 unlikableProbability = unlikableProbability * ([_unlikedFeedItemTokens[token] floatValue] / _unlikedFeedItemTokens.count);
                                                                              }
                                                                          }
                                                                          
                                                                          // There is no value of continuing since a comparison can not be made from existing data.
-                                                                         if (likeableProbability == 1.0 || unlikeableProbability == 1.0) {
+                                                                         if (likableProbability == 1.0 || unlikableProbability == 1.0) {
                                                                              return;
                                                                          }
                                                                          
-                                                                         likeableProbability = likeableProbability * _likedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
+                                                                         likableProbability = likableProbability * _likedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
-                                                                         unlikeableProbability = unlikeableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
+                                                                         unlikableProbability = unlikableProbability * _unlikedFeedItemTokens.count / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count);
                                                                          
-                                                                         likeableProbability = log(likeableProbability);
-                                                                         unlikeableProbability = log(unlikeableProbability);
+                                                                         likableProbability = log(likableProbability);
+                                                                         unlikableProbability = log(unlikableProbability);
                                                                          
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has likeable probability: %f, has unlikeable probability: %f", feedItem, feedItem.link, likeableProbability, unlikeableProbability);
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has likable probability: %f, has unlikable probability: %f", feedItem, feedItem.link, likableProbability, unlikableProbability);
                                                                          
-                                                                         if (likeableProbability > unlikeableProbability) {
+                                                                         if (likableProbability > unlikableProbability) {
                                                                              feedItem.like = YES;
-                                                                             feedItem.likeableProbability = likeableProbability;
+                                                                             feedItem.likableProbability = likableProbability;
                                                                          }
                                                                          else {
                                                                              feedItem.like = NO;
@@ -152,8 +152,8 @@
                                                                      }];
                               }];
     
-    // Find all the news items that are marked as likeable by algorithm, but not marked as unlikeable by the user.
-    NSMutableArray *likeableFeedItems = [NSMutableArray new];
+    // Find all the news items that are marked as likable by algorithm, but not marked as unlikable by the user.
+    NSMutableArray *likableFeedItems = [NSMutableArray new];
     
     int totalFeedItemsCount = 0;
     for (SRSource *source in sources) {
@@ -161,21 +161,21 @@
             // Only show those items that were liked by the algorithm.
             if (feedItem.like && !feedItem.userLiked && !feedItem.userUnliked && !feedItem.read) {
                 feedItem.source = source;
-                [likeableFeedItems addObject:feedItem];
+                [likableFeedItems addObject:feedItem];
             }
             
             totalFeedItemsCount++;
         }
     }
     
-    // Sort the likeable feed items by their likeable probability...
-    [likeableFeedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    // Sort the likable feed items by their likable probability...
+    [likableFeedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
         MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
         
-        if (feedItem1.likeableProbability < feedItem2.likeableProbability) {
+        if (feedItem1.likableProbability < feedItem2.likableProbability) {
             return (NSComparisonResult)NSOrderedDescending;
-        } else if(feedItem1.likeableProbability > feedItem2.likeableProbability) {
+        } else if(feedItem1.likableProbability > feedItem2.likableProbability) {
             return (NSComparisonResult)NSOrderedAscending;
         }
         return (NSComparisonResult)NSOrderedSame;
@@ -183,10 +183,10 @@
     
     // Only show as much as 10 percent of the total items.
     int tenPercentCount = floorf(totalFeedItemsCount / 10);
-    NSArray *topTenPercentItems = likeableFeedItems.count > tenPercentCount ? [likeableFeedItems subarrayWithRange:NSMakeRange(0, floorf(totalFeedItemsCount / 10))] : [likeableFeedItems copy];
+    NSArray *topTenPercentItems = likableFeedItems.count > tenPercentCount ? [likableFeedItems subarrayWithRange:NSMakeRange(0, floorf(totalFeedItemsCount / 10))] : [likableFeedItems copy];
     
     // Call to delegate to refresh with suggested news items.
-    [self.delegate didFinishFindingLikeableFeedItems:topTenPercentItems];
+    [self.delegate didFinishFindinglikableFeedItems:topTenPercentItems];
 }
 
 @end

@@ -15,7 +15,7 @@
 
 + (instancetype)sharedManager;
 - (void)processFeedItem:(MWFeedItem *)feedItem AsLiked:(BOOL)liked;
-- (void)findLikeableFeedItemsFromSources:(NSArray *)sources;
+- (void)findlikableFeedItemsFromSources:(NSArray *)sources;
 
 @property (nonatomic, weak) id<SRTextFilteringManagerDelegate> delegate;
 
@@ -23,6 +23,6 @@
 
 @protocol SRTextFilteringManagerDelegate <NSObject>
 
-- (void)didFinishFindingLikeableFeedItems:(NSArray *)feedItems;
+- (void)didFinishFindinglikableFeedItems:(NSArray *)feedItems;
 
 @end
