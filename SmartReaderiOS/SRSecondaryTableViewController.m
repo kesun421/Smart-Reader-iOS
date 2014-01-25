@@ -278,6 +278,8 @@
                                                     MWFeedItem *feedItem = (MWFeedItem *)obj;
                                                     feedItem.read = NO;
                                                 }];
+        
+        self.feedItems = self.source.feedItems;
     }
     
     NSString *message = _markedAllAsRead ? @"Marked all as read..." : @"Marked all as unread...";
