@@ -15,6 +15,7 @@
 #import "SRTextFilteringManager.h"
 #import "SRSourceManager.h"
 #import "SRMessageViewController.h"
+#import "UIImage+Extensions.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 
@@ -23,14 +24,14 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *switchArticleViewButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *likeButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *dislikeButton;
+@property (nonatomic) UIBarButtonItem *switchArticleViewButton;
+@property (nonatomic) UIBarButtonItem *likeButton;
+@property (nonatomic) UIBarButtonItem *dislikeButton;
 @property (nonatomic) MWFeedItem *feedItem;
 
-- (IBAction)switchArticleView:(id)sender;
-- (IBAction)likeArticle:(id)sender;
-- (IBAction)unlikeArticle:(id)sender;
+- (void)switchArticleView:(id)sender;
+- (void)likeArticle:(id)sender;
+- (void)unlikeArticle:(id)sender;
 
 @end
 
@@ -41,7 +42,7 @@
     self = [super init];
     if (self) {
         self.feedItem = feedItem;
-        self.navigationItem.title = self.feedItem.title;
+//        self.navigationItem.title = self.feedItem.title;
     }
     return self;
 }
@@ -60,6 +61,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    CGSize imageSize = CGSizeMake(20.0, 20.0);
+    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star.png"] resizeImageToSize:imageSize]
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(likeArticle:)];
+    
+    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden.png"] resizeImageToSize:imageSize]
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(unlikeArticle:)];
+    
+    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:imageSize]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(switchArticleView:)];
+    
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
     
@@ -69,6 +86,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.switchArticleViewButton ];
     
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
@@ -102,7 +121,7 @@
 
 #pragma mark - Custom actions
 
-- (IBAction)switchArticleView:(id)sender
+- (void)switchArticleView:(id)sender
 {
     static BOOL readingOriginal = NO;
     
@@ -125,7 +144,7 @@
     }
 }
 
-- (IBAction)likeArticle:(id)sender
+- (void)likeArticle:(id)sender
 {
     DebugLog(@"Liked article.");
     
@@ -139,7 +158,7 @@
     [msgController animate];
 }
 
-- (IBAction)unlikeArticle:(id)sender
+- (void)unlikeArticle:(id)sender
 {
     DebugLog(@"Unliked article.");
     
