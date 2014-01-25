@@ -134,15 +134,19 @@
 - (void)switchArticleView:(id)sender
 {
     static BOOL readingOriginal = NO;
+
+    NSString *message;
     
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
-    
+
     if (!readingOriginal) {
         [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:IMAGE_SIZE]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
         readingOriginal = YES;
+        
+        message = @"Reading original article";
     }
     else {
         [barButtonItem setImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:IMAGE_SIZE]];
@@ -151,7 +155,13 @@
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
         
         readingOriginal = NO;
+        
+        message = @"Reading through Readability";
     }
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
 }
 
 - (void)likeArticle:(id)sender
