@@ -14,6 +14,9 @@
 #import "NSString+HTML.h"
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
+#import "SRSourceManager.h"
+
+#define IMAGE_SIZE CGSizeMake(22.0, 22.0)
 
 @interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate>
 {
@@ -63,11 +66,14 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    CGSize imageSize = CGSizeMake(25.0, 25.0);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tick.png"] resizeImageToSize:imageSize]
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"mark-read.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(markAll:)];
+    
+    if (!self.ureadFeedItems.count) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -228,6 +234,9 @@
 {
     if (!_markedAllAsRead) {
         _markedAllAsRead = YES;
+        
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-unread.png"] resizeImageToSize:IMAGE_SIZE];
+        
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                     MWFeedItem *feedItem = (MWFeedItem *)obj;
@@ -235,6 +244,10 @@
                                                 }];
     }
     else {
+        _markedAllAsRead = NO;
+        
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-read.png"] resizeImageToSize:IMAGE_SIZE];
+        
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                     MWFeedItem *feedItem = (MWFeedItem *)obj;
@@ -246,6 +259,8 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(200.0, 40.0) message:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
 }

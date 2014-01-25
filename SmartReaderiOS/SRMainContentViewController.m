@@ -18,6 +18,7 @@
 #import "UIImage+Extensions.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
+#define IMAGE_SIZE CGSizeMake(22.0, 22.0)
 
 @interface SRMainContentViewController () <UIWebViewDelegate>
 
@@ -61,18 +62,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    CGSize imageSize = CGSizeMake(20.0, 20.0);
-    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star.png"] resizeImageToSize:imageSize]
+    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star.png"] resizeImageToSize:IMAGE_SIZE]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(likeArticle:)];
     
-    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden.png"] resizeImageToSize:imageSize]
+    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden.png"] resizeImageToSize:IMAGE_SIZE]
                                                           style:UIBarButtonItemStylePlain
                                                          target:self
                                                          action:@selector(unlikeArticle:)];
     
-    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:imageSize]
+    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:IMAGE_SIZE]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(switchArticleView:)];
