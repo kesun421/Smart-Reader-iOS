@@ -18,11 +18,12 @@
 - (void)findlikableFeedItemsFromSources:(NSArray *)sources;
 
 @property (nonatomic, weak) id<SRTextFilteringManagerDelegate> delegate;
+@property (nonatomic) NSArray *likableFeedItems;
 
 @end
 
 @protocol SRTextFilteringManagerDelegate <NSObject>
 
-- (void)didFinishFindinglikableFeedItems:(NSArray *)feedItems;
+- (void)didFinishFindinglikableFeedItems;
 
 @end

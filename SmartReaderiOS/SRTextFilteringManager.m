@@ -113,6 +113,8 @@
                                                                      usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                                          MWFeedItem *feedItem = (MWFeedItem *)obj;
                                                                          
+                                                                         feedItem.like = NO;
+                                                                         
                                                                          if (!feedItem.tokens.count || feedItem.userLiked || feedItem.userUnliked) {
                                                                              DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@. User unliked: %@", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO", feedItem.userUnliked ? @"YES" : @"NO");
                                                                              return;
@@ -145,14 +147,11 @@
                                                                              feedItem.like = YES;
                                                                              feedItem.likableProbability = likableProbability;
                                                                          }
-                                                                         else {
-                                                                             feedItem.like = NO;
-                                                                         }
                                                                      }];
                               }];
     
     // Find all the news items that are marked as likable by algorithm, but not marked as unlikable by the user.
-    NSMutableArray *likableFeedItems = [NSMutableArray new];
+    NSMutableArray *feedItems = [NSMutableArray new];
     
     int totalFeedItemsCount = 0;
     for (SRSource *source in sources) {
@@ -161,13 +160,13 @@
             // Only show those items that were liked by the algorithm.
             if (feedItem.like && !feedItem.userLiked && !feedItem.userUnliked && !feedItem.read) {
                 feedItem.source = source;
-                [likableFeedItems addObject:feedItem];
+                [feedItems addObject:feedItem];
             }
         }
     }
     
     // Sort the likable feed items by their likable probability in descending order.
-    [likableFeedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    [feedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
         MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
         
@@ -180,11 +179,10 @@
     }];
     
     // Only show as much as 25 items.
-    NSArray *topItems;
-    if (likableFeedItems.count > 25) {
-        topItems = [likableFeedItems subarrayWithRange:NSMakeRange(0, 25)];
+    if (feedItems.count > 25) {
+        self.likableFeedItems = [feedItems subarrayWithRange:NSMakeRange(0, 25)];
         
-        NSArray *leftOverItems = [likableFeedItems subarrayWithRange:NSMakeRange(25, likableFeedItems.count - 25)];
+        NSArray *leftOverItems = [feedItems subarrayWithRange:NSMakeRange(25, feedItems.count - 25)];
         [leftOverItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                         usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                             MWFeedItem *feedItem = (MWFeedItem *)obj;
@@ -192,11 +190,11 @@
                                         }];
     }
     else {
-        topItems = [likableFeedItems copy];
+        self.likableFeedItems = [feedItems copy];
     }
     
     // Call to delegate to refresh with suggested news items.
-    [self.delegate didFinishFindinglikableFeedItems:topItems];
+    [self.delegate didFinishFindinglikableFeedItems];
 }
 
 @end

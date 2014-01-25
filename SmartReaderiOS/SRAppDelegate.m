@@ -106,9 +106,9 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 #pragma mark - SRTextFilteringManagerDelegate methods
 
-- (void)didFinishFindinglikableFeedItems:(NSArray *)feedItems
+- (void)didFinishFindinglikableFeedItems
 {
-    _interestingItemsCount = feedItems.count;
+    _interestingItemsCount = [SRTextFilteringManager sharedManager].likableFeedItems.count;
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = _interestingItemsCount;
     

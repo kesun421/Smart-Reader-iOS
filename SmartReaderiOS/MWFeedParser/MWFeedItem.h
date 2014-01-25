@@ -63,8 +63,10 @@
     /** KS: Indicates if the user has read the article. */
     BOOL read;
     
+    /** KS: Points to the source of the article. */
     __weak SRSource *source;
     
+    /** KS: Likable probability calculated by algorithm. */
     float likableProbability;
 }
 

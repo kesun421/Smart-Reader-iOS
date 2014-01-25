@@ -26,8 +26,6 @@
     BOOL _refreshingSourcesTableCellAnimationSwitch;
 }
 
-@property (nonatomic) NSArray *likableFeedItems;
-
 @end
 
 @implementation SRMainTableViewController
@@ -81,7 +79,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.likableFeedItems.count ? [SRSourceManager sharedManager].sources.count + 1 : [SRSourceManager sharedManager].sources.count;
+    return [SRTextFilteringManager sharedManager].likableFeedItems.count ? [SRSourceManager sharedManager].sources.count + 1 : [SRSourceManager sharedManager].sources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,9 +102,9 @@
     
     CGSize newImageSize = CGSizeMake(30.0, 30.0);
     
-    if (self.likableFeedItems.count && indexPath.row == 0) {
+    if ([SRTextFilteringManager sharedManager].likableFeedItems.count && indexPath.row == 0) {
         int count = 0;
-        for (MWFeedItem *feedItem in self.likableFeedItems) {
+        for (MWFeedItem *feedItem in [SRTextFilteringManager sharedManager].likableFeedItems) {
             if (!feedItem.read) {
                 count++;
             }
@@ -128,7 +126,7 @@
         }
     }
     else {
-        long index = self.likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        long index = [SRTextFilteringManager sharedManager].likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         SRSource *source = [SRSourceManager sharedManager].sources[index];
         
         int count = 0;
@@ -158,7 +156,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    if (self.likableFeedItems.count && indexPath.row == 0) {
+    if ([SRTextFilteringManager sharedManager].likableFeedItems.count && indexPath.row == 0) {
         return NO;
     }
     else {
@@ -170,7 +168,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        NSInteger index = self.likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        NSInteger index = [SRTextFilteringManager sharedManager].likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         [[SRSourceManager sharedManager] deleteSourceAtIndex:index];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -208,13 +206,13 @@
     });
     
     SRSource *source = nil;
-    if (self.likableFeedItems.count && indexPath.row == 0) {
+    if ([SRTextFilteringManager sharedManager].likableFeedItems.count && indexPath.row == 0) {
         source = [SRSource new];
-        source.feedItems = [self.likableFeedItems copy];
+        source.feedItems = [SRTextFilteringManager sharedManager].likableFeedItems;
         source.sourceForInterestingItems = YES;
     }
     else {
-        long index = self.likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
+        long index = [SRTextFilteringManager sharedManager].likableFeedItems.count ? indexPath.row - 1 : indexPath.row;
         source = [SRSourceManager sharedManager].sources[index];
     }
     
@@ -274,14 +272,12 @@
 
 #pragma mark - SRTextFilteringManagerDelegate methods
 
-- (void)didFinishFindinglikableFeedItems:(NSArray *)feedItems
+- (void)didFinishFindinglikableFeedItems
 {
-    DebugLog(@"Found these likable items: %@", feedItems);
+    DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].likableFeedItems);
     
-    self.likableFeedItems = [feedItems copy];
-    
-    if (self.likableFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(240.0, 60.0) message:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)self.likableFeedItems.count]];
+    if ([SRTextFilteringManager sharedManager].likableFeedItems.count) {
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(240.0, 60.0) message:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)[SRTextFilteringManager sharedManager].likableFeedItems.count]];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
