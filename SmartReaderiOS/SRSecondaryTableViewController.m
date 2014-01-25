@@ -12,8 +12,13 @@
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
 #import "NSString+HTML.h"
+#import "UIImage+Extensions.h"
+#import "SRMessageViewController.h"
 
 @interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate>
+{
+    BOOL _markedAllAsRead;
+}
 
 @property (nonatomic) SRSource *source;
 @property (nonatomic, copy) NSArray *ureadFeedItems;
@@ -57,14 +62,19 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    CGSize imageSize = CGSizeMake(25.0, 25.0);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tick.png"] resizeImageToSize:imageSize]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(markAll:)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    _markedAllAsRead = NO;
     
     [self.delegate refresh:self];
 }
@@ -209,6 +219,34 @@
 
 - (void)refresh:(id)sender
 {
+    [self.tableView reloadData];
+}
+
+#pragma mark - Feed item methods
+
+- (void)markAll:(id)sender
+{
+    if (!_markedAllAsRead) {
+        _markedAllAsRead = YES;
+        [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                    MWFeedItem *feedItem = (MWFeedItem *)obj;
+                                                    feedItem.read = YES;
+                                                }];
+    }
+    else {
+        [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                    MWFeedItem *feedItem = (MWFeedItem *)obj;
+                                                    feedItem.read = NO;
+                                                }];
+    }
+    
+    NSString *message = _markedAllAsRead ? @"Marked all as read..." : @"Marked all as unread...";
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(200.0, 40.0) message:message];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+    
     [self.tableView reloadData];
 }
 
