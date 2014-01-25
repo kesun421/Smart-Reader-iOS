@@ -24,7 +24,7 @@
 }
 
 @property (nonatomic) SRSource *source;
-@property (nonatomic, copy) NSArray *ureadFeedItems;
+@property (nonatomic, copy) NSArray *feedItems;
 
 @end
 
@@ -46,15 +46,20 @@
             self.navigationItem.title = self.source.feedInfo.title;
         }
         
-        // Only show the unread items.
-        NSMutableArray *temp = [NSMutableArray new];
-        for (MWFeedItem *feedItem in source.feedItems) {
-            if (!feedItem.read || self.source.sourceForBookmarkedItems) {
-                [temp addObject:feedItem];
-            }
+        if (self.source.sourceForBookmarkedItems) {
+            self.feedItems = source.feedItems;
         }
-        
-        self.ureadFeedItems = [temp copy];
+        else {
+            // Only show the unread items.
+            NSMutableArray *temp = [NSMutableArray new];
+            for (MWFeedItem *feedItem in source.feedItems) {
+                if (!feedItem.read) {
+                    [temp addObject:feedItem];
+                }
+            }
+            
+            self.feedItems = [temp copy];
+        }
     }
     return self;
 }
@@ -74,14 +79,25 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"mark-read.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(markAll:)];
     
-    if (!self.ureadFeedItems.count) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+    BOOL allRead = YES;
+    for (MWFeedItem *feedItem in self.feedItems) {
+        allRead = feedItem.read;
+    }
+    
+    if (allRead) {
+        _markedAllAsRead = YES;
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-unread.png"] resizeImageToSize:IMAGE_SIZE];
     }
 }
 
@@ -109,7 +125,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.ureadFeedItems.count;
+    return self.feedItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,7 +137,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
+    MWFeedItem *feedItem = self.feedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
@@ -208,7 +224,7 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
+    MWFeedItem *feedItem = self.feedItems[indexPath.row];
     SRMainContentViewController *mainContentViewController = [[SRMainContentViewController alloc] initWithFeedItem:feedItem];
     mainContentViewController.delegate = self;
     [self.navigationController pushViewController:mainContentViewController animated:YES];
@@ -216,7 +232,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWFeedItem *feedItem = self.ureadFeedItems[indexPath.row];
+    MWFeedItem *feedItem = self.feedItems[indexPath.row];
     if ([feedItem.summary stringByConvertingHTMLToPlainText].length) {
         if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
             return 95.0;
