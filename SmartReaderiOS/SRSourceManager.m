@@ -75,9 +75,11 @@
 
 - (void)saveSources
 {
-    [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
-    
-    DebugLog(@"Saving sources... Source file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[NSKeyedArchiver archivedDataWithRootObject:self.sources] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kSourcesFileName] atomically:YES];
+        
+        DebugLog(@"Saving sources... Source file size is: %1.4f MB.", [[[SRFileUtility sharedUtility] documentSizeForFile:kSourcesFileName] floatValue] / (1024 * 1024));
+    });
 }
 
 - (void)refreshSources
