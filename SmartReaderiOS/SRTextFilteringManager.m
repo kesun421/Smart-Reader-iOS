@@ -179,18 +179,24 @@
         return (NSComparisonResult)NSOrderedSame;
     }];
     
-    // Only show as much as 10 percent of the total items.
-    int tenPercentCount = floorf(totalFeedItemsCount * 0.1);
-    NSArray *topTenPercentItems;
-    if (likableFeedItems.count > tenPercentCount) {
-        topTenPercentItems = [likableFeedItems subarrayWithRange:NSMakeRange(0, tenPercentCount)];
+    // Only show as much as 25 items.
+    NSArray *topItems;
+    if (likableFeedItems.count > 25) {
+        topItems = [likableFeedItems subarrayWithRange:NSMakeRange(0, 25)];
+        
+        NSArray *leftOverItems = [likableFeedItems subarrayWithRange:NSMakeRange(25, likableFeedItems.count - 25)];
+        [leftOverItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                        usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                            MWFeedItem *feedItem = (MWFeedItem *)obj;
+                                            feedItem.like = NO;
+                                        }];
     }
     else {
-        topTenPercentItems = [likableFeedItems copy];
+        topItems = [likableFeedItems copy];
     }
     
     // Call to delegate to refresh with suggested news items.
-    [self.delegate didFinishFindinglikableFeedItems:topTenPercentItems];
+    [self.delegate didFinishFindinglikableFeedItems:topItems];
 }
 
 @end
