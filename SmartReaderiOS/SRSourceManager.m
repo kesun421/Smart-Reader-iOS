@@ -109,9 +109,9 @@
     self.sources = [self.sources arrayByAddingObject:source];
     
     self.sources = [self.sources sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        SRSource *firstSource = (SRSource *)obj1;
-        SRSource *secondSource = (SRSource *)obj2;
-        return [firstSource.feedInfo.title compare:secondSource.feedInfo.title];
+        SRSource *source1 = (SRSource *)obj1;
+        SRSource *source2 = (SRSource *)obj2;
+        return [source1.feedInfo.title compare:source2.feedInfo.title];
     }];
     
     [source parseFeedItemTokens];
