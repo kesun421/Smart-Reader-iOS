@@ -10,7 +10,7 @@
 
 @interface SRMessageViewController : UIViewController
 
-- (instancetype)initWithSize:(CGSize)size message:(NSString *)message;
+- (instancetype)initWithMessage:(NSString *)message;
 - (void)animate;
 
 @end

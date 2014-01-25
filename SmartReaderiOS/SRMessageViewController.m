@@ -7,10 +7,11 @@
 //
 
 #import "SRMessageViewController.h"
+#import "UIImage+Extensions.h"
 
 @interface SRMessageViewController ()
 {
-    float _width, _height, _centerX, _centerY;
+    float _width, _height, _x, _y;
 }
 
 @end
@@ -26,36 +27,46 @@
     return self;
 }
 
-- (instancetype)initWithSize:(CGSize)size message:(NSString *)message
+- (instancetype)initWithMessage:(NSString *)message
 {
     self = [super init];
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    
     if (self) {
-        _width = size.width;
-        _height = size.height;
+        _width = message.length > 20 ? 260.0 : 140.0;
+        _height = 40.0;
         
         if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
-            _centerX = [UIScreen mainScreen].bounds.size.height / 2.0;
-            _centerY = 60.0;
+            _x = [UIScreen mainScreen].bounds.size.height;
+            _y = 50.0;
         }
         else {
-            _centerX = [UIScreen mainScreen].bounds.size.width / 2.0;
-            _centerY = 60.0;
+            _x = [UIScreen mainScreen].bounds.size.width;
+            _y = 60.0;
         }
         
-        self.view = [[UIView alloc] initWithFrame:CGRectMake(_centerX - _width / 2.0, -_height, _width, _height)];
+        self.view = [[UIView alloc] initWithFrame:CGRectMake(_x, _y, _width, _height)];
         self.view.layer.borderColor = [[UIColor grayColor] CGColor];
-        self.view.layer.borderWidth = 0.25;
-        self.view.layer.cornerRadius = 10.0;
+        self.view.layer.borderWidth = 0.5;
         self.view.layer.shadowColor = [[UIColor grayColor] CGColor];
-        self.view.layer.shadowOffset = CGSizeMake(-2.5, 2.5);
+        self.view.layer.shadowOffset = CGSizeMake(-1.5, 1.5);
         self.view.layer.shadowRadius = 5;
         self.view.layer.shadowOpacity = 0.5;
         self.view.layer.backgroundColor = [[UIColor colorWithRed:249.0f/255.0f green:253.0f/255.0f blue:255.0f/255.0f alpha:1.0] CGColor];
         self.view.alpha = 0.5;
-
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, _width - 10.0 * 2, _height)];
-        textField.textAlignment = NSTextAlignmentCenter;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 20.0, 20.0)];
+        imageView.center = CGPointMake(15.0, _height/2.0);
+        imageView.image = [[UIImage imageNamed:@"info.png"] resizeImageToSize:CGSizeMake(20.0, 20.0)];
+        [self.view addSubview:imageView];
+        
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(30.0, 0.0, _width - 30.0 - 10.0, _height)];
+        textField.textAlignment = NSTextAlignmentLeft;
         textField.text = message;
         [self.view addSubview:textField];
     }
@@ -63,25 +74,9 @@
     return self;
 }
 
-- (void)animate
+- (void)orientationChanged:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.view.alpha = 1.0;
-                         self.view.center = CGPointMake(_centerX, _centerY);
-                     }
-                     completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.5
-                                               delay:2.0
-                                             options:UIViewAnimationOptionCurveEaseOut
-                                          animations:^{
-                                              self.view.alpha = 0.0;
-                                          } completion:^(BOOL finished) {
-                                              [self.view removeFromSuperview];
-                                          }];
-                     }];
+    [self.view removeFromSuperview];
 }
 
 - (void)viewDidLoad
@@ -92,6 +87,33 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)animate
+{
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.view.alpha = 1.0;
+                         self.view.frame = CGRectMake(_x - _width + 5.0, _y, _width, _height);
+                     }
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.5
+                                               delay:1.5
+                                             options:UIViewAnimationOptionCurveEaseOut
+                                          animations:^{
+                                              self.view.frame = CGRectMake(_x, _y, _width, _height);
+                                              self.view.alpha = 0.0;
+                                          } completion:^(BOOL finished) {
+                                              [self.view removeFromSuperview];
+                                          }];
+                     }];
 }
 
 @end

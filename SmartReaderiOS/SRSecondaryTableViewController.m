@@ -256,7 +256,7 @@
     }
     
     NSString *message = _markedAllAsRead ? @"Marked all as read..." : @"Marked all as unread...";
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithSize:CGSizeMake(200.0, 40.0) message:message];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
     
