@@ -68,6 +68,9 @@
     
     /** KS: Likable probability calculated by algorithm. */
     float likableProbability;
+    
+    /** KS: Indicates if the user has bookmarked the article. */
+    BOOL bookmarked;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -86,5 +89,6 @@
 @property (nonatomic, assign) BOOL userUnliked;
 @property (nonatomic, assign) BOOL read;
 @property (nonatomic, assign) float likableProbability;
+@property (nonatomic, assign) BOOL bookmarked;
 
 @end
