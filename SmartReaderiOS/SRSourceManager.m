@@ -123,7 +123,7 @@
 
 - (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
 {
-    [source removeOldFeedItems];
+//    [source removeOldFeedItems];
     
     static int sourcesUpdated = 0;
     sourcesUpdated++;
