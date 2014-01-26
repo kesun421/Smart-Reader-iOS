@@ -163,21 +163,28 @@
             }
             
             if (!feedUrlExists) {
-                _faviconLink = nil;
+                [self parseFeedErrorResponse];
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Feed Found" message:@"No feeds were found in the url provided." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-                
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.hidden = YES;
+                DebugLog(@"Feed URL does not exist.");
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        _faviconLink = nil;
+        [self parseFeedErrorResponse];
         
         DebugLog(@"Error trying to add news source: %@, error: %@", operation.request.URL, error);
     }];
+}
+
+- (void)parseFeedErrorResponse
+{
+    _faviconLink = nil;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Feed Found" message:@"No feeds were found in the url provided." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
 }
 
 #pragma mark - SRSourceDelegate
