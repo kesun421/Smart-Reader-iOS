@@ -121,6 +121,10 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         message = [NSString stringWithFormat:@"Added %d new articles! %lu articles might be interesting...", _totalNewCount, _interestingItemsCount];
     }
     
+    if (_totalNewCount || _interestingItemsCount) {
+        [[SRSourceManager sharedManager] saveSources];
+    }
+    
     if (message.length) {
         UILocalNotification *notification = [UILocalNotification new];
         notification.alertBody = message;
