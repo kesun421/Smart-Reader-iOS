@@ -311,7 +311,7 @@
         [msgController animate];
     }
     else {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me to get suggested articles!"];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me to suggest articles!"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
