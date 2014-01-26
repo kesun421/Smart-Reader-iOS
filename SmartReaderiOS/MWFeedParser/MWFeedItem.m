@@ -33,7 +33,7 @@
 
 @implementation MWFeedItem
 
-@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, tokens, source, like, userLiked, userUnliked, read, likableProbability, bookmarked;
+@synthesize identifier, title, link, date, updated, summary, content, author, enclosures, tokens, source, like, userLiked, userUnliked, read, likableProbability, bookmarked, bookmarkedDate;
 
 #pragma mark NSObject
 
@@ -66,6 +66,7 @@
         userUnliked = [decoder decodeBoolForKey:@"userUnliked"];
         read = [decoder decodeBoolForKey:@"read"];
         bookmarked = [decoder decodeBoolForKey:@"bookmarked"];
+        bookmarkedDate = [decoder decodeObjectForKey:@"bookmarkedDate"];
 	}
 	return self;
 }
@@ -86,6 +87,7 @@
     if (userUnliked) [encoder encodeBool:userUnliked forKey:@"userUnliked"];
     if (read) [encoder encodeBool:read forKey:@"read"];
     if (bookmarked) [encoder encodeBool:bookmarked forKey:@"bookmarked"];
+    if (bookmarkedDate) [encoder encodeObject:date forKey:@"bookmarkedDate"];
 }
 
 @end

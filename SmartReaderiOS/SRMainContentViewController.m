@@ -203,6 +203,7 @@
         message = @"Unbookmarked";
         
         self.feedItem.bookmarked = NO;
+        self.feedItem.bookmarkedDate = nil;
         
         [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7.png"] resizeImageToSize:IMAGE_SIZE]];
     }
@@ -211,6 +212,7 @@
         message = @"Bookmarked";
         
         self.feedItem.bookmarked = YES;
+        self.feedItem.bookmarkedDate = [NSDate date];
         
         [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7-remove.png"] resizeImageToSize:IMAGE_SIZE]];
     }

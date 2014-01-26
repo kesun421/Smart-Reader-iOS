@@ -71,6 +71,9 @@
     
     /** KS: Indicates if the user has bookmarked the article. */
     BOOL bookmarked;
+    
+    /** KS: Indicates the date that the user has bookmarked the article. */
+    NSDate *bookmarkedDate;
 }
 
 @property (nonatomic, copy) NSString *identifier;
@@ -90,5 +93,6 @@
 @property (nonatomic, assign) BOOL read;
 @property (nonatomic, assign) float likableProbability;
 @property (nonatomic, assign) BOOL bookmarked;
+@property (nonatomic, copy) NSDate *bookmarkedDate;
 
 @end

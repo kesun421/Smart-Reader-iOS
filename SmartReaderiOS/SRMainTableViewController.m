@@ -277,6 +277,13 @@
         }
     }
     
+    [bookmarkedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
+        MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
+        
+        return [feedItem2.bookmarkedDate compare:feedItem1.bookmarkedDate];
+    }];
+    
     source.feedItems = [bookmarkedItems copy];
     
     SRSecondaryTableViewController *secondaryViewController = [[SRSecondaryTableViewController alloc] initWithSource:source];
