@@ -283,7 +283,7 @@
         self.feedItems = self.source.feedItems;
     }
     
-    NSString *message = _markedAllAsRead ? @"Marked all as read..." : @"Marked all as unread...";
+    NSString *message = _markedAllAsRead ? @"Marked all as read" : @"Marked all as unread";
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];

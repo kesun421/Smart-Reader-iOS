@@ -242,7 +242,7 @@
 
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
 {
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"News source added!"];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"News source added"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }
@@ -315,12 +315,12 @@
     DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].likableFeedItems);
     
     if ([SRTextFilteringManager sharedManager].likableFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting items!", (unsigned long)[SRTextFilteringManager sharedManager].likableFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting items", (unsigned long)[SRTextFilteringManager sharedManager].likableFeedItems.count]];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
     else {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me to suggest articles!"];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me to suggest articles"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
