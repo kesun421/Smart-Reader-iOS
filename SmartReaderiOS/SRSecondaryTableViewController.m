@@ -79,6 +79,8 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
+    
+    self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -167,9 +169,8 @@
     }
 
     if (feedItem.read) {
-        UIColor *lightGrayColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f blue:204.0f/255.0f alpha:1.0];
-        cell.textLabel.textColor = lightGrayColor;
-        cell.detailTextLabel.textColor = lightGrayColor;
+        cell.textLabel.textColor = [UIColor colorWithRed:180.0f/255.0f green:180.0f/255.0f blue:180.0f/255.0f alpha:1.0];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:190.0f/255.0f green:190.0f/255.0f blue:190.0f/255.0f alpha:1.0];
     }
     else {
         cell.textLabel.textColor = [UIColor blackColor];
