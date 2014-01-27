@@ -92,6 +92,8 @@
                                                                              target:self
                                                                              action:@selector(markAll:)];
     
+    _markedAllAsRead = NO;
+    
     BOOL allRead = YES;
     for (MWFeedItem *feedItem in self.feedItems) {
         allRead = feedItem.read;
@@ -106,8 +108,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    _markedAllAsRead = NO;
     
     [self.delegate refresh:self];
 }
@@ -282,6 +282,7 @@
         
         self.feedItems = self.source.feedItems;
     }
+    
     
     NSString *message = _markedAllAsRead ? @"Marked all as read" : @"Marked all as unread";
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
