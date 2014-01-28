@@ -96,7 +96,7 @@
     
     BOOL allRead = YES;
     for (MWFeedItem *feedItem in self.feedItems) {
-        allRead = feedItem.read;
+        allRead = allRead && feedItem.read;
     }
     
     if (allRead) {
