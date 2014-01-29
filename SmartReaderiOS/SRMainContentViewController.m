@@ -222,6 +222,8 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    [self.delegate refresh:self];
 }
 
 #pragma mark - UIWebViewDelegate

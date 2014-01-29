@@ -251,6 +251,17 @@
 
 - (void)refresh:(id)sender
 {
+    if (self.source.sourceForBookmarkedItems) {
+        NSMutableArray *bookMarkedItems = [NSMutableArray new];
+        for (MWFeedItem *feedItem in self.feedItems) {
+            if (feedItem.bookmarked) {
+                [bookMarkedItems addObject:feedItem];
+            }
+        }
+        
+        self.feedItems = [bookMarkedItems copy];
+    }
+    
     [self.tableView reloadData];
 }
 
