@@ -21,6 +21,9 @@
 #define IMAGE_SIZE CGSizeMake(22.0, 22.0)
 
 @interface SRMainContentViewController () <UIWebViewDelegate>
+{
+    BOOL _readingOriginalLink;
+}
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -44,7 +47,6 @@
     self = [super init];
     if (self) {
         self.feedItem = feedItem;
-//        self.navigationItem.title = self.feedItem.title;
     }
     return self;
 }
@@ -133,18 +135,16 @@
 
 - (void)switchArticleView:(id)sender
 {
-    static BOOL readingOriginal = NO;
-
     NSString *message;
     
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
 
-    if (!readingOriginal) {
+    if (!_readingOriginalLink) {
         [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:IMAGE_SIZE]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
-        readingOriginal = YES;
+        _readingOriginalLink = YES;
         
         message = @"Reading original article";
     }
@@ -154,7 +154,7 @@
         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
         
-        readingOriginal = NO;
+        _readingOriginalLink = NO;
         
         message = @"Reading through Readability";
     }
