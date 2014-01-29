@@ -71,7 +71,7 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 20.0, 20.0)];
         imageView.center = CGPointMake(15.0, _height/2.0);
-        imageView.image = [[UIImage imageNamed:@"info.png"] resizeImageToSize:CGSizeMake(20.0, 20.0)];
+        imageView.image = [[UIImage imageNamed:@"info-7.png"] resizeImageToSize:CGSizeMake(20.0, 20.0)];
         [self.view addSubview:imageView];
         
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(30.0, 0.0, _width - 30.0 - 10.0, _height)];

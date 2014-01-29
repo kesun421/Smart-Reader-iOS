@@ -60,16 +60,15 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItems = @[
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"bookmark.png"] resizeImageToSize:CGSizeMake(24.0, 24.0)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:CGSizeMake(24.0, 24.0)]
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(showBookmarks)],
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-sign.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(add)]
                                                ];
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
@@ -121,7 +120,7 @@
             }
         }
         
-        cell.imageView.image = [[[UIImage imageNamed:@"star.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.image = [[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Suggested Reading...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
@@ -148,7 +147,7 @@
         }
         
         __weak UITableViewCell *weakCell = cell;
-        UIImage *placeholderImage = [[[UIImage imageNamed:@"rss.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *placeholderImage = [[[UIImage imageNamed:@"rss-7.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:source.faviconLink]]
                               placeholderImage:placeholderImage

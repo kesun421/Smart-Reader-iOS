@@ -75,17 +75,17 @@
 {
     [super viewWillAppear:animated];
     
-    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star.png"] resizeImageToSize:IMAGE_SIZE]
+    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(likeArticle:)];
     
-    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden.png"] resizeImageToSize:IMAGE_SIZE]
+    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                           style:UIBarButtonItemStylePlain
                                                          target:self
                                                          action:@selector(unlikeArticle:)];
     
-    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:IMAGE_SIZE]
+    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"compass-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(switchArticleView:)];
@@ -96,7 +96,7 @@
                                                           action:@selector(bookmarkArticle:)];
     
     if (self.feedItem.bookmarked) {
-        self.bookmarkButton.image = [[UIImage imageNamed:@"bookmark-7-remove.png"] resizeImageToSize:IMAGE_SIZE];
+        self.bookmarkButton.image = [[UIImage imageNamed:@"bookmark-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
     
     self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
@@ -140,7 +140,7 @@
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
 
     if (!_readingOriginalLink) {
-        [barButtonItem setImage:[[UIImage imageNamed:@"text-pic-left.png"] resizeImageToSize:IMAGE_SIZE]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"rss-7.png"] resizeImageToSize:IMAGE_SIZE]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
@@ -149,7 +149,7 @@
         message = @"Reading original article";
     }
     else {
-        [barButtonItem setImage:[[UIImage imageNamed:@"link.png"] resizeImageToSize:IMAGE_SIZE]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"compass-7.png"] resizeImageToSize:IMAGE_SIZE]];
         
         NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
@@ -214,7 +214,7 @@
         self.feedItem.bookmarked = YES;
         self.feedItem.bookmarkedDate = [NSDate date];
         
-        [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7-remove.png"] resizeImageToSize:IMAGE_SIZE]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"bookmark-7-active.png"] resizeImageToSize:IMAGE_SIZE]];
     }
     
     [[SRSourceManager sharedManager] saveSources];

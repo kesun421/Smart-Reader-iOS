@@ -96,7 +96,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"mark-read.png"] resizeImageToSize:IMAGE_SIZE]
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(markAll:)];
@@ -110,7 +110,7 @@
     
     if (allRead) {
         _markedAllAsRead = YES;
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-unread.png"] resizeImageToSize:IMAGE_SIZE];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
 }
 
@@ -281,7 +281,7 @@
     if (!_markedAllAsRead) {
         _markedAllAsRead = YES;
         
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-unread.png"] resizeImageToSize:IMAGE_SIZE];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
         
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -292,7 +292,7 @@
     else {
         _markedAllAsRead = NO;
         
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"mark-read.png"] resizeImageToSize:IMAGE_SIZE];
+        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE];
         
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
