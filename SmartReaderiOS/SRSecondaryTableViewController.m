@@ -15,10 +15,11 @@
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
 #import "SRSourceManager.h"
+#import "SRTextFilteringManager.h"
 
 #define IMAGE_SIZE CGSizeMake(22.0, 22.0)
 
-@interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate>
+@interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate, UIGestureRecognizerDelegate>
 {
     BOOL _markedAllAsRead;
 }
@@ -80,7 +81,15 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+    if (!self.source.sourceForBookmarkedItems && !self.source.sourceForInterestingItems) {
+        self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+        
+        //Add a left swipe gesture recognizer
+        UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                         action:@selector(handleSwipeLeft:)];
+        [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+        [self.tableView addGestureRecognizer:recognizer];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -303,6 +312,34 @@
     [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
+}
+
+#pragma mark - Swipe gesture
+
+- (void)handleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    
+    MWFeedItem *feedItem = (MWFeedItem *)self.feedItems[indexPath.row];
+    feedItem.read = YES;
+    
+    NSMutableArray *unreadFeedItems = [self.feedItems mutableCopy];
+    [unreadFeedItems removeObjectAtIndex:indexPath.row];
+    self.feedItems = [unreadFeedItems copy];
+    
+    DebugLog(@"Unliked article from swipping...");
+    
+    [[SRTextFilteringManager sharedManager] processFeedItem:feedItem AsLiked:NO];
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Unliked"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+    
+    [self.tableView endUpdates];
 }
 
 @end
