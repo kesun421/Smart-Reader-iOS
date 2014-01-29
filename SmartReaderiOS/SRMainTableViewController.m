@@ -60,11 +60,14 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItems = @[
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"bookmark.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"bookmark.png"] resizeImageToSize:CGSizeMake(24.0, 24.0)]
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(showBookmarks)],
-                                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-sign.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
+                                                                                style:UIBarButtonItemStylePlain
+                                                                               target:self
+                                                                               action:@selector(add)]
                                                ];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -145,7 +148,7 @@
         }
         
         __weak UITableViewCell *weakCell = cell;
-        UIImage *placeholderImage = [[[UIImage imageNamed:@"compass.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *placeholderImage = [[[UIImage imageNamed:@"rss.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:source.faviconLink]]
                               placeholderImage:placeholderImage
