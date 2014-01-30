@@ -305,7 +305,7 @@
 
 - (void)menu
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu got to do these days to get a job!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu gotta do these days to get some function assigned!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
     [alert show];
 }
 
