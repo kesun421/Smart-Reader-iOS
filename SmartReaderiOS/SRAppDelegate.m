@@ -30,7 +30,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     [[UIView appearance] setTintColor:[UIColor grayColor]];
     
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:30 * 60];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60 * 60];
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
