@@ -69,9 +69,9 @@
         self.view.layer.backgroundColor = [[UIColor colorWithRed:249.0f/255.0f green:253.0f/255.0f blue:255.0f/255.0f alpha:1.0] CGColor];
         self.view.alpha = 0.5;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 20.0, 20.0)];
-        imageView.center = CGPointMake(15.0, _height/2.0);
-        imageView.image = [[UIImage imageNamed:@"info-7.png"] resizeImageToSize:CGSizeMake(20.0, 20.0)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 22.0, 22.0)];
+        imageView.center = CGPointMake(15.0, _height/2.0 - 1.0);
+        imageView.image = [[UIImage imageNamed:@"info-7.png"] resizeImageToSize:CGSizeMake(22.0, 22.0)];
         [self.view addSubview:imageView];
         
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(30.0, 0.0, _width - 30.0 - 10.0, _height)];
@@ -105,24 +105,32 @@
 
 - (void)animate
 {
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.view.alpha = 1.0;
-                         self.view.frame = CGRectMake(_x - _width + 5.0, _y, _width, _height);
-                     }
-                     completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.5
-                                               delay:1.5
-                                             options:UIViewAnimationOptionCurveEaseOut
-                                          animations:^{
-                                              self.view.frame = CGRectMake(_x, _y, _width, _height);
-                                              self.view.alpha = 0.0;
-                                          } completion:^(BOOL finished) {
-                                              [self.view removeFromSuperview];
-                                          }];
-                     }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.view.alpha = 1.0;
+                             self.view.frame = CGRectMake(_x - _width + 5.0, _y, _width, _height);
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 [UIView animateWithDuration:0.5
+                                                       delay:1.5
+                                                     options:UIViewAnimationOptionCurveEaseOut
+                                                  animations:^{
+                                                      self.view.frame = CGRectMake(_x, _y, _width, _height);
+                                                      self.view.alpha = 0.0;
+                                                  } completion:^(BOOL finished) {
+                                                      
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                          [self.view removeFromSuperview];
+                                                      });
+                                                  }];
+                             });
+                         }];
+    });
 }
 
 @end

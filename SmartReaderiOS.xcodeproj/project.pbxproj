@@ -26,6 +26,7 @@
 		9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */; };
 		9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */; };
 		9E47362D1890E26A003D268C /* no-entry.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E47362C1890E26A003D268C /* no-entry.png */; };
+		9E4D5EE4189A075A00CBD39C /* arrow-left-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D5EE3189A075A00CBD39C /* arrow-left-7@2x.png */; };
 		9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */; };
 		9E6A6EF718997EE1006E9F35 /* book-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6EF618997EE1006E9F35 /* book-7@2x.png */; };
 		9E6A6EF918997EED006E9F35 /* bookmark-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6EF818997EED006E9F35 /* bookmark-7@2x.png */; };
@@ -122,6 +123,7 @@
 		9E417A0F18441E7600A9DA60 /* SRMainContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainContentViewController.m; sourceTree = "<group>"; };
 		9E417A1018441E7600A9DA60 /* SRMainContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainContentViewController.xib; sourceTree = "<group>"; };
 		9E47362C1890E26A003D268C /* no-entry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-entry.png"; sourceTree = "<group>"; };
+		9E4D5EE3189A075A00CBD39C /* arrow-left-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left-7@2x.png"; sourceTree = "<group>"; };
 		9E655FFD188E1F16004FF3D0 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		9E6A6EF618997EE1006E9F35 /* book-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book-7@2x.png"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E4D5EE3189A075A00CBD39C /* arrow-left-7@2x.png */,
 				9E6A6F1618998A8C006E9F35 /* link-7@2x.png */,
 				9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */,
 				9E6A6F1218998A0F006E9F35 /* forbidden-7@2x.png */,
@@ -607,6 +610,7 @@
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
 				9E6A6F0D189987E9006E9F35 /* tick-7-active@2x.png in Resources */,
 				9E6A6F0318997F71006E9F35 /* plus-7@2x.png in Resources */,
+				9E4D5EE4189A075A00CBD39C /* arrow-left-7@2x.png in Resources */,
 				9E6A6F11189989DC006E9F35 /* star-7@2x.png in Resources */,
 				9EB135E9188F991C00CC4009 /* icon-512.png in Resources */,
 				9E6A6F1718998A8C006E9F35 /* link-7@2x.png in Resources */,

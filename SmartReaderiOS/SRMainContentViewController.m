@@ -18,7 +18,7 @@
 #import "UIImage+Extensions.h"
 
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
-#define IMAGE_SIZE CGSizeMake(22.0, 22.0)
+#define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
 @interface SRMainContentViewController () <UIWebViewDelegate>
 {
@@ -47,6 +47,17 @@
     self = [super init];
     if (self) {
         self.feedItem = feedItem;
+        
+        // Customize the back button.
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"backward-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(dismiss)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        
+        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+            self.navigationItem.title = self.feedItem.title;
+        }
     }
     return self;
 }
@@ -125,10 +136,25 @@
     [self.delegate refresh:self];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (UIInterfaceOrientationIsPortrait(fromInterfaceOrientation)) {
+        self.navigationItem.title = self.feedItem.title;
+    }
+    else {
+        self.navigationItem.title = nil;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dismiss
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Custom actions

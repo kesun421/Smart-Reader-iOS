@@ -16,8 +16,9 @@
 #import "SRMessageViewController.h"
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
+#import "UIImage+Extensions.h"
 
-#define IMAGE_SIZE CGSizeMake(22.0, 22.0)
+#define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
 @interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate, UIGestureRecognizerDelegate>
 {
@@ -36,6 +37,13 @@
     self = [super init];
     if (self) {
         self.source = source;
+        
+        // Customize the back button.
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"backward-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(dismiss)];
+        self.navigationItem.leftBarButtonItem = backButton;
         
         if (self.source.sourceForInterestingItems) {
             self.navigationItem.title = @"Suggested Reading...";
@@ -125,6 +133,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dismiss
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source

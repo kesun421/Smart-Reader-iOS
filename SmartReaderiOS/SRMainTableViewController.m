@@ -21,6 +21,8 @@
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
 
+#define IMAGE_SIZE CGSizeMake(25.0, 25.0)
+
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 {
     BOOL _refreshingSourcesTableCellAnimationSwitch;
@@ -60,15 +62,20 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItems = @[
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:CGSizeMake(24.0, 24.0)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(showBookmarks)],
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:CGSizeMake(25.0, 25.0)]
+                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(add)]
                                                ];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"more-list-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(menu)],
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
@@ -294,6 +301,12 @@
     secondaryViewController.delegate = self;
     
     [self.navigationController pushViewController:secondaryViewController animated:YES];
+}
+
+- (void)menu
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu got to do these days to get a job!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - SRSourceManagerDelegate methods
