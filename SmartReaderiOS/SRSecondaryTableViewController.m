@@ -47,6 +47,11 @@
         
         if (self.source.sourceForInterestingItems) {
             self.navigationItem.title = @"Suggested Reading...";
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(refresh:)
+                                                         name:UIApplicationWillEnterForegroundNotification
+                                                       object:nil];
         }
         else if (self.source.sourceForBookmarkedItems) {
             self.navigationItem.title = @"Bookmarked Items";
@@ -282,6 +287,10 @@
         }
         
         self.feedItems = [bookMarkedItems copy];
+    }
+    
+    if (self.source.sourceForInterestingItems) {
+        self.feedItems = [SRTextFilteringManager sharedManager].likableFeedItems;
     }
     
     [self.tableView reloadData];
