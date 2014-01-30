@@ -60,8 +60,8 @@
 		content = [decoder decodeObjectForKey:@"content"];
 		author = [decoder decodeObjectForKey:@"author"];
 		enclosures = [decoder decodeObjectForKey:@"enclosures"];
-        tokens = [decoder decodeObjectForKey:@"tokens"];
-        //like = [decoder decodeBoolForKey:@"like"]; // No need to save this value as it will be evaluated in real time.
+        //tokens = [decoder decodeObjectForKey:@"tokens"];  // Leave token processing to runtime.
+        //like = [decoder decodeBoolForKey:@"like"];  // No need to save this value as it will be evaluated in runtime.
         userLiked = [decoder decodeBoolForKey:@"userLiked"];
         userUnliked = [decoder decodeBoolForKey:@"userUnliked"];
         read = [decoder decodeBoolForKey:@"read"];
@@ -81,8 +81,8 @@
 	if (content) [encoder encodeObject:content forKey:@"content"];
 	if (author) [encoder encodeObject:author forKey:@"author"];
 	if (enclosures) [encoder encodeObject:enclosures forKey:@"enclosures"];
-    if (tokens) [encoder encodeObject:tokens forKey:@"tokens"];
-    //if (like) [encoder encodeBool:like forKey:@"like"]; // No need to save this value as it will be evaluated in real time.
+    //if (tokens) [encoder encodeObject:tokens forKey:@"tokens"];  // Leave token processing to runtime.
+    //if (like) [encoder encodeBool:like forKey:@"like"];  // No need to save this value as it will be evaluated in runtime.
     if (userLiked) [encoder encodeBool:userLiked forKey:@"userLiked"];
     if (userUnliked) [encoder encodeBool:userUnliked forKey:@"userUnliked"];
     if (read) [encoder encodeBool:read forKey:@"read"];

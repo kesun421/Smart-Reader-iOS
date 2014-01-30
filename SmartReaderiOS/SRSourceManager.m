@@ -125,6 +125,8 @@
 {
 //    [source removeOldFeedItems];
     
+    [source parseFeedItemTokens];
+    
     static int sourcesUpdated = 0;
     sourcesUpdated++;
     if (sourcesUpdated == self.sources.count) {
@@ -140,10 +142,6 @@
         else {
             [self.mainDelegate didFinishRefreshingAllSourcesWithError:nil];
         }
-    }
-    
-    if (!error) {
-        [source parseFeedItemTokens];
     }
 }
 

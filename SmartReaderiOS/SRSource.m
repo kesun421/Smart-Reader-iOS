@@ -17,6 +17,8 @@
 
 @interface SRSource () <MWFeedParserDelegate>
 
+@property (nonatomic) MWFeedParser *feedParser;
+
 @end
 
 @implementation SRSource
@@ -41,11 +43,12 @@
 
 - (void)refresh
 {
-    MWFeedParser *feedParser = [[MWFeedParser alloc] initWithFeedURL:[NSURL URLWithString:self.feedLink]];
-    feedParser.delegate = self;
-    feedParser.feedParseType = ParseTypeFull;
-    feedParser.connectionType = ConnectionTypeAsynchronously;
-    [feedParser parse];
+    self.feedParser = [[MWFeedParser alloc] initWithFeedURL:[NSURL URLWithString:self.feedLink]];
+    self.feedParser.delegate = self;
+    self.feedParser.feedParseType = ParseTypeFull;
+    self.feedParser.connectionType = ConnectionTypeAsynchronously;
+    
+    [self.feedParser parse];
 }
 
 - (void)removeOldFeedItems
@@ -66,45 +69,60 @@
     [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                      usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                          MWFeedItem *feedItem = (MWFeedItem *)obj;
-                                         if ((!feedItem.content.length && !feedItem.summary.length) || feedItem.tokens.count) {
+                                         
+                                         if (feedItem.tokens.count) {
                                              return;
                                          }
                                          
-                                         NSMutableDictionary *dictCopy = feedItem.tokens ? [feedItem.tokens mutableCopy] : [NSMutableDictionary new];
-                                         NSString *content = feedItem.content.length ? [feedItem.content stringByConvertingHTMLToPlainText] : [feedItem.summary stringByConvertingHTMLToPlainText];
-                                         
-                                         if (!content.length) {
-                                             content = [feedItem.title stringByConvertingHTMLToPlainText];
-                                         }
-                                         
-                                         NSArray *tokens = [content componentsSeparatedByString:@" "];
-                                         
-                                         for (NSString *token in tokens) {
-                                             NSString *tokenCopy = [token copy];
+                                         @autoreleasepool {
+                                             NSMutableDictionary *dictCopy = [NSMutableDictionary new];
                                              
-                                             // Remove from tokens, the characters that does not contribute too much meaning.
-                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
-                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
-                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                             NSString *contentText = [feedItem.content stringByConvertingHTMLToPlainText];
+                                             NSString *summaryText = [feedItem.summary stringByConvertingHTMLToPlainText];
+                                             NSString *titleText = [feedItem.title stringByConvertingHTMLToPlainText];
                                              
-                                             // Only consider the tokens that are between 3 to 44 characters long.
-                                             if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
-                                                 continue;
+                                             NSString *content;
+                                             if (contentText.length) {
+                                                 content = contentText;
                                              }
-                                             
-                                             // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
-                                             if (dictCopy[tokenCopy]) {
-                                                 NSNumber *count = dictCopy[tokenCopy];
-                                                 dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
+                                             else if (summaryText.length) {
+                                                 content = summaryText;
                                              }
                                              else {
-                                                 dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
+                                                 content = titleText;
                                              }
-                                         }
-                                         
-                                         if (dictCopy.count) {
-                                             feedItem.tokens = [dictCopy copy];
-                                             DebugLog(@"Finished parsing tokens for feed item: %@", feedItem);
+                                             
+                                             NSArray *tokens = [content componentsSeparatedByString:@" "];
+                                             
+                                             for (NSString *token in tokens) {
+                                                 @autoreleasepool {
+                                                     NSString *tokenCopy = [token copy];
+                                                     
+                                                     // Remove from tokens, the characters that does not contribute too much meaning.
+                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
+                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                                     
+                                                     // Only consider the tokens that are between 3 to 44 characters long.
+                                                     if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
+                                                         continue;
+                                                     }
+                                                     
+                                                     // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
+                                                     if (dictCopy[tokenCopy]) {
+                                                         NSNumber *count = dictCopy[tokenCopy];
+                                                         dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
+                                                     }
+                                                     else {
+                                                         dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
+                                                     }
+                                                 }
+                                             }
+                                             
+                                             if (dictCopy.count) {
+                                                 feedItem.tokens = [dictCopy copy];
+                                                 DebugLog(@"Finished parsing tokens for feed item: %@, with tokens count: %d", feedItem, feedItem.tokens.count);
+                                             }
                                          }
                                      }];
 }
