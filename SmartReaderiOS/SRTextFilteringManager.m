@@ -133,13 +133,18 @@
                                                                          }
                                                                          
                                                                          // There is no value of continuing since a comparison can not be made from existing data.
-                                                                         if (likableProbability == 0.0 || unlikableProbability == 0.0) {
+                                                                         if (likableProbability == 0.0) {
                                                                              return;
                                                                          }
                                                                          
                                                                          likableProbability += log((_likedFeedItemTokens.count * 1.0) / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count));
                                                                          
-                                                                         unlikableProbability += log((_unlikedFeedItemTokens.count * 1.0) / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count));
+                                                                         if (!_unlikedFeedItemTokens.count) {
+                                                                             unlikableProbability = 0.0;
+                                                                         }
+                                                                         else {
+                                                                             unlikableProbability += log((_unlikedFeedItemTokens.count * 1.0) / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count));
+                                                                         }
                                                                          
                                                                          likableProbability *= -1.0;
                                                                          unlikableProbability *= -1.0;
