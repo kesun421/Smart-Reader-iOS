@@ -77,19 +77,14 @@
                                          @autoreleasepool {
                                              NSMutableDictionary *dictCopy = [NSMutableDictionary new];
                                              
-                                             NSString *contentText = [feedItem.content stringByConvertingHTMLToPlainText];
-                                             NSString *summaryText = [feedItem.summary stringByConvertingHTMLToPlainText];
-                                             NSString *titleText = [feedItem.title stringByConvertingHTMLToPlainText];
+                                             NSString *content = [feedItem.summary stringByConvertingHTMLToPlainText];
                                              
-                                             NSString *content;
-                                             if (contentText.length) {
-                                                 content = contentText;
+                                             if (!content.length) {
+                                                 content = [feedItem.content stringByConvertingHTMLToPlainText];
                                              }
-                                             else if (summaryText.length) {
-                                                 content = summaryText;
-                                             }
-                                             else {
-                                                 content = titleText;
+                                             
+                                             if (!content.length) {
+                                                 content = [feedItem.title stringByConvertingHTMLToPlainText];
                                              }
                                              
                                              NSArray *tokens = [content componentsSeparatedByString:@" "];
@@ -99,9 +94,17 @@
                                                      NSString *tokenCopy = [token copy];
                                                      
                                                      // Remove from tokens, the characters that does not contribute too much meaning.
-                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
-                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
-                                                     tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                                     if ([tokenCopy rangeOfString:@"("].location != NSNotFound) {
+                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                                                     }
+                                                     
+                                                     if ([tokenCopy rangeOfString:@")"].location != NSNotFound) {
+                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
+                                                     }
+                                                     
+                                                     if ([tokenCopy rangeOfString:@"\""].location != NSNotFound) {
+                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                                     }
                                                      
                                                      // Only consider the tokens that are between 3 to 44 characters long.
                                                      if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
@@ -121,7 +124,7 @@
                                              
                                              if (dictCopy.count) {
                                                  feedItem.tokens = [dictCopy copy];
-                                                 DebugLog(@"Finished parsing tokens for feed item: %@, with tokens count: %d", feedItem, feedItem.tokens.count);
+                                                 DebugLog(@"Finished parsing tokens for feed item: %@, with tokens count: %lu", feedItem, (unsigned long)feedItem.tokens.count);
                                              }
                                          }
                                      }];
