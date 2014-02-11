@@ -46,7 +46,7 @@
         self.navigationItem.leftBarButtonItem = backButton;
         
         if (self.source.sourceForInterestingItems) {
-            self.navigationItem.title = @"Suggested Reading...";
+            self.navigationItem.title = @"Interesting Articles...";
             
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(refresh:)
