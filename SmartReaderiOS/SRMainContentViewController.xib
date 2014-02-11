@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SRMainContentViewController">
             <connections>
                 <outlet property="activityIndicator" destination="Wft-ig-hJp" id="Meh-JI-suG"/>
+                <outlet property="activityIndicatorBackgroundView" destination="eX0-cK-qT5" id="BmS-df-THb"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="webView" destination="cds-Cu-S9i" id="9gC-W3-ax5"/>
             </connections>
@@ -21,10 +22,17 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </webView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Wft-ig-hJp">
-                    <rect key="frame" x="150" y="274" width="20" height="20"/>
+                <view alpha="0.25" contentMode="scaleToFill" id="eX0-cK-qT5" userLabel="Activity Indicator Background View">
+                    <rect key="frame" x="140" y="264" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" id="Wft-ig-hJp">
+                            <rect key="frame" x="10.5" y="10" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

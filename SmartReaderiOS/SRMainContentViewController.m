@@ -27,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UIView *activityIndicatorBackgroundView;
 @property (nonatomic) UIBarButtonItem *switchArticleViewButton;
 @property (nonatomic) UIBarButtonItem *likeButton;
 @property (nonatomic) UIBarButtonItem *bookmarkButton;
@@ -76,6 +76,12 @@
     
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
+    
+    self.activityIndicatorBackgroundView.hidden = NO;
+    self.activityIndicatorBackgroundView.layer.borderWidth = 2.0;
+    self.activityIndicatorBackgroundView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.activityIndicatorBackgroundView.layer.cornerRadius = 5.0;
+    self.activityIndicatorBackgroundView.clipsToBounds = YES;
     
     self.webView.delegate = self;
 }
@@ -239,6 +245,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    self.activityIndicatorBackgroundView.hidden = NO;
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
 }
@@ -247,12 +254,14 @@
 {
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
+    self.activityIndicatorBackgroundView.hidden = YES;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
+    self.activityIndicatorBackgroundView.hidden = YES;
 }
 
 @end
