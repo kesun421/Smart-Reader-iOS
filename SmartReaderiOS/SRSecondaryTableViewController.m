@@ -42,8 +42,11 @@
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"backward-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
-                                                                      action:@selector(dismiss)];
+                                                                      action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = backButton;
+        
+        UISwipeGestureRecognizer *swipeToGoBackGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+        [self.view addGestureRecognizer:swipeToGoBackGesture];
         
         if (self.source.sourceForInterestingItems) {
             self.navigationItem.title = @"Interesting Articles...";
@@ -142,8 +145,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dismiss
+- (void)dismiss:(id)sender
 {
+    // If the swipe gesture triggered the dismiss action, make sure it was from within 40 px of the view, and a swipe to right.
+    // This is for mimicking the standard swipe gesture behavior that belongs to the standard back button.
+    if ([sender isKindOfClass:[UISwipeGestureRecognizer class]]) {
+        UISwipeGestureRecognizer * swipeGestureRecognizer = (UISwipeGestureRecognizer *)sender;
+        if (!([swipeGestureRecognizer locationInView:self.view].x < 40 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
+            return;
+        }
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
