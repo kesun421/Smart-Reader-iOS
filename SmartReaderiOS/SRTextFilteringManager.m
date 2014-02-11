@@ -22,7 +22,6 @@
 @interface SRTextFilteringManager ()
 
 @property (nonatomic) NSDictionary *likedFeedItemTokens;
-@property (nonatomic) NSDictionary *unlikedFeedItemTokens;
 
 @end
 
@@ -48,12 +47,6 @@
     if (!self.likedFeedItemTokens) {
         self.likedFeedItemTokens = [NSDictionary new];
     }
-    
-    self.unlikedFeedItemTokens = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kUnlikedFeedItemTokensFileName]];
-    
-    if (!self.unlikedFeedItemTokens) {
-        self.unlikedFeedItemTokens = [NSDictionary new];
-    }
 }
 
 - (void)saveTokens
@@ -62,23 +55,18 @@
         DebugLog(@"Saving liked feed item tokens...");
         
         [[NSKeyedArchiver archivedDataWithRootObject:self.likedFeedItemTokens] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kLikedFeedItemTokensFileName] atomically:YES];
-        
-        DebugLog(@"Saving unliked feed item tokens...");
-        
-        [[NSKeyedArchiver archivedDataWithRootObject:self.unlikedFeedItemTokens] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kUnlikedFeedItemTokensFileName] atomically:YES];
     });
 }
 
-- (void)processFeedItem:(MWFeedItem *)feedItem AsLiked:(BOOL)liked
+- (void)processFeedItemAsLiked:(MWFeedItem *)feedItem
 {
     if (!feedItem.tokens.count) {
         return;
     }
     
-    feedItem.userLiked = liked;
-    feedItem.userUnliked = !liked;
+    feedItem.userLiked = YES;
     
-    NSMutableDictionary *dictCopy = liked ? [self.likedFeedItemTokens mutableCopy] : [self.unlikedFeedItemTokens mutableCopy];
+    NSMutableDictionary *dictCopy = [self.likedFeedItemTokens mutableCopy];
     if (!dictCopy) {
         dictCopy = [NSMutableDictionary new];
     }
@@ -95,14 +83,8 @@
         }
     }
     
-    if (liked) {
-        self.likedFeedItemTokens = [dictCopy copy];
-        DebugLog(@"Liked feed items tokens: %@", self.likedFeedItemTokens);
-    }
-    else {
-        self.unlikedFeedItemTokens = [dictCopy copy];
-        DebugLog(@"Unliked feed items tokens: %@", self.unlikedFeedItemTokens);
-    }
+    self.likedFeedItemTokens = [dictCopy copy];
+    DebugLog(@"Liked feed items tokens: %@", self.likedFeedItemTokens);
     
     [self saveTokens];
     
@@ -121,20 +103,15 @@
                                                                          
                                                                          feedItem.like = NO;
                                                                          
-                                                                         if (!feedItem.tokens.count || feedItem.userLiked || feedItem.userUnliked) {
-                                                                             DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@. User unliked: %@", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO", feedItem.userUnliked ? @"YES" : @"NO");
+                                                                         if (!feedItem.tokens.count || feedItem.userLiked) {
+                                                                             DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@.", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO");
                                                                              return;
                                                                          }
                                                                          
                                                                          float likableProbability = 0.0;
-                                                                         float unlikableProbability = 0.0;
                                                                          for (NSString *token in feedItem.tokens.allKeys) {
                                                                              if (_likedFeedItemTokens[token]) {
                                                                                  likableProbability += log([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
-                                                                             }
-                                                                             
-                                                                             if (_unlikedFeedItemTokens[token]) {
-                                                                                 unlikableProbability += log([_unlikedFeedItemTokens[token] floatValue] / _unlikedFeedItemTokens.count);
                                                                              }
                                                                          }
                                                                          
@@ -143,24 +120,11 @@
                                                                              return;
                                                                          }
                                                                          
-                                                                         likableProbability += log((_likedFeedItemTokens.count * 1.0) / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count));
-                                                                         
-                                                                         if (!_unlikedFeedItemTokens.count) {
-                                                                             unlikableProbability = 0.0;
-                                                                         }
-                                                                         else {
-                                                                             unlikableProbability += log((_unlikedFeedItemTokens.count * 1.0) / (_likedFeedItemTokens.count + _unlikedFeedItemTokens.count));
-                                                                         }
-                                                                         
                                                                          likableProbability *= -1.0;
-                                                                         unlikableProbability *= -1.0;
                                                                          
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has likable probability: %f, has unlikable probability: %f", feedItem, feedItem.link, likableProbability, unlikableProbability);
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has likable probability: %f", feedItem, feedItem.link, likableProbability);
                                                                          
-                                                                         if (likableProbability > unlikableProbability) {
-                                                                             feedItem.like = YES;
-                                                                             feedItem.likableProbability = likableProbability;
-                                                                         }
+                                                                         feedItem.likableProbability = likableProbability;
                                                                      }];
                               }];
     
@@ -172,7 +136,7 @@
         totalFeedItemsCount += source.feedItems.count;
         for (MWFeedItem *feedItem in source.feedItems) {
             // Only show those items that were liked by the algorithm.
-            if (feedItem.like && !feedItem.userLiked && !feedItem.userUnliked && !feedItem.read) {
+            if (feedItem.likableProbability != 0.0 && !feedItem.userLiked && !feedItem.read) {
                 feedItem.source = source;
                 [feedItems addObject:feedItem];
             }

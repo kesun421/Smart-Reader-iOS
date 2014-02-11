@@ -53,7 +53,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     _interestingItemsCount = 0;
     for (SRSource *source in [SRSourceManager sharedManager].sources) {
         for (MWFeedItem *feedItem in source.feedItems) {
-            if (feedItem.like && !feedItem.read && !feedItem.userLiked && !feedItem.userUnliked) {
+            if (feedItem.like && !feedItem.read && !feedItem.userLiked) {
                 _interestingItemsCount++;
             }
         }

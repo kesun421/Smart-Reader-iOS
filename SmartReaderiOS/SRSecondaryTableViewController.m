@@ -353,14 +353,6 @@
     [unreadFeedItems removeObjectAtIndex:indexPath.row];
     self.feedItems = [unreadFeedItems copy];
     
-    DebugLog(@"Unliked article from swipping...");
-    
-    [[SRTextFilteringManager sharedManager] processFeedItem:feedItem AsLiked:NO];
-    
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Unliked"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
-    
     [self.tableView endUpdates];
 }
 

@@ -30,13 +30,11 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (nonatomic) UIBarButtonItem *switchArticleViewButton;
 @property (nonatomic) UIBarButtonItem *likeButton;
-@property (nonatomic) UIBarButtonItem *dislikeButton;
 @property (nonatomic) UIBarButtonItem *bookmarkButton;
 @property (nonatomic) MWFeedItem *feedItem;
 
 - (void)switchArticleView:(id)sender;
 - (void)likeArticle:(id)sender;
-- (void)unlikeArticle:(id)sender;
 
 @end
 
@@ -90,11 +88,7 @@
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(likeArticle:)];
-    
-    self.dislikeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"forbidden-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                          style:UIBarButtonItemStylePlain
-                                                         target:self
-                                                         action:@selector(unlikeArticle:)];
+
     
     self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"compass-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                     style:UIBarButtonItemStylePlain
@@ -110,14 +104,13 @@
         self.bookmarkButton.image = [[UIImage imageNamed:@"bookmark-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
     
-    self.navigationItem.rightBarButtonItems = @[ self.dislikeButton, self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
+    self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
     
     NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
     
     self.likeButton.enabled = !self.feedItem.userLiked;
-    self.dislikeButton.enabled = !self.feedItem.userUnliked;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -194,26 +187,11 @@
 {
     DebugLog(@"Liked article.");
     
-    [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:YES];
+    [[SRTextFilteringManager sharedManager] processFeedItemAsLiked:self.feedItem];
     
     self.likeButton.enabled = NO;
-    self.dislikeButton.enabled = YES;
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Liked"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
-}
-
-- (void)unlikeArticle:(id)sender
-{
-    DebugLog(@"Unliked article.");
-    
-    [[SRTextFilteringManager sharedManager] processFeedItem:self.feedItem AsLiked:NO];
-    
-    self.likeButton.enabled = YES;
-    self.dislikeButton.enabled = NO;
-    
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Unliked"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }

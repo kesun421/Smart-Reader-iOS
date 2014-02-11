@@ -14,7 +14,7 @@
 @interface SRTextFilteringManager : NSObject
 
 + (instancetype)sharedManager;
-- (void)processFeedItem:(MWFeedItem *)feedItem AsLiked:(BOOL)liked;
+- (void)processFeedItemAsLiked:(MWFeedItem *)feedItem;
 - (void)findlikableFeedItemsFromSources:(NSArray *)sources;
 
 @property (nonatomic, weak) id<SRTextFilteringManagerDelegate> delegate;

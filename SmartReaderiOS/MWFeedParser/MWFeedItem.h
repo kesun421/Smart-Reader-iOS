@@ -57,9 +57,6 @@
     /** KS: Indicates if the user marked the article as liked.  */
     BOOL userLiked;
     
-    /** KS: Indicates if the user marked the article as not liked. */
-    BOOL userDisliked;
-    
     /** KS: Indicates if the user has read the article. */
     BOOL read;
     
@@ -89,7 +86,6 @@
 @property (nonatomic, weak) SRSource *source;
 @property (nonatomic, assign) BOOL like;
 @property (nonatomic, assign) BOOL userLiked;
-@property (nonatomic, assign) BOOL userUnliked;
 @property (nonatomic, assign) BOOL read;
 @property (nonatomic, assign) float likableProbability;
 @property (nonatomic, assign) BOOL bookmarked;
