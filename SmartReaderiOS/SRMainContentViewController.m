@@ -112,7 +112,17 @@
     
     self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
     
-    NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
+    // Encode the url for passing to Readability API.
+    NSString *encodedUrlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                    NULL,
+                                                                                                    (CFStringRef)self.feedItem.link,
+                                                                                                    NULL,
+                                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                    kCFStringEncodingUTF8)
+                                                            );
+    
+    
+    NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", encodedUrlString];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
     
