@@ -103,6 +103,8 @@
         [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
         [self.tableView addGestureRecognizer:recognizer];
     }
+    
+    self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
