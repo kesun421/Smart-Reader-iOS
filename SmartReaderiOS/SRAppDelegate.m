@@ -118,7 +118,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         message = [NSString stringWithFormat:@"Added %d new articles!", _totalNewCount];
     }
     else if (_totalNewCount != 0 && _interestingItemsCount != 0){
-        message = [NSString stringWithFormat:@"Added %d new articles! %lu articles might be interesting...", _totalNewCount, _interestingItemsCount];
+        message = [NSString stringWithFormat:@"Added %d new articles! %lu are interesting...", _totalNewCount, _interestingItemsCount];
     }
     
     if (_totalNewCount || _interestingItemsCount) {
@@ -133,12 +133,12 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         
         backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
         
-        DebugLog(@"Background fetch completed with new items: %d, and interesting items: %lu", _totalNewCount, _interestingItemsCount);
+        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %lu", _totalNewCount, _interestingItemsCount);
     }
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
         
-        DebugLog(@"Background fetch completed with no new items...  Interesting items count: %lu", _interestingItemsCount);
+        DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %lu", _interestingItemsCount);
     }
 }
 

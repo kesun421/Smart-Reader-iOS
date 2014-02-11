@@ -128,7 +128,7 @@
         }
         
         cell.imageView.image = [[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        cell.textLabel.text = @"Suggested Reading...";
+        cell.textLabel.text = @"Interesting Articles...";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
