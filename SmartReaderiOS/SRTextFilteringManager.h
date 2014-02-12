@@ -15,10 +15,10 @@
 
 + (instancetype)sharedManager;
 - (void)processFeedItemAsLiked:(MWFeedItem *)feedItem;
-- (void)findlikableFeedItemsFromSources:(NSArray *)sources;
+- (void)findInterestingFeedItemsFromSources:(NSArray *)sources;
 
 @property (nonatomic, weak) id<SRTextFilteringManagerDelegate> delegate;
-@property (nonatomic) NSArray *likableFeedItems;
+@property (nonatomic) NSArray *interestingFeedItems;
 
 @end
 

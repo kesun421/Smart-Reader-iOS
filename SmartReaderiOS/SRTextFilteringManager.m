@@ -21,7 +21,7 @@
 
 @interface SRTextFilteringManager ()
 
-@property (nonatomic) NSDictionary *likedFeedItemTokens;
+@property (nonatomic) NSDictionary *interestedFeedItemTokens;
 
 @end
 
@@ -42,10 +42,10 @@
 
 - (void)loadTokens
 {
-    self.likedFeedItemTokens = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kLikedFeedItemTokensFileName]];
+    self.interestedFeedItemTokens = [NSKeyedUnarchiver unarchiveObjectWithFile:[[SRFileUtility sharedUtility] documentPathForFile:kLikedFeedItemTokensFileName]];
     
-    if (!self.likedFeedItemTokens) {
-        self.likedFeedItemTokens = [NSDictionary new];
+    if (!self.interestedFeedItemTokens) {
+        self.interestedFeedItemTokens = [NSDictionary new];
     }
 }
 
@@ -54,7 +54,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         DebugLog(@"Saving liked feed item tokens...");
         
-        [[NSKeyedArchiver archivedDataWithRootObject:self.likedFeedItemTokens] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kLikedFeedItemTokensFileName] atomically:YES];
+        [[NSKeyedArchiver archivedDataWithRootObject:self.interestedFeedItemTokens] writeToFile:[[SRFileUtility sharedUtility] documentPathForFile:kLikedFeedItemTokensFileName] atomically:YES];
     });
 }
 
@@ -66,7 +66,7 @@
     
     feedItem.userLiked = YES;
     
-    NSMutableDictionary *dictCopy = [self.likedFeedItemTokens mutableCopy];
+    NSMutableDictionary *dictCopy = [self.interestedFeedItemTokens mutableCopy];
     if (!dictCopy) {
         dictCopy = [NSMutableDictionary new];
     }
@@ -83,15 +83,15 @@
         }
     }
     
-    self.likedFeedItemTokens = [dictCopy copy];
-    DebugLog(@"Liked feed items tokens: %@", self.likedFeedItemTokens);
+    self.interestedFeedItemTokens = [dictCopy copy];
+    DebugLog(@"Liked feed items tokens: %@", self.interestedFeedItemTokens);
     
     [self saveTokens];
     
     [[SRSourceManager sharedManager] saveSources];
 }
 
-- (void)findlikableFeedItemsFromSources:(NSArray *)sources
+- (void)findInterestingFeedItemsFromSources:(NSArray *)sources
 {
     [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
                               usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -101,30 +101,28 @@
                                                                      usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                                          MWFeedItem *feedItem = (MWFeedItem *)obj;
                                                                          
-                                                                         feedItem.like = NO;
-                                                                         
                                                                          if (!feedItem.tokens.count || feedItem.userLiked) {
                                                                              DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@.", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO");
                                                                              return;
                                                                          }
                                                                          
-                                                                         float likableProbability = 0.0;
+                                                                         float _interestingProbability = 0.0;
                                                                          for (NSString *token in feedItem.tokens.allKeys) {
-                                                                             if (_likedFeedItemTokens[token]) {
-                                                                                 likableProbability += log([_likedFeedItemTokens[token] floatValue] / _likedFeedItemTokens.count);
+                                                                             if (_interestedFeedItemTokens[token]) {
+                                                                                 _interestingProbability += log([_interestedFeedItemTokens[token] floatValue] / _interestedFeedItemTokens.count);
                                                                              }
                                                                          }
                                                                          
                                                                          // There is no value of continuing since a comparison can not be made from existing data.
-                                                                         if (likableProbability == 0.0) {
+                                                                         if (_interestingProbability == 0.0) {
                                                                              return;
                                                                          }
                                                                          
-                                                                         likableProbability *= -1.0;
+                                                                         _interestingProbability *= -1.0;
                                                                          
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has likable probability: %f", feedItem, feedItem.link, likableProbability);
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has interesting probability: %f", feedItem, feedItem.link, _interestingProbability);
                                                                          
-                                                                         feedItem.likableProbability = likableProbability;
+                                                                         feedItem.interestingProbability = _interestingProbability;
                                                                      }];
                               }];
     
@@ -136,7 +134,7 @@
         totalFeedItemsCount += source.feedItems.count;
         for (MWFeedItem *feedItem in source.feedItems) {
             // Only show those items that were liked by the algorithm.
-            if (feedItem.likableProbability != 0.0 && !feedItem.userLiked && !feedItem.read) {
+            if (feedItem.interestingProbability != 0.0 && !feedItem.userLiked && !feedItem.read) {
                 feedItem.source = source;
                 [feedItems addObject:feedItem];
             }
@@ -148,9 +146,9 @@
         MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
         MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
         
-        if (feedItem1.likableProbability < feedItem2.likableProbability) {
+        if (feedItem1.interestingProbability < feedItem2.interestingProbability) {
             return (NSComparisonResult)NSOrderedDescending;
-        } else if(feedItem1.likableProbability > feedItem2.likableProbability) {
+        } else if(feedItem1.interestingProbability > feedItem2.interestingProbability) {
             return (NSComparisonResult)NSOrderedAscending;
         }
         return (NSComparisonResult)NSOrderedSame;
@@ -164,17 +162,10 @@
     }
     
     if (feedItems.count > likableFeedItemsLimit) {
-        self.likableFeedItems = [feedItems subarrayWithRange:NSMakeRange(0, likableFeedItemsLimit)];
-        
-        NSArray *leftOverItems = [feedItems subarrayWithRange:NSMakeRange(likableFeedItemsLimit, feedItems.count - likableFeedItemsLimit)];
-        [leftOverItems enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                        usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                            MWFeedItem *feedItem = (MWFeedItem *)obj;
-                                            feedItem.like = NO;
-                                        }];
+        self.interestingFeedItems = [feedItems subarrayWithRange:NSMakeRange(0, likableFeedItemsLimit)];
     }
     else {
-        self.likableFeedItems = [feedItems copy];
+        self.interestingFeedItems = [feedItems copy];
     }
     
     // Call to delegate to refresh with suggested news items.

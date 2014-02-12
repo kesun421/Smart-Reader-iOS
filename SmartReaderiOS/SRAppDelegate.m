@@ -19,7 +19,6 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     BackgroundFetchBlock backgroundFetchResultBlock;
     int _totalNewCount;
-    unsigned long _interestingItemsCount;
 }
 
 @end
@@ -50,16 +49,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    _interestingItemsCount = 0;
-    for (SRSource *source in [SRSourceManager sharedManager].sources) {
-        for (MWFeedItem *feedItem in source.feedItems) {
-            if (feedItem.like && !feedItem.read && !feedItem.userLiked) {
-                _interestingItemsCount++;
-            }
-        }
-    }
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = _interestingItemsCount;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [SRTextFilteringManager sharedManager].interestingFeedItems.count;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -101,27 +91,25 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     }
     
     [SRTextFilteringManager sharedManager].delegate = self;
-    [[SRTextFilteringManager sharedManager] findlikableFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+    [[SRTextFilteringManager sharedManager] findInterestingFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
 
 #pragma mark - SRTextFilteringManagerDelegate methods
 
 - (void)didFinishFindinglikableFeedItems
 {
-    _interestingItemsCount = [SRTextFilteringManager sharedManager].likableFeedItems.count;
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = _interestingItemsCount;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [SRTextFilteringManager sharedManager].interestingFeedItems.count;
     
     NSString *message = nil;
     
-    if (_totalNewCount != 0 && _interestingItemsCount == 0) {
+    if (_totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count == 0) {
         message = [NSString stringWithFormat:@"Added %d new articles!", _totalNewCount];
     }
-    else if (_totalNewCount != 0 && _interestingItemsCount != 0){
-        message = [NSString stringWithFormat:@"Added %d new articles! %lu are interesting...", _totalNewCount, _interestingItemsCount];
+    else if (_totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count != 0){
+        message = [NSString stringWithFormat:@"Added %d new articles! %d are interesting...", _totalNewCount, [SRTextFilteringManager sharedManager].interestingFeedItems.count];
     }
     
-    if (_totalNewCount || _interestingItemsCount) {
+    if (_totalNewCount || [SRTextFilteringManager sharedManager].interestingFeedItems.count) {
         [[SRSourceManager sharedManager] saveSources];
     }
     
@@ -133,12 +121,12 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         
         backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
         
-        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %lu", _totalNewCount, _interestingItemsCount);
+        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %d", _totalNewCount, [SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
         
-        DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %lu", _interestingItemsCount);
+        DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %d", [SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
 }
 

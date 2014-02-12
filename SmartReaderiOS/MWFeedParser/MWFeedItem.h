@@ -51,9 +51,6 @@
     /** KS: Saving tokens parsed from feed item's source. */
     NSDictionary *tokens;
     
-    /** KS: Indicates if the article is likable by computation. */
-    BOOL like;
-    
     /** KS: Indicates if the user marked the article as liked.  */
     BOOL userLiked;
     
@@ -63,8 +60,8 @@
     /** KS: Points to the source of the article. */
     __weak SRSource *source;
     
-    /** KS: Likable probability calculated by algorithm. */
-    float likableProbability;
+    /** KS: Interesting probability calculated by algorithm. */
+    float interestingProbability;
     
     /** KS: Indicates if the user has bookmarked the article. */
     BOOL bookmarked;
@@ -84,10 +81,9 @@
 @property (nonatomic, copy) NSArray *enclosures;
 @property (nonatomic, copy) NSDictionary *tokens;
 @property (nonatomic, weak) SRSource *source;
-@property (nonatomic, assign) BOOL like;
 @property (nonatomic, assign) BOOL userLiked;
 @property (nonatomic, assign) BOOL read;
-@property (nonatomic, assign) float likableProbability;
+@property (nonatomic, assign) float interestingProbability;
 @property (nonatomic, assign) BOOL bookmarked;
 @property (nonatomic, copy) NSDate *bookmarkedDate;
 

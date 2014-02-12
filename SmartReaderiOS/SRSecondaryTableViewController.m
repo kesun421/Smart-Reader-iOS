@@ -308,7 +308,7 @@
     }
     
     if (self.source.sourceForInterestingItems) {
-        self.feedItems = [SRTextFilteringManager sharedManager].likableFeedItems;
+        self.feedItems = [SRTextFilteringManager sharedManager].interestingFeedItems;
     }
     
     [self.tableView reloadData];
