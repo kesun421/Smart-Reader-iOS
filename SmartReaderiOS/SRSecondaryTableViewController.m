@@ -45,9 +45,6 @@
                                                                       action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = backButton;
         
-        UISwipeGestureRecognizer *swipeToGoBackGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
-        [self.view addGestureRecognizer:swipeToGoBackGesture];
-        
         if (self.source.sourceForInterestingItems) {
             self.navigationItem.title = @"Interesting Articles...";
             
@@ -97,14 +94,21 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    if (!self.source.sourceForBookmarkedItems && !self.source.sourceForInterestingItems) {
-        self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+    UISwipeGestureRecognizer *swipeToGoBack = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+    [self.view addGestureRecognizer:swipeToGoBack];
+    
+    if (!self.source.sourceForBookmarkedItems) {
+        // Add a left swipe gesture recognizer for marking items as read.
+        UISwipeGestureRecognizer *swipeToMarkAsRead = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(handleSwipeLeft:)];
+        swipeToMarkAsRead.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self.tableView addGestureRecognizer:swipeToMarkAsRead];
         
-        //Add a left swipe gesture recognizer
-        UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                         action:@selector(handleSwipeLeft:)];
-        [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-        [self.tableView addGestureRecognizer:recognizer];
+        // Add a left swipe gesture recognizer for bookmarking items.
+        UISwipeGestureRecognizer *swipeToBookmark = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(handleSwipeRight:)];
+        swipeToBookmark.direction = UISwipeGestureRecognizerDirectionRight;
+        [self.tableView addGestureRecognizer:swipeToBookmark];
     }
     
     self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
@@ -368,6 +372,37 @@
     self.feedItems = [unreadFeedItems copy];
     
     [self.tableView endUpdates];
+    
+    [[SRSourceManager sharedManager] saveSources];
+    
+    DebugLog(@"Marked as read by swipping left...");
+}
+
+- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    
+    MWFeedItem *feedItem = (MWFeedItem *)self.feedItems[indexPath.row];
+    feedItem.bookmarked = YES;
+    feedItem.bookmarkedDate = [NSDate date];
+    
+    NSMutableArray *feedItems = [self.feedItems mutableCopy];
+    [feedItems removeObjectAtIndex:indexPath.row];
+    self.feedItems = [feedItems copy];
+    
+    [self.tableView endUpdates];
+    
+    [[SRSourceManager sharedManager] saveSources];
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Bookmarked"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+    
+    DebugLog(@"Bookmarked by swipping right...");
 }
 
 @end

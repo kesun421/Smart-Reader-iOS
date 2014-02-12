@@ -53,9 +53,6 @@
                                                                       action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = backButton;
         
-        UISwipeGestureRecognizer *swipeToGoBackGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
-        [self.view addGestureRecognizer:swipeToGoBackGesture];
-        
         if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
             self.navigationItem.title = self.feedItem.title;
         }
@@ -76,6 +73,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UISwipeGestureRecognizer *swipeToGoBack = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+    [self.view addGestureRecognizer:swipeToGoBack];
     
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
