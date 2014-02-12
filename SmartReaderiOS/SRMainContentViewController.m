@@ -170,7 +170,7 @@
     // This is for mimicking the standard swipe gesture behavior that belongs to the standard back button.
     if ([sender isKindOfClass:[UISwipeGestureRecognizer class]]) {
         UISwipeGestureRecognizer * swipeGestureRecognizer = (UISwipeGestureRecognizer *)sender;
-        if (!([swipeGestureRecognizer locationInView:self.view].x < 40 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
+        if (!([swipeGestureRecognizer locationInView:self.view].x < 80 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
             return;
         }
     }

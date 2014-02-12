@@ -155,7 +155,7 @@
     // This is for mimicking the standard swipe gesture behavior that belongs to the standard back button.
     if ([sender isKindOfClass:[UISwipeGestureRecognizer class]]) {
         UISwipeGestureRecognizer * swipeGestureRecognizer = (UISwipeGestureRecognizer *)sender;
-        if (!([swipeGestureRecognizer locationInView:self.view].x < 40 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
+        if (!([swipeGestureRecognizer locationInView:self.view].x < 80 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
             return;
         }
     }
@@ -381,12 +381,20 @@
 - (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
 {
     CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    
+    // Make sure that the swipe gesture does not conflict with the gesture to signal the view to go back.
+    if (location.x < self.tableView.center.x) {
+        [self dismiss:gestureRecognizer];
+        return;
+    }
+    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     
     [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     
     MWFeedItem *feedItem = (MWFeedItem *)self.feedItems[indexPath.row];
+    feedItem.read = YES;
     feedItem.bookmarked = YES;
     feedItem.bookmarkedDate = [NSDate date];
     
