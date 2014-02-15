@@ -107,9 +107,11 @@
                                                                          }
                                                                          
                                                                          float _interestingProbability = 0.0;
+                                                                         int tokenCount = 0;
                                                                          for (NSString *token in feedItem.tokens.allKeys) {
                                                                              if (_interestedFeedItemTokens[token]) {
                                                                                  _interestingProbability += log([_interestedFeedItemTokens[token] floatValue] / _interestedFeedItemTokens.count);
+                                                                                 tokenCount++;
                                                                              }
                                                                          }
                                                                          
@@ -120,7 +122,7 @@
                                                                          
                                                                          _interestingProbability *= -1.0;
                                                                          
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has interesting probability: %f", feedItem, feedItem.link, _interestingProbability);
+                                                                         DebugLog(@"Feed item: %@, with link: %@, has interesting probability: %f, calculated using %d token(s).", feedItem, feedItem.link, _interestingProbability, tokenCount);
                                                                          
                                                                          feedItem.interestingProbability = _interestingProbability;
                                                                      }];
