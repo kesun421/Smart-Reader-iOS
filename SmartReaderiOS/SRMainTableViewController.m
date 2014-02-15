@@ -330,7 +330,7 @@
     DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].interestingFeedItems);
     
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %d interesting items",[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting items",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }

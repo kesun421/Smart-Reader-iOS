@@ -106,7 +106,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         message = [NSString stringWithFormat:@"Added %d new articles!", _totalNewCount];
     }
     else if (_totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count != 0){
-        message = [NSString stringWithFormat:@"Added %d new articles! %d are interesting...", _totalNewCount, [SRTextFilteringManager sharedManager].interestingFeedItems.count];
+        message = [NSString stringWithFormat:@"Added %d new articles! %lu are interesting...", _totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count];
     }
     
     if (_totalNewCount || [SRTextFilteringManager sharedManager].interestingFeedItems.count) {
@@ -121,12 +121,12 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         
         backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
         
-        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %d", _totalNewCount, [SRTextFilteringManager sharedManager].interestingFeedItems.count);
+        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %lu", _totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);
         
-        DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %d", [SRTextFilteringManager sharedManager].interestingFeedItems.count);
+        DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %lu", (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
 }
 
