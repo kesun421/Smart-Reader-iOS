@@ -151,7 +151,7 @@
 
 - (void)dismiss:(id)sender
 {
-    // If the swipe gesture triggered the dismiss action, make sure it was from within 40 px of the view, and a swipe to right.
+    // If the swipe gesture triggered the dismiss action, make sure it was from within 80 px of the view, and a swipe to right.
     // This is for mimicking the standard swipe gesture behavior that belongs to the standard back button.
     if ([sender isKindOfClass:[UISwipeGestureRecognizer class]]) {
         UISwipeGestureRecognizer * swipeGestureRecognizer = (UISwipeGestureRecognizer *)sender;
