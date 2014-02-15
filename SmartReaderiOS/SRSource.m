@@ -77,14 +77,14 @@
                                          @autoreleasepool {
                                              NSMutableDictionary *dictCopy = [NSMutableDictionary new];
                                              
-                                             NSString *content = [feedItem.summary stringByConvertingHTMLToPlainText];
+                                             NSString *content = feedItem.summary;
                                              
                                              if (!content.length) {
-                                                 content = [feedItem.content stringByConvertingHTMLToPlainText];
+                                                 content = feedItem.content;
                                              }
                                              
                                              if (!content.length) {
-                                                 content = [feedItem.title stringByConvertingHTMLToPlainText];
+                                                 content = feedItem.title;
                                              }
                                              
                                              NSArray *tokens = [content componentsSeparatedByString:@" "];
@@ -163,6 +163,11 @@
     
     if (!itemExists) {
         DebugLog(@"Added feed item: %@", item);
+        
+        // Clean up item's data.
+        item.title = [item.title stringByConvertingHTMLToPlainText];
+        item.content = [item.content stringByConvertingHTMLToPlainText];
+        item.summary = [item.summary stringByConvertingHTMLToPlainText];
         
         [self addFeedItem:item];
         _newCount++;

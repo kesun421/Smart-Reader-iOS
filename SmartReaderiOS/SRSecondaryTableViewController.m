@@ -197,7 +197,7 @@
                                                                                               NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
                                                                                               }];
         
-        NSMutableAttributedString *feedSummary = [[NSMutableAttributedString alloc] initWithString:[feedItem.summary stringByConvertingHTMLToPlainText]
+        NSMutableAttributedString *feedSummary = [[NSMutableAttributedString alloc] initWithString:feedItem.summary.length ? feedItem.summary : feedItem.content
                                                                                         attributes:@{
                                                                                               NSFontAttributeName : [UIFont systemFontOfSize:12.0],
                                                                                               }];
@@ -209,7 +209,7 @@
         cell.detailTextLabel.numberOfLines = 4;
     }
     else {
-        cell.detailTextLabel.text = [feedItem.summary stringByConvertingHTMLToPlainText];
+        cell.detailTextLabel.text = feedItem.summary;
         cell.detailTextLabel.numberOfLines = 3;
     }
 
@@ -279,7 +279,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MWFeedItem *feedItem = self.feedItems[indexPath.row];
-    if ([feedItem.summary stringByConvertingHTMLToPlainText].length) {
+    if (feedItem.summary.length) {
         if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
             return 95.0;
         }
