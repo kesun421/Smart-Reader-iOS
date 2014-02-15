@@ -17,6 +17,7 @@
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
 #import "UIImage+Extensions.h"
+#import "SRFeedItemSpeechPlayer.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -179,6 +180,10 @@
         if (!([swipeGestureRecognizer locationInView:self.view].x < 80 && swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight)) {
             return;
         }
+    }
+    
+    if (_playing) {
+        [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -380,10 +385,15 @@
     if (!_playing) {
         _playing = YES;
         self.playButton.image = [[UIImage imageNamed:@"button-play-7-active.png"] resizeImageToSize:IMAGE_SIZE];
+        
+        [SRFeedItemSpeechPlayer sharedInstance].feedItems = self.feedItems;
+        [[SRFeedItemSpeechPlayer sharedInstance] play];
     }
     else {
         _playing = NO;
         self.playButton.image = [[UIImage imageNamed:@"button-play-7.png"] resizeImageToSize:IMAGE_SIZE];
+        
+        [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }
 }
 

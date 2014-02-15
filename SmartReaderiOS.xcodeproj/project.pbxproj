@@ -43,6 +43,7 @@
 		9E6A6F1518998A22006E9F35 /* star-circle-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */; };
 		9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */; };
 		9EAAFA6718B006EC008B7D36 /* button-play-7-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */; };
+		9EAAFA6A18B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */; };
 		9EB135E6188F991C00CC4009 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E2188F991C00CC4009 /* icon-58.png */; };
 		9EB135E7188F991C00CC4009 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E3188F991C00CC4009 /* icon-80.png */; };
 		9EB135E8188F991C00CC4009 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EB135E4188F991C00CC4009 /* icon-120.png */; };
@@ -139,6 +140,8 @@
 		9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-circle-7@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7-active@2x.png"; sourceTree = "<group>"; };
+		9EAAFA6818B00C9F008B7D36 /* SRFeedItemSpeechPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFeedItemSpeechPlayer.h; sourceTree = "<group>"; };
+		9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRFeedItemSpeechPlayer.m; sourceTree = "<group>"; };
 		9EB135E2188F991C00CC4009 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-58.png"; path = "Icons/icon-58.png"; sourceTree = "<group>"; };
 		9EB135E3188F991C00CC4009 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-80.png"; path = "Icons/icon-80.png"; sourceTree = "<group>"; };
 		9EB135E4188F991C00CC4009 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-120.png"; path = "Icons/icon-120.png"; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				9EEE4E4818452A3B00C0066E /* SRDebug.m */,
 				9E655FFD188E1F16004FF3D0 /* UIImage+Extensions.h */,
 				9E655FFE188E1F16004FF3D0 /* UIImage+Extensions.m */,
+				9EAAFA6818B00C9F008B7D36 /* SRFeedItemSpeechPlayer.h */,
+				9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 				9E417A1118441E7600A9DA60 /* SRMainContentViewController.m in Sources */,
 				9EBD2A53187E097A00F53DED /* NSString+XMLEntities.m in Sources */,
 				9EBD2A3C187E097A00F53DED /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				9EAAFA6A18B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m in Sources */,
 				9EBD2A47187E097A00F53DED /* AFNetworkReachabilityManager.m in Sources */,
 				9EBD2A4B187E097A00F53DED /* AFURLResponseSerialization.m in Sources */,
 				9EBD2A42187E097A00F53DED /* HTMLNode.m in Sources */,
