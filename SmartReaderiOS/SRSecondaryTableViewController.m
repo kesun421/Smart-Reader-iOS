@@ -23,10 +23,18 @@
 @interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate, UIGestureRecognizerDelegate>
 {
     BOOL _markedAllAsRead;
+    BOOL _playing;
 }
 
 @property (nonatomic) SRSource *source;
 @property (nonatomic, copy) NSArray *feedItems;
+
+@property (nonatomic) UIBarButtonItem *markAllButton;
+@property (nonatomic) UIBarButtonItem *playButton;
+
+- (void)refresh:(id)sender;
+- (void)markAll:(id)sender;
+- (void)playAll:(id)sender;
 
 @end
 
@@ -118,10 +126,23 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(markAll:)];
+    self.markAllButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(markAll:)];
+    
+    self.playButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"button-play-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(playAll:)];
+    
+    
+    if (self.source.sourceForInterestingItems) {
+        self.navigationItem.rightBarButtonItems = @[ self.markAllButton, self.playButton ];
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = self.markAllButton;
+    }
     
     _markedAllAsRead = NO;
     
@@ -132,7 +153,7 @@
     
     if (allRead) {
         _markedAllAsRead = YES;
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
+        self.markAllButton.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
 }
 
@@ -321,7 +342,7 @@
     if (!_markedAllAsRead) {
         _markedAllAsRead = YES;
         
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
+        self.markAllButton.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
         
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -332,7 +353,7 @@
     else {
         _markedAllAsRead = NO;
         
-        self.navigationItem.rightBarButtonItem.image = [[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE];
+        self.markAllButton.image = [[UIImage imageNamed:@"tick-7.png"] resizeImageToSize:IMAGE_SIZE];
         
         [self.source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                                 usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -352,6 +373,18 @@
     [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
+}
+
+- (void)playAll:(id)sender
+{
+    if (!_playing) {
+        _playing = YES;
+        self.playButton.image = [[UIImage imageNamed:@"button-play-7-active.png"] resizeImageToSize:IMAGE_SIZE];
+    }
+    else {
+        _playing = NO;
+        self.playButton.image = [[UIImage imageNamed:@"button-play-7.png"] resizeImageToSize:IMAGE_SIZE];
+    }
 }
 
 #pragma mark - Swipe gesture
