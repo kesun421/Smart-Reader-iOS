@@ -53,6 +53,8 @@
     NSString *utteranceString;
     
     if (!_spokeTitle) {
+        DebugLog(@"Reading feed item: %@", feedItem);
+        
         utteranceString = feedItem.title;
         
         _spokeTitle = YES;
@@ -72,8 +74,6 @@
     utterance.postUtteranceDelay = 1.0;
     utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.6;
     [self.speechSynth speakUtterance:utterance];
-    
-    DebugLog(@"Reading feed item: %@", feedItem);
 }
 
 - (void)pause
@@ -103,6 +103,10 @@
     if (_spokeTitle && _spokeSummary) {
         _spokeTitle = _spokeSummary = NO;
         _index++;
+        if (_index > (self.feedItems.count - 1)) {
+            _index = 0;
+            [self stop];
+        }
     }
     
     [self play];
