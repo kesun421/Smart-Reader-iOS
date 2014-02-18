@@ -72,7 +72,7 @@
     
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:utteranceString];
     utterance.postUtteranceDelay = 1.0;
-    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.6;
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.5;
     [self.speechSynth speakUtterance:utterance];
 }
 
@@ -106,6 +106,7 @@
         if (_index > (self.feedItems.count - 1)) {
             _index = 0;
             [self stop];
+            return;
         }
     }
     
