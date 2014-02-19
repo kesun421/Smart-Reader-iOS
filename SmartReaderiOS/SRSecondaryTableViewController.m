@@ -182,9 +182,7 @@
         }
     }
     
-    if (_playing) {
-        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-        
+    if (_playing) {        
         [[SRFeedItemSpeechPlayer sharedInstance] stop];
         
         _playing = NO;
@@ -390,16 +388,12 @@
         _playing = YES;
         self.playButton.image = [[UIImage imageNamed:@"button-play-7-active.png"] resizeImageToSize:IMAGE_SIZE];
         
-        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-        
         [SRFeedItemSpeechPlayer sharedInstance].feedItems = self.feedItems;
         [[SRFeedItemSpeechPlayer sharedInstance] play];
     }
     else {
         _playing = NO;
         self.playButton.image = [[UIImage imageNamed:@"button-play-7.png"] resizeImageToSize:IMAGE_SIZE];
-        
-        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
         
         [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }

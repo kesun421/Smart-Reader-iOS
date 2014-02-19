@@ -48,6 +48,8 @@
 
 - (void)play
 {
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
     MWFeedItem *feedItem = self.feedItems[_index];
     
     NSString *utteranceString;
@@ -83,6 +85,8 @@
 
 - (void)stop
 {
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
     DebugLog(@"Stopping speech synthesizer...");
     
     _index = 0;
