@@ -21,7 +21,7 @@
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
-@interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate, UIGestureRecognizerDelegate>
+@interface SRSecondaryTableViewController () <SRMainContentViewControllerDelegate, SRFeedItemSpeechPlayerDelegate, UIGestureRecognizerDelegate>
 {
     BOOL _markedAllAsRead;
     BOOL _playing;
@@ -342,6 +342,28 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - SRFeedItemSpeechPlayerDelegate methods
+
+- (void)playingFeedItemAtIndex:(NSIndexPath *)indexPath
+{
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor colorWithRed:201/255.0f green:226/255.0f blue:255/255.0f alpha:1.0f];
+}
+
+
+- (void)finishedPlayingFeedItemAtIndex:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.backgroundColor = nil;
+}
+
+- (void)finishedPlayingAllFeedItems
+{
+    self.playButton.image = [[UIImage imageNamed:@"button-play-7.png"] resizeImageToSize:IMAGE_SIZE];
+}
+
 #pragma mark - Feed item methods
 
 - (void)markAll:(id)sender
@@ -389,6 +411,7 @@
         self.playButton.image = [[UIImage imageNamed:@"button-play-7-active.png"] resizeImageToSize:IMAGE_SIZE];
         
         [SRFeedItemSpeechPlayer sharedInstance].feedItems = self.feedItems;
+        [SRFeedItemSpeechPlayer sharedInstance].delegate = self;
         [[SRFeedItemSpeechPlayer sharedInstance] play];
     }
     else {

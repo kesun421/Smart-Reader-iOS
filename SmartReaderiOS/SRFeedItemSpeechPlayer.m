@@ -8,6 +8,7 @@
 
 #import "SRFeedItemSpeechPlayer.h"
 #import "MWFeedItem.h"
+#import "MWFeedInfo.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface SRFeedItemSpeechPlayer () <AVSpeechSynthesizerDelegate>
@@ -48,6 +49,8 @@
 
 - (void)play
 {
+    [self.delegate playingFeedItemAtIndex:[NSIndexPath indexPathForRow:_index inSection:0]];
+    
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     MWFeedItem *feedItem = self.feedItems[_index];
@@ -57,7 +60,13 @@
     if (!_spokeTitle) {
         DebugLog(@"Reading feed item: %@", feedItem);
         
-        utteranceString = feedItem.title;
+        if (feedItem.source.feedInfo.title.length && feedItem.title.length) {
+            NSString *title = [NSString stringWithFormat:@"Article from \"%@\": %@", feedItem.source.feedInfo.title, feedItem.title];
+            utteranceString = title;
+        }
+        else if (feedItem.title.length) {
+            utteranceString = feedItem.title;
+        }
         
         _spokeTitle = YES;
     }
@@ -106,8 +115,13 @@
 {
     if (_spokeTitle && _spokeSummary) {
         _spokeTitle = _spokeSummary = NO;
+        
+        [self.delegate finishedPlayingFeedItemAtIndex:[NSIndexPath indexPathForRow:_index inSection:0]];
+        
         _index++;
         if (_index > (self.feedItems.count - 1)) {
+            [self.delegate finishedPlayingAllFeedItems];
+            
             _index = 0;
             [self stop];
             return;

@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SRFeedItemSpeechPlayerDelegate <NSObject>
+
+- (void)playingFeedItemAtIndex:(NSIndexPath *)indexPath;
+- (void)finishedPlayingFeedItemAtIndex:(NSIndexPath *)indexPath;
+- (void)finishedPlayingAllFeedItems;
+
+@end
+
 @interface SRFeedItemSpeechPlayer : NSObject
 
 @property (nonatomic, copy) NSArray *feedItems;
+@property (nonatomic) id<SRFeedItemSpeechPlayerDelegate> delegate;
 
 + (instancetype)sharedInstance;
 - (void)play;
