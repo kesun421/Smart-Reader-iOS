@@ -120,7 +120,7 @@
         [self.tableView addGestureRecognizer:swipeToBookmark];
     }
     
-    self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+    self.tableView.separatorColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -215,6 +215,7 @@
     MWFeedItem *feedItem = self.feedItems[indexPath.row];
     
     cell.textLabel.text = feedItem.title;
+    cell.textLabel.numberOfLines = 2;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     
     if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
@@ -309,14 +310,14 @@
     MWFeedItem *feedItem = self.feedItems[indexPath.row];
     if (feedItem.summary.length) {
         if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
-            return 95.0;
+            return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 125.0 : 115.0;
         }
         else {
-            return 80.0;
+            return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 115 : 105.0;
         }
     }
     else {
-        return 44.0;
+        return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 88.0 : 58.0;
     }
 }
 

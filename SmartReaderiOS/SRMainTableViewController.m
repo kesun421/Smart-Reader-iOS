@@ -54,7 +54,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    self.tableView.separatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0];
+    self.tableView.separatorColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -237,6 +237,10 @@
     secondaryViewController.delegate = self;
     
     [self.navigationController pushViewController:secondaryViewController animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50.0;
 }
 
 #pragma mark - SRAddSourceViewControllerDelegate methods
