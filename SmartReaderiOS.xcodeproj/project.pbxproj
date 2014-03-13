@@ -786,6 +786,7 @@
 		9E41789A1844063900A9DA60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -807,6 +808,7 @@
 		9E41789B1844063900A9DA60 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
