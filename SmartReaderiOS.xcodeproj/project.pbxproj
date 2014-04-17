@@ -83,6 +83,9 @@
 		9EF627A0188F219700896259 /* SRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF6279F188F219700896259 /* SRMessageViewController.m */; };
 		9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF8C000186E260F00AD627F /* MapKit.framework */; };
 		9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8C003186E281900AD627F /* SRSourceManager.m */; };
+		9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */; };
+		9EFD300118FF8B16006A8601 /* CronosPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */; };
+		9EFD300518FF9321006A8601 /* SRTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD300418FF9321006A8601 /* SRTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +219,10 @@
 		9EF8C000186E260F00AD627F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9EF8C002186E281900AD627F /* SRSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSourceManager.h; sourceTree = "<group>"; };
 		9EF8C003186E281900AD627F /* SRSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSourceManager.m; sourceTree = "<group>"; };
+		9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CronosPro-Regular.otf"; sourceTree = "<group>"; };
+		9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CronosPro-Bold.otf"; sourceTree = "<group>"; };
+		9EFD300318FF9321006A8601 /* SRTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTableViewCell.h; sourceTree = "<group>"; };
+		9EFD300418FF9321006A8601 /* SRTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,7 +286,9 @@
 		9E4178761844063800A9DA60 /* SmartReaderiOS */ = {
 			isa = PBXGroup;
 			children = (
+				9EFD300218FF92FE006A8601 /* Custom Views */,
 				9E4178771844063800A9DA60 /* Supporting Files */,
+				9EFD2FFD18FF88A6006A8601 /* Fonts */,
 				9EB135E1188F990D00CC4009 /* Icons */,
 				9E9898DF186A4BAC00353440 /* Images */,
 				9E4178A41844084900A9DA60 /* External Libs */,
@@ -498,6 +507,24 @@
 			path = MWFeedParser;
 			sourceTree = "<group>";
 		};
+		9EFD2FFD18FF88A6006A8601 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */,
+				9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9EFD300218FF92FE006A8601 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD300318FF9321006A8601 /* SRTableViewCell.h */,
+				9EFD300418FF9321006A8601 /* SRTableViewCell.m */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -604,8 +631,10 @@
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E6A6F0518997F7A006E9F35 /* plus-circle-7@2x.png in Resources */,
 				9E6A6F1518998A22006E9F35 /* star-circle-7@2x.png in Resources */,
+				9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */,
 				9E6A6EF718997EE1006E9F35 /* book-7@2x.png in Resources */,
 				9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */,
+				9EFD300118FF8B16006A8601 /* CronosPro-Bold.otf in Resources */,
 				9E6A6F0118997F5F006E9F35 /* more-list-7@2x.png in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
 				9E6A6F0D189987E9006E9F35 /* tick-7-active@2x.png in Resources */,
@@ -633,6 +662,7 @@
 				9EBD2A49187E097A00F53DED /* AFURLConnectionOperation.m in Sources */,
 				9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */,
 				9EEE4E4D184547F600C0066E /* SRSource.m in Sources */,
+				9EFD300518FF9321006A8601 /* SRTableViewCell.m in Sources */,
 				9EBD2A41187E097A00F53DED /* UIWebView+AFNetworking.m in Sources */,
 				9EF627A0188F219700896259 /* SRMessageViewController.m in Sources */,
 				9EBD2A4C187E097A00F53DED /* AFURLSessionManager.m in Sources */,

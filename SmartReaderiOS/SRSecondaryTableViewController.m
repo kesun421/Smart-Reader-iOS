@@ -18,6 +18,7 @@
 #import "SRTextFilteringManager.h"
 #import "UIImage+Extensions.h"
 #import "SRFeedItemSpeechPlayer.h"
+#import "SRTableViewCell.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -32,6 +33,9 @@
 
 @property (nonatomic) UIBarButtonItem *markAllButton;
 @property (nonatomic) UIBarButtonItem *playButton;
+
+@property (nonatomic) UIFont *cronosProBoldFont;
+@property (nonatomic) UIFont *cronosProRegularFont;
 
 - (void)refresh:(id)sender;
 - (void)markAll:(id)sender;
@@ -121,6 +125,9 @@
     }
     
     self.tableView.separatorColor = [UIColor clearColor];
+    
+    self.cronosProRegularFont = [UIFont fontWithName:@"CronosPro-Regular" size:14];
+    self.cronosProBoldFont = [UIFont fontWithName:@"CronosPro-Bold" size:14];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -206,9 +213,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SRTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[SRTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -216,19 +223,20 @@
     
     cell.textLabel.text = feedItem.title;
     cell.textLabel.numberOfLines = 2;
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    cell.textLabel.font = [self.cronosProBoldFont fontWithSize:18];
+    cell.detailTextLabel.font = [self.cronosProRegularFont fontWithSize:15];
     
     if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
         NSMutableAttributedString *detailText = [NSMutableAttributedString new];
         
         NSMutableAttributedString *sourceTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", feedItem.source.feedInfo.title]
                                                                                         attributes:@{
-                                                                                              NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
+                                                                                              NSFontAttributeName : [self.cronosProBoldFont fontWithSize:15.0],
                                                                                               }];
         
         NSMutableAttributedString *feedSummary = [[NSMutableAttributedString alloc] initWithString:feedItem.summary.length ? feedItem.summary : feedItem.content
                                                                                         attributes:@{
-                                                                                              NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                                                                              NSFontAttributeName : [self.cronosProRegularFont fontWithSize:15.0],
                                                                                               }];
         
         [detailText appendAttributedString:sourceTitle];
@@ -293,6 +301,13 @@
 }
 */
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.alpha = 0.25;
+    [UIView animateWithDuration:0.75 animations:^{
+        cell.alpha = 1.0;
+    }];
+}
 
 #pragma mark - Table view delegate
 

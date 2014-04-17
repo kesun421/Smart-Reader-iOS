@@ -54,6 +54,11 @@
 		<string>MKDirectionsModeCar</string>
 		<string>MKDirectionsModePedestrian</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CronosPro-Regular.otf</string>
+		<string>CronosPro-Bold.otf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

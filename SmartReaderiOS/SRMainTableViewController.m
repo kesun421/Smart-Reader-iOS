@@ -28,6 +28,9 @@
     BOOL _refreshingSourcesTableCellAnimationSwitch;
 }
 
+@property (nonatomic) UIFont *cronosProBoldFont;
+@property (nonatomic) UIFont *cronosProRegularFont;
+
 @end
 
 @implementation SRMainTableViewController
@@ -55,6 +58,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     self.tableView.separatorColor = [UIColor clearColor];
+    
+    self.cronosProRegularFont = [UIFont fontWithName:@"CronosPro-Regular" size:14];
+    self.cronosProBoldFont = [UIFont fontWithName:@"CronosPro-Bold" size:14];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,7 +116,7 @@
     
     // Set back to default.
     float titleFontSize = 18.0;
-    cell.textLabel.font = [UIFont systemFontOfSize:titleFontSize];
+    cell.textLabel.font = [self.cronosProRegularFont fontWithSize:titleFontSize];
     cell.backgroundColor = [UIColor whiteColor];
     
     // Add rounded corner to favicons.
@@ -129,7 +135,7 @@
         
         cell.imageView.image = [[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Interesting Articles...";
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
+        cell.textLabel.font = [self.cronosProBoldFont fontWithSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         
@@ -166,6 +172,8 @@
         cell.textLabel.text = source.feedInfo.title;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
     }
+    
+    cell.detailTextLabel.font = self.cronosProRegularFont;
     
     return cell;
 }
