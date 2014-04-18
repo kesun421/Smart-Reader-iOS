@@ -41,6 +41,9 @@
 		9E6A6F11189989DC006E9F35 /* star-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6F10189989DC006E9F35 /* star-7@2x.png */; };
 		9E6A6F1318998A0F006E9F35 /* forbidden-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6F1218998A0F006E9F35 /* forbidden-7@2x.png */; };
 		9E6A6F1518998A22006E9F35 /* star-circle-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */; };
+		9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9F91900D63000914377 /* Calibri Bold.ttf */; };
+		9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FA1900D63000914377 /* Calibri.ttf */; };
+		9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FD1900D9B600914377 /* glasses-7@2x.png */; };
 		9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */; };
 		9EAAFA6718B006EC008B7D36 /* button-play-7-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */; };
 		9EAAFA6A18B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */; };
@@ -141,6 +144,9 @@
 		9E6A6F10189989DC006E9F35 /* star-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-7@2x.png"; sourceTree = "<group>"; };
 		9E6A6F1218998A0F006E9F35 /* forbidden-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forbidden-7@2x.png"; sourceTree = "<group>"; };
 		9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-circle-7@2x.png"; sourceTree = "<group>"; };
+		9E80D9F91900D63000914377 /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
+		9E80D9FA1900D63000914377 /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
+		9E80D9FD1900D9B600914377 /* glasses-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-7@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7-active@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6818B00C9F008B7D36 /* SRFeedItemSpeechPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFeedItemSpeechPlayer.h; sourceTree = "<group>"; };
@@ -345,6 +351,7 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E80D9FD1900D9B600914377 /* glasses-7@2x.png */,
 				9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */,
 				9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */,
 				9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */,
@@ -510,6 +517,8 @@
 		9EFD2FFD18FF88A6006A8601 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9E80D9F91900D63000914377 /* Calibri Bold.ttf */,
+				9E80D9FA1900D63000914377 /* Calibri.ttf */,
 				9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */,
 				9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */,
 			);
@@ -614,6 +623,8 @@
 				9E6A6F0F1899895F006E9F35 /* bookmark-7-active@2x.png in Resources */,
 				9EB135EB188F994400CC4009 /* Images.xcassets in Resources */,
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
+				9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */,
+				9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */,
 				9E6A6EF918997EED006E9F35 /* bookmark-7@2x.png in Resources */,
 				9E6A6F0B18997FB8006E9F35 /* backward-7@2x.png in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
@@ -630,6 +641,7 @@
 				9E6A6F1318998A0F006E9F35 /* forbidden-7@2x.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E6A6F0518997F7A006E9F35 /* plus-circle-7@2x.png in Resources */,
+				9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */,
 				9E6A6F1518998A22006E9F35 /* star-circle-7@2x.png in Resources */,
 				9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */,
 				9E6A6EF718997EE1006E9F35 /* book-7@2x.png in Resources */,

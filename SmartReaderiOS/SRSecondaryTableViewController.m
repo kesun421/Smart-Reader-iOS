@@ -37,6 +37,9 @@
 @property (nonatomic) UIFont *cronosProBoldFont;
 @property (nonatomic) UIFont *cronosProRegularFont;
 
+@property (nonatomic) UIFont *calibriBoldFont;
+@property (nonatomic) UIFont *calibriFont;
+
 - (void)refresh:(id)sender;
 - (void)markAll:(id)sender;
 - (void)playAll:(id)sender;
@@ -56,6 +59,7 @@
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(dismiss:)];
+        
         self.navigationItem.leftBarButtonItem = backButton;
         
         if (self.source.sourceForInterestingItems) {
@@ -128,6 +132,9 @@
     
     self.cronosProRegularFont = [UIFont fontWithName:@"CronosPro-Regular" size:14];
     self.cronosProBoldFont = [UIFont fontWithName:@"CronosPro-Bold" size:14];
+    
+    self.calibriBoldFont = [UIFont fontWithName:@"Calibri-Bold" size:14];
+    self.calibriFont = [UIFont fontWithName:@"Calibri" size:14];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -223,20 +230,20 @@
     
     cell.textLabel.text = feedItem.title;
     cell.textLabel.numberOfLines = 2;
-    cell.textLabel.font = [self.cronosProBoldFont fontWithSize:18];
-    cell.detailTextLabel.font = [self.cronosProRegularFont fontWithSize:15];
+    cell.textLabel.font = [self.calibriBoldFont fontWithSize:18];
+    cell.detailTextLabel.font = [self.calibriFont fontWithSize:15];
     
     if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
         NSMutableAttributedString *detailText = [NSMutableAttributedString new];
         
         NSMutableAttributedString *sourceTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", feedItem.source.feedInfo.title]
                                                                                         attributes:@{
-                                                                                              NSFontAttributeName : [self.cronosProBoldFont fontWithSize:15.0],
+                                                                                              NSFontAttributeName : [self.calibriBoldFont fontWithSize:15.0],
                                                                                               }];
         
         NSMutableAttributedString *feedSummary = [[NSMutableAttributedString alloc] initWithString:feedItem.summary.length ? feedItem.summary : feedItem.content
                                                                                         attributes:@{
-                                                                                              NSFontAttributeName : [self.cronosProRegularFont fontWithSize:15.0],
+                                                                                              NSFontAttributeName : [self.calibriFont fontWithSize:15.0],
                                                                                               }];
         
         [detailText appendAttributedString:sourceTitle];
@@ -303,7 +310,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.alpha = 0.25;
+    cell.alpha = 0.0;
     [UIView animateWithDuration:0.75 animations:^{
         cell.alpha = 1.0;
     }];

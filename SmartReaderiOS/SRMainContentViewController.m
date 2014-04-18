@@ -93,13 +93,13 @@
 {
     [super viewWillAppear:animated];
     
-    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
+    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(likeArticle:)];
 
     
-    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"compass-7.png"] resizeImageToSize:IMAGE_SIZE]
+    self.switchArticleViewButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"glasses-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(switchArticleView:)];
@@ -115,19 +115,8 @@
     
     self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
     
-    // Encode the url for passing to Readability API.
-    NSString *encodedUrlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                                    NULL,
-                                                                                                    (CFStringRef)self.feedItem.link,
-                                                                                                    NULL,
-                                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                    kCFStringEncodingUTF8)
-                                                            );
-    
-    
-    NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", encodedUrlString];
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
+    _readingOriginalLink = YES;
     
     self.likeButton.enabled = !self.feedItem.userLiked;
 }
@@ -187,7 +176,7 @@
     UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
 
     if (!_readingOriginalLink) {
-        [barButtonItem setImage:[[UIImage imageNamed:@"rss-7.png"] resizeImageToSize:IMAGE_SIZE]];
+        [barButtonItem setImage:[[UIImage imageNamed:@"glasses-7.png"] resizeImageToSize:IMAGE_SIZE]];
         
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
         
@@ -198,7 +187,17 @@
     else {
         [barButtonItem setImage:[[UIImage imageNamed:@"compass-7.png"] resizeImageToSize:IMAGE_SIZE]];
         
-        NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", self.feedItem.link];
+        // Encode the url for passing to Readability API.
+        NSString *encodedUrlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                           NULL,
+                                                                                                           (CFStringRef)self.feedItem.link,
+                                                                                                           NULL,
+                                                                                                           (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                           kCFStringEncodingUTF8)
+                                                                   );
+        
+        NSString *readabilityUrl = [NSString stringWithFormat:@"http://www.readability.com/m?url=%@", encodedUrlString];
+        
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:readabilityUrl]]];
         
         _readingOriginalLink = NO;

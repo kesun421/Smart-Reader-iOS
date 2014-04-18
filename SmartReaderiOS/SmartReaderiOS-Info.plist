@@ -58,6 +58,8 @@
 	<array>
 		<string>CronosPro-Regular.otf</string>
 		<string>CronosPro-Bold.otf</string>
+		<string>Calibri Bold.ttf</string>
+		<string>Calibri.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

@@ -31,6 +31,9 @@
 @property (nonatomic) UIFont *cronosProBoldFont;
 @property (nonatomic) UIFont *cronosProRegularFont;
 
+@property (nonatomic) UIFont *calibriBoldFont;
+@property (nonatomic) UIFont *calibriFont;
+
 @end
 
 @implementation SRMainTableViewController
@@ -61,6 +64,9 @@
     
     self.cronosProRegularFont = [UIFont fontWithName:@"CronosPro-Regular" size:14];
     self.cronosProBoldFont = [UIFont fontWithName:@"CronosPro-Bold" size:14];
+    
+    self.calibriBoldFont = [UIFont fontWithName:@"Calibri-Bold" size:14];
+    self.calibriFont = [UIFont fontWithName:@"Calibri" size:14];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,7 +122,7 @@
     
     // Set back to default.
     float titleFontSize = 18.0;
-    cell.textLabel.font = [self.cronosProRegularFont fontWithSize:titleFontSize];
+    cell.textLabel.font = [self.calibriFont fontWithSize:titleFontSize];
     cell.backgroundColor = [UIColor whiteColor];
     
     // Add rounded corner to favicons.
@@ -135,7 +141,7 @@
         
         cell.imageView.image = [[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:newImageSize] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.textLabel.text = @"Interesting Articles...";
-        cell.textLabel.font = [self.cronosProBoldFont fontWithSize:titleFontSize];
+        cell.textLabel.font = [self.calibriBoldFont fontWithSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         
@@ -173,7 +179,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
     }
     
-    cell.detailTextLabel.font = self.cronosProRegularFont;
+    cell.detailTextLabel.font = self.calibriFont;
     
     return cell;
 }
