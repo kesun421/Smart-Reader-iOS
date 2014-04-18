@@ -151,13 +151,7 @@
                                                       target:self
                                                       action:@selector(playAll:)];
     
-    
-    if (self.source.sourceForInterestingItems) {
-        self.navigationItem.rightBarButtonItems = @[ self.markAllButton, self.playButton ];
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = self.markAllButton;
-    }
+    self.navigationItem.rightBarButtonItems = @[ self.markAllButton, self.playButton ];
     
     _markedAllAsRead = NO;
     
@@ -429,6 +423,8 @@
 
 - (void)playAll:(id)sender
 {
+    NSString *message = _playing ? @"Stopped reading summary" : @"Started reading summary";
+    
     if (!_playing) {
         _playing = YES;
         self.playButton.image = [[UIImage imageNamed:@"button-play-7-active.png"] resizeImageToSize:IMAGE_SIZE];
@@ -443,6 +439,10 @@
         
         [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
 }
 
 #pragma mark - Swipe gesture
