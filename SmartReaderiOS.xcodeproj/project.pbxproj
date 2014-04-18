@@ -838,6 +838,7 @@
 					"/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ED280C0-3FB2-414C-BB58-42BFC1723823";
@@ -860,6 +861,7 @@
 					"/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ED280C0-3FB2-414C-BB58-42BFC1723823";
