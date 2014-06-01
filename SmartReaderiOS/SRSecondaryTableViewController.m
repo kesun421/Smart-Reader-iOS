@@ -40,6 +40,8 @@
 @property (nonatomic) UIFont *calibriBoldFont;
 @property (nonatomic) UIFont *calibriFont;
 
+@property (nonatomic, copy) NSIndexPath *indexPathOfFeedItemBeingRead;
+
 - (void)refresh:(id)sender;
 - (void)markAll:(id)sender;
 - (void)playAll:(id)sender;
@@ -227,6 +229,13 @@
     cell.textLabel.font = [self.calibriBoldFont fontWithSize:18];
     cell.detailTextLabel.font = [self.calibriFont fontWithSize:15];
     
+    if ([indexPath compare:self.indexPathOfFeedItemBeingRead] != NSOrderedSame) {
+        cell.backgroundColor = nil;
+    }
+    else {
+        cell.backgroundColor = [UIColor colorWithRed:201/255.0f green:226/255.0f blue:255/255.0f alpha:1.0f];
+    }
+    
     if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
         NSMutableAttributedString *detailText = [NSMutableAttributedString new];
         
@@ -363,6 +372,8 @@
 
 - (void)playingFeedItemAtIndex:(NSIndexPath *)indexPath
 {
+    self.indexPathOfFeedItemBeingRead = indexPath;
+    
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -372,6 +383,8 @@
 
 - (void)finishedPlayingFeedItemAtIndex:(NSIndexPath *)indexPath
 {
+    self.indexPathOfFeedItemBeingRead = nil;
+    
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     cell.backgroundColor = nil;
 }
