@@ -20,6 +20,7 @@
 #import "SRTextFilteringManager.h"
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
+#import "UIViewController+CWPopup.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -281,7 +282,7 @@
     SRAddSourceViewController *addSourceViewController = [SRAddSourceViewController new];
     addSourceViewController.delegate = self;
     
-    [self.navigationController presentViewController:addSourceViewController animated:YES completion:nil];
+    [self.navigationController presentPopupViewController:addSourceViewController animated:YES completion:nil];
 }
 
 - (void)refreshSources

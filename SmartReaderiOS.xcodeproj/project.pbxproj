@@ -86,6 +86,7 @@
 		9EF627A0188F219700896259 /* SRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF6279F188F219700896259 /* SRMessageViewController.m */; };
 		9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF8C000186E260F00AD627F /* MapKit.framework */; };
 		9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8C003186E281900AD627F /* SRSourceManager.m */; };
+		9EF9969619AB9DD300BE2F49 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9969519AB9DD300BE2F49 /* UIViewController+CWPopup.m */; };
 		9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */; };
 		9EFD300118FF8B16006A8601 /* CronosPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */; };
 		9EFD300518FF9321006A8601 /* SRTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD300418FF9321006A8601 /* SRTableViewCell.m */; };
@@ -225,6 +226,8 @@
 		9EF8C000186E260F00AD627F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9EF8C002186E281900AD627F /* SRSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSourceManager.h; sourceTree = "<group>"; };
 		9EF8C003186E281900AD627F /* SRSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSourceManager.m; sourceTree = "<group>"; };
+		9EF9969419AB9DD300BE2F49 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
+		9EF9969519AB9DD300BE2F49 /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
 		9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CronosPro-Regular.otf"; sourceTree = "<group>"; };
 		9EFD300018FF8B12006A8601 /* CronosPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CronosPro-Bold.otf"; sourceTree = "<group>"; };
 		9EFD300318FF9321006A8601 /* SRTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTableViewCell.h; sourceTree = "<group>"; };
@@ -340,6 +343,7 @@
 		9E4178A41844084900A9DA60 /* External Libs */ = {
 			isa = PBXGroup;
 			children = (
+				9EF9969319AB9DD300BE2F49 /* CWPopup */,
 				9EBD2A17187E097A00F53DED /* AFNetworking */,
 				9EBD2A02187E097A00F53DED /* UIKit+AFNetworking */,
 				9EBD2A2B187E097A00F53DED /* MWFeedParser */,
@@ -514,6 +518,15 @@
 			path = MWFeedParser;
 			sourceTree = "<group>";
 		};
+		9EF9969319AB9DD300BE2F49 /* CWPopup */ = {
+			isa = PBXGroup;
+			children = (
+				9EF9969419AB9DD300BE2F49 /* UIViewController+CWPopup.h */,
+				9EF9969519AB9DD300BE2F49 /* UIViewController+CWPopup.m */,
+			);
+			path = CWPopup;
+			sourceTree = "<group>";
+		};
 		9EFD2FFD18FF88A6006A8601 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,6 +695,7 @@
 				9E417A07184410ED00A9DA60 /* SRMainTableViewController.m in Sources */,
 				9E417A0C18441E6000A9DA60 /* SRSecondaryTableViewController.m in Sources */,
 				9EBD2A48187E097A00F53DED /* AFSecurityPolicy.m in Sources */,
+				9EF9969619AB9DD300BE2F49 /* UIViewController+CWPopup.m in Sources */,
 				9EBD2A44187E097A00F53DED /* AFHTTPRequestOperation.m in Sources */,
 				9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */,
 				9E41787D1844063800A9DA60 /* main.m in Sources */,

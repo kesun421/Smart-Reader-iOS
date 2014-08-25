@@ -13,6 +13,7 @@
 #import "SRSource.h"
 #import "MWFeedInfo.h"
 #import "MWFeedParser.h"
+#import "UIViewController+CWPopup.h"
 
 @interface SRAddSourceViewController () <SRSourceDelegate, UITextFieldDelegate>
 {
@@ -38,8 +39,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.backgroundColor = [UIColor lightGrayColor];
-        self.dialog.layer.cornerRadius = 20.0;
         self.urlField.autocorrectionType = UITextAutocorrectionTypeNo;
     }
     return self;
@@ -75,7 +74,7 @@
 
 - (IBAction)dismiss:(id)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)add:(id)sender
@@ -197,7 +196,7 @@
     
     sourcesProcessed++;
     if (sourcesProcessed == self.sources.count) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self dismiss:self];
         [self.delegate addSourceViewControllerDidFinishAddingAllSources:self];
     }
 }
