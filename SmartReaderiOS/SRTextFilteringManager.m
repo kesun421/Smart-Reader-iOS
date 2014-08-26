@@ -93,85 +93,87 @@
 
 - (void)findInterestingFeedItemsFromSources:(NSArray *)sources
 {
-    [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
-                              usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                  SRSource *source = (SRSource *)obj;
-                                  
-                                  [source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                                                     usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                                                         MWFeedItem *feedItem = (MWFeedItem *)obj;
-                                                                         
-                                                                         if (!feedItem.tokens.count || feedItem.userLiked) {
-                                                                             DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@.", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO");
-                                                                             return;
-                                                                         }
-                                                                         
-                                                                         float _interestingProbability = 0.0;
-                                                                         int tokenCount = 0;
-                                                                         for (NSString *token in feedItem.tokens.allKeys) {
-                                                                             if (_interestedFeedItemTokens[token]) {
-                                                                                 _interestingProbability += log([_interestedFeedItemTokens[token] floatValue] / _interestedFeedItemTokens.count);
-                                                                                 tokenCount++;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                  usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                      SRSource *source = (SRSource *)obj;
+                                      
+                                      [source.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                                                         usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                                             MWFeedItem *feedItem = (MWFeedItem *)obj;
+                                                                             
+                                                                             if (!feedItem.tokens.count || feedItem.userLiked) {
+                                                                                 DebugLog(@"Skipped the processing of feed item: %@. No tokens: %@. User liked: %@.", feedItem, !feedItem.tokens.count ? @"YES" : @"NO",feedItem.userLiked ? @"YES" : @"NO");
+                                                                                 return;
                                                                              }
-                                                                         }
-                                                                         
-                                                                         // There is no value of continuing since a comparison can not be made from existing data.
-                                                                         if (_interestingProbability == 0.0) {
-                                                                             return;
-                                                                         }
-                                                                         
-                                                                         _interestingProbability *= -1.0;
-                                                                         
-                                                                         DebugLog(@"Feed item: %@, with link: %@, has interesting probability: %f, calculated using %d token(s).", feedItem, feedItem.link, _interestingProbability, tokenCount);
-                                                                         
-                                                                         feedItem.interestingProbability = _interestingProbability;
-                                                                     }];
-                              }];
-    
-    // Find all the news items that are marked as likable by algorithm, but not marked as unlikable by the user.
-    NSMutableArray *feedItems = [NSMutableArray new];
-    
-    int totalFeedItemsCount = 0;
-    for (SRSource *source in sources) {
-        totalFeedItemsCount += source.feedItems.count;
-        for (MWFeedItem *feedItem in source.feedItems) {
-            // Only show those items that were liked by the algorithm.
-            if (feedItem.interestingProbability != 0.0 && !feedItem.userLiked && !feedItem.read) {
-                feedItem.source = source;
-                [feedItems addObject:feedItem];
+                                                                             
+                                                                             float _interestingProbability = 0.0;
+                                                                             int tokenCount = 0;
+                                                                             for (NSString *token in feedItem.tokens.allKeys) {
+                                                                                 if (_interestedFeedItemTokens[token]) {
+                                                                                     _interestingProbability += log([_interestedFeedItemTokens[token] floatValue] / _interestedFeedItemTokens.count);
+                                                                                     tokenCount++;
+                                                                                 }
+                                                                             }
+                                                                             
+                                                                             // There is no value of continuing since a comparison can not be made from existing data.
+                                                                             if (_interestingProbability == 0.0) {
+                                                                                 return;
+                                                                             }
+                                                                             
+                                                                             _interestingProbability *= -1.0;
+                                                                             
+                                                                             DebugLog(@"Feed item: %@, with link: %@, has interesting probability: %f, calculated using %d token(s).", feedItem, feedItem.link, _interestingProbability, tokenCount);
+                                                                             
+                                                                             feedItem.interestingProbability = _interestingProbability;
+                                                                         }];
+                                  }];
+        
+        // Find all the news items that are marked as likable by algorithm, but not marked as unlikable by the user.
+        NSMutableArray *feedItems = [NSMutableArray new];
+        
+        int totalFeedItemsCount = 0;
+        for (SRSource *source in sources) {
+            totalFeedItemsCount += source.feedItems.count;
+            for (MWFeedItem *feedItem in source.feedItems) {
+                // Only show those items that were liked by the algorithm.
+                if (feedItem.interestingProbability != 0.0 && !feedItem.userLiked && !feedItem.read) {
+                    feedItem.source = source;
+                    [feedItems addObject:feedItem];
+                }
             }
         }
-    }
-    
-    // Sort the likable feed items by their likable probability in descending order.
-    [feedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
-        MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
         
-        if (feedItem1.interestingProbability < feedItem2.interestingProbability) {
-            return (NSComparisonResult)NSOrderedDescending;
-        } else if(feedItem1.interestingProbability > feedItem2.interestingProbability) {
-            return (NSComparisonResult)NSOrderedAscending;
+        // Sort the likable feed items by their likable probability in descending order.
+        [feedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
+            MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
+            
+            if (feedItem1.interestingProbability < feedItem2.interestingProbability) {
+                return (NSComparisonResult)NSOrderedDescending;
+            } else if(feedItem1.interestingProbability > feedItem2.interestingProbability) {
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            return (NSComparisonResult)NSOrderedSame;
+        }];
+        
+        // Only show as much as 10 percent of the total feed items.
+        int likableFeedItemsLimit = floorf(totalFeedItemsCount * 0.1);
+        
+        if (likableFeedItemsLimit > 25) {
+            likableFeedItemsLimit = 25;
         }
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-    
-    // Only show as much as 10 percent of the total feed items.
-    int likableFeedItemsLimit = floorf(totalFeedItemsCount * 0.1);
-    
-    if (likableFeedItemsLimit > 25) {
-        likableFeedItemsLimit = 25;
-    }
-    
-    if (feedItems.count > likableFeedItemsLimit) {
-        self.interestingFeedItems = [feedItems subarrayWithRange:NSMakeRange(0, likableFeedItemsLimit)];
-    }
-    else {
-        self.interestingFeedItems = [feedItems copy];
-    }
-    
-    // Call to delegate to refresh with suggested news items.
-    [self.delegate didFinishFindinglikableFeedItems];
+        
+        if (feedItems.count > likableFeedItemsLimit) {
+            self.interestingFeedItems = [feedItems subarrayWithRange:NSMakeRange(0, likableFeedItemsLimit)];
+        }
+        else {
+            self.interestingFeedItems = [feedItems copy];
+        }
+        
+        // Call to delegate to refresh with suggested news items.
+        [self.delegate didFinishFindinglikableFeedItems];
+    });
 }
 
 @end

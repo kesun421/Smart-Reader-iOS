@@ -66,68 +66,70 @@
 
 - (void)parseFeedItemTokens
 {
-    [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
-                                     usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                         MWFeedItem *feedItem = (MWFeedItem *)obj;
-                                         
-                                         if (feedItem.tokens.count) {
-                                             return;
-                                         }
-                                         
-                                         @autoreleasepool {
-                                             NSMutableDictionary *dictCopy = [NSMutableDictionary new];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
+                                         usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                             MWFeedItem *feedItem = (MWFeedItem *)obj;
                                              
-                                             NSString *content = feedItem.summary;
-                                             
-                                             if (!content.length) {
-                                                 content = feedItem.content;
+                                             if (feedItem.tokens.count) {
+                                                 return;
                                              }
                                              
-                                             if (!content.length) {
-                                                 content = feedItem.title;
-                                             }
-                                             
-                                             NSArray *tokens = [content componentsSeparatedByString:@" "];
-                                             
-                                             for (NSString *token in tokens) {
-                                                 @autoreleasepool {
-                                                     NSString *tokenCopy = [token copy];
-                                                     
-                                                     // Remove from tokens, the characters that does not contribute too much meaning.
-                                                     if ([tokenCopy rangeOfString:@"("].location != NSNotFound) {
-                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
-                                                     }
-                                                     
-                                                     if ([tokenCopy rangeOfString:@")"].location != NSNotFound) {
-                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
-                                                     }
-                                                     
-                                                     if ([tokenCopy rangeOfString:@"\""].location != NSNotFound) {
-                                                         tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                                                     }
-                                                     
-                                                     // Only consider the tokens that are between 3 to 44 characters long.
-                                                     if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
-                                                         continue;
-                                                     }
-                                                     
-                                                     // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
-                                                     if (dictCopy[tokenCopy]) {
-                                                         NSNumber *count = dictCopy[tokenCopy];
-                                                         dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
-                                                     }
-                                                     else {
-                                                         dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
+                                             @autoreleasepool {
+                                                 NSMutableDictionary *dictCopy = [NSMutableDictionary new];
+                                                 
+                                                 NSString *content = feedItem.summary;
+                                                 
+                                                 if (!content.length) {
+                                                     content = feedItem.content;
+                                                 }
+                                                 
+                                                 if (!content.length) {
+                                                     content = feedItem.title;
+                                                 }
+                                                 
+                                                 NSArray *tokens = [content componentsSeparatedByString:@" "];
+                                                 
+                                                 for (NSString *token in tokens) {
+                                                     @autoreleasepool {
+                                                         NSString *tokenCopy = [token copy];
+                                                         
+                                                         // Remove from tokens, the characters that does not contribute too much meaning.
+                                                         if ([tokenCopy rangeOfString:@"("].location != NSNotFound) {
+                                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                                                         }
+                                                         
+                                                         if ([tokenCopy rangeOfString:@")"].location != NSNotFound) {
+                                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@")" withString:@""];
+                                                         }
+                                                         
+                                                         if ([tokenCopy rangeOfString:@"\""].location != NSNotFound) {
+                                                             tokenCopy = [tokenCopy stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                                         }
+                                                         
+                                                         // Only consider the tokens that are between 3 to 44 characters long.
+                                                         if (tokenCopy.length <= 3 || tokenCopy.length >= 44) {
+                                                             continue;
+                                                         }
+                                                         
+                                                         // If token already exists in the dict, increment the token count.  Else, add the new token with count of 1.
+                                                         if (dictCopy[tokenCopy]) {
+                                                             NSNumber *count = dictCopy[tokenCopy];
+                                                             dictCopy[tokenCopy] = [NSNumber numberWithInt:[count intValue] + 1];
+                                                         }
+                                                         else {
+                                                             dictCopy[tokenCopy] = [NSNumber numberWithInt:1];
+                                                         }
                                                      }
                                                  }
+                                                 
+                                                 if (dictCopy.count) {
+                                                     feedItem.tokens = [dictCopy copy];
+                                                     DebugLog(@"Finished parsing tokens for feed item: %@, with tokens count: %lu", feedItem, (unsigned long)feedItem.tokens.count);
+                                                 }
                                              }
-                                             
-                                             if (dictCopy.count) {
-                                                 feedItem.tokens = [dictCopy copy];
-                                                 DebugLog(@"Finished parsing tokens for feed item: %@, with tokens count: %lu", feedItem, (unsigned long)feedItem.tokens.count);
-                                             }
-                                         }
-                                     }];
+                                         }];
+    });
 }
 
 #pragma mark - MWFeedParserDelegate
