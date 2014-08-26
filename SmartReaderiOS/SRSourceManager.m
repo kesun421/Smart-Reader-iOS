@@ -115,18 +115,12 @@
         SRSource *source2 = (SRSource *)obj2;
         return [source1.feedInfo.title compare:source2.feedInfo.title];
     }];
-    
-    [source parseFeedItemTokens];
 }
 
 #pragma mark - SRSourceDelegate
 
 - (void)didFinishRefreshingSource:(SRSource *)source withError:(NSError *)error
-{
-//    [source removeOldFeedItems];
-    
-    [source parseFeedItemTokens];
-    
+{    
     static int sourcesUpdated = 0;
     sourcesUpdated++;
     if (sourcesUpdated == self.sources.count) {

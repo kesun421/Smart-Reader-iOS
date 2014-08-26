@@ -188,6 +188,8 @@
         return [item2.date compare:item1.date];
     }];
     
+    [self parseFeedItemTokens];
+    
     [self.delegate didFinishRefreshingSource:self withError:nil];
 }
 
