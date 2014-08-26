@@ -25,9 +25,6 @@
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
 @interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
-{
-    BOOL _refreshingSourcesTableCellAnimationSwitch;
-}
 
 @property (nonatomic) UIFont *cronosProBoldFont;
 @property (nonatomic) UIFont *cronosProRegularFont;
@@ -146,14 +143,12 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         
-        if (_refreshingSourcesTableCellAnimationSwitch) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
             rotationAnimation.duration = 1.0;
             [cell.imageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-            
-            _refreshingSourcesTableCellAnimationSwitch = NO;
-        }
+        });
     }
     else {
         long index = [SRTextFilteringManager sharedManager].interestingFeedItems.count ? indexPath.row - 1 : indexPath.row;
@@ -287,8 +282,6 @@
 
 - (void)refreshSources
 {
-    _refreshingSourcesTableCellAnimationSwitch = YES;
-    
     [[SRSourceManager sharedManager] refreshSources];
 }
 

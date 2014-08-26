@@ -171,8 +171,10 @@
             self.interestingFeedItems = [feedItems copy];
         }
         
-        // Call to delegate to refresh with suggested news items.
-        [self.delegate didFinishFindinglikableFeedItems];
+        // Call to delegate on main thread to refresh with suggested news items.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate didFinishFindinglikableFeedItems];
+        });
     });
 }
 
