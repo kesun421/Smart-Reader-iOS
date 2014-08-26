@@ -93,7 +93,7 @@
 
 - (void)findInterestingFeedItemsFromSources:(NSArray *)sources
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [sources enumerateObjectsWithOptions:NSEnumerationConcurrent
                                   usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                       SRSource *source = (SRSource *)obj;

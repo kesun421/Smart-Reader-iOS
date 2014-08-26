@@ -66,7 +66,7 @@
 
 - (void)parseFeedItemTokens
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self.feedItems enumerateObjectsWithOptions:NSEnumerationConcurrent
                                          usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                              MWFeedItem *feedItem = (MWFeedItem *)obj;
