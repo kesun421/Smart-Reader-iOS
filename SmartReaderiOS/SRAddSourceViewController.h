@@ -13,6 +13,7 @@
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source;
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller;
+- (void)addSourceViewControllerDidDismiss;
 
 @end
 

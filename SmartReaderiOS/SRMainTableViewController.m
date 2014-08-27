@@ -270,12 +270,23 @@
     [msgController animate];
 }
 
+- (void)addSourceViewControllerDidDismiss
+{
+    // Enable the access to the UI that was in the background of the popup view.
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    self.view.userInteractionEnabled = YES;
+}
+
 #pragma mark - UI related
 
 - (void)add
 {
     SRAddSourceViewController *addSourceViewController = [SRAddSourceViewController new];
     addSourceViewController.delegate = self;
+    
+    // Disable the access to the UI in the background.
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    self.view.userInteractionEnabled = NO;
     
     [self.navigationController presentPopupViewController:addSourceViewController animated:YES completion:nil];
 }

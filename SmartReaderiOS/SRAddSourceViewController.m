@@ -75,6 +75,7 @@
 - (IBAction)dismiss:(id)sender
 {
     [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
+    [self.delegate addSourceViewControllerDidDismiss];
 }
 
 - (IBAction)add:(id)sender
