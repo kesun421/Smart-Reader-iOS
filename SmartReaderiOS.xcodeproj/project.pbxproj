@@ -44,6 +44,9 @@
 		9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9F91900D63000914377 /* Calibri Bold.ttf */; };
 		9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FA1900D63000914377 /* Calibri.ttf */; };
 		9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FD1900D9B600914377 /* glasses-7@2x.png */; };
+		9E9C92D519B2508900F98131 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C92D419B2508900F98131 /* MBProgressHUD.m */; };
+		9E9C92D719B26AC300F98131 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D619B26AC300F98131 /* LaunchImage.png */; };
+		9E9C92D919B26B0F00F98131 /* LaunchImage_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */; };
 		9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */; };
 		9EAAFA6718B006EC008B7D36 /* button-play-7-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */; };
 		9EAAFA6A18B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */; };
@@ -148,6 +151,10 @@
 		9E80D9F91900D63000914377 /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		9E80D9FA1900D63000914377 /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
 		9E80D9FD1900D9B600914377 /* glasses-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-7@2x.png"; sourceTree = "<group>"; };
+		9E9C92D319B2508900F98131 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		9E9C92D419B2508900F98131 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		9E9C92D619B26AC300F98131 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
+		9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x960.png; sourceTree = "<group>"; };
 		9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-play-7-active@2x.png"; sourceTree = "<group>"; };
 		9EAAFA6818B00C9F008B7D36 /* SRFeedItemSpeechPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFeedItemSpeechPlayer.h; sourceTree = "<group>"; };
@@ -343,6 +350,7 @@
 		9E4178A41844084900A9DA60 /* External Libs */ = {
 			isa = PBXGroup;
 			children = (
+				9E9C92D219B2508900F98131 /* MBProgressHUD */,
 				9EF9969319AB9DD300BE2F49 /* CWPopup */,
 				9EBD2A17187E097A00F53DED /* AFNetworking */,
 				9EBD2A02187E097A00F53DED /* UIKit+AFNetworking */,
@@ -355,6 +363,8 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */,
+				9E9C92D619B26AC300F98131 /* LaunchImage.png */,
 				9E80D9FD1900D9B600914377 /* glasses-7@2x.png */,
 				9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */,
 				9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */,
@@ -424,6 +434,15 @@
 				9EAAFA6918B00C9F008B7D36 /* SRFeedItemSpeechPlayer.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		9E9C92D219B2508900F98131 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				9E9C92D319B2508900F98131 /* MBProgressHUD.h */,
+				9E9C92D419B2508900F98131 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		9EB135E1188F990D00CC4009 /* Icons */ = {
@@ -641,6 +660,7 @@
 				9E6A6EF918997EED006E9F35 /* bookmark-7@2x.png in Resources */,
 				9E6A6F0B18997FB8006E9F35 /* backward-7@2x.png in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
+				9E9C92D919B26B0F00F98131 /* LaunchImage_640x960.png in Resources */,
 				9EB135E7188F991C00CC4009 /* icon-80.png in Resources */,
 				9E6A6F0918997FA0006E9F35 /* tick-7@2x.png in Resources */,
 				9E417A08184410ED00A9DA60 /* SRMainTableViewController.xib in Resources */,
@@ -665,6 +685,7 @@
 				9E6A6F0D189987E9006E9F35 /* tick-7-active@2x.png in Resources */,
 				9E6A6F11189989DC006E9F35 /* star-7@2x.png in Resources */,
 				9EB135E9188F991C00CC4009 /* icon-512.png in Resources */,
+				9E9C92D719B26AC300F98131 /* LaunchImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +717,7 @@
 				9E417A0C18441E6000A9DA60 /* SRSecondaryTableViewController.m in Sources */,
 				9EBD2A48187E097A00F53DED /* AFSecurityPolicy.m in Sources */,
 				9EF9969619AB9DD300BE2F49 /* UIViewController+CWPopup.m in Sources */,
+				9E9C92D519B2508900F98131 /* MBProgressHUD.m in Sources */,
 				9EBD2A44187E097A00F53DED /* AFHTTPRequestOperation.m in Sources */,
 				9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */,
 				9E41787D1844063800A9DA60 /* main.m in Sources */,
@@ -843,7 +865,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
@@ -866,7 +887,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ke Sun (9PV2V3BB9N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";

@@ -436,7 +436,7 @@
 
 - (void)playAll:(id)sender
 {
-    NSString *message = _playing ? @"Stopped reading summary" : @"Started reading summary";
+    NSString *message = _playing ? @"Stopped reading" : @"Started reading";
     
     if (!_playing) {
         _playing = YES;

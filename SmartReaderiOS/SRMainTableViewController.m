@@ -21,6 +21,7 @@
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
 #import "UIViewController+CWPopup.h"
+#import "MBProgressHUD.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -87,6 +88,12 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(menu)];
+
+    if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh"];
+        [self.navigationController.view addSubview:msgController.view];
+        [msgController animate];
+    }
 }
 
 - (void)didReceiveMemoryWarning

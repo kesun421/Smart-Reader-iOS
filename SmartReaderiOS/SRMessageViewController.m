@@ -56,7 +56,7 @@
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0, 20.0, _width, _height - 20.0)];
         textField.textAlignment = NSTextAlignmentCenter;
         textField.textColor = [UIColor whiteColor];
-        textField.text = message;
+        textField.text = [message lowercaseString];
         textField.font = [UIFont fontWithName:@"Calibri-Bold" size:20];
 
         [self.view addSubview:textField];
@@ -87,6 +87,8 @@
 
 - (void)animate
 {
+    [self.view setNeedsDisplay];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.5
                               delay:0.0
