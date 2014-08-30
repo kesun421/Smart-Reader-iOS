@@ -54,8 +54,6 @@
     [[SRSourceManager sharedManager] loadSources];
     [SRSourceManager sharedManager].mainDelegate = self;
     
-    [self refreshSources];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     self.tableView.separatorColor = [UIColor clearColor];
@@ -65,6 +63,9 @@
     
     self.calibriBoldFont = [UIFont fontWithName:@"Calibri-Bold" size:14];
     self.calibriFont = [UIFont fontWithName:@"Calibri" size:14];
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,10 +86,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"more-list-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
-                                                                             action:@selector(menu)],
-    
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+                                                                             action:@selector(menu)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,7 +139,6 @@
         cell.textLabel.text = @"Interesting Articles...";
         cell.textLabel.font = [self.calibriBoldFont fontWithSize:titleFontSize];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
-        cell.backgroundColor = [UIColor colorWithRed:238.0f/255.0f green:247.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -225,13 +222,6 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Stop the refresh control from continued spinning.  If we don't do this, it's possible that we navigated to another view controller
-    // while the refresh control was spinning, when we navigate back to the main cview controller, there will be a gap left in the UI that
-    // used to hold the refresh control.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl endRefreshing];
-    });
-    
     SRSource *source = nil;
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count && indexPath.row == 0) {
         source = [SRSource new];
@@ -293,6 +283,10 @@
 
 - (void)refreshSources
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl beginRefreshing];
+    });
+    
     [[SRSourceManager sharedManager] refreshSources];
 }
 
@@ -338,10 +332,6 @@
 {
     [self.tableView reloadData];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl endRefreshing];
-    });
-    
     [SRTextFilteringManager sharedManager].delegate = self;
     [[SRTextFilteringManager sharedManager] findInterestingFeedItemsFromSources:[SRSourceManager sharedManager].sources];
 }
@@ -362,6 +352,10 @@
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl endRefreshing];
+    });
     
     [self.tableView reloadData];
 }
