@@ -31,6 +31,7 @@
 @property (nonatomic) UIBarButtonItem *switchArticleViewButton;
 @property (nonatomic) UIBarButtonItem *likeButton;
 @property (nonatomic) UIBarButtonItem *bookmarkButton;
+@property (nonatomic) UIBarButtonItem *shareButton;
 @property (nonatomic) MWFeedItem *feedItem;
 
 - (void)switchArticleView:(id)sender;
@@ -113,7 +114,12 @@
         self.bookmarkButton.image = [[UIImage imageNamed:@"bookmark-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
     
-    self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.bookmarkButton, self.switchArticleViewButton ];
+    self.shareButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"share-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(shareArticle:)];
+    
+    self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.shareButton, self.bookmarkButton, self.switchArticleViewButton ];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
     _readingOriginalLink = YES;
@@ -255,6 +261,11 @@
     [msgController animate];
     
     [self.delegate refresh:self];
+}
+
+- (void)shareArticle:(id)sender
+{
+    DebugLog(@"Share article...");
 }
 
 #pragma mark - UIWebViewDelegate
