@@ -20,7 +20,7 @@
 // #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
-@interface SRMainContentViewController () <UIWebViewDelegate>
+@interface SRMainContentViewController () <UIWebViewDelegate, UIActivityItemSource>
 {
     BOOL _readingOriginalLink;
 }
@@ -33,6 +33,7 @@
 @property (nonatomic) UIBarButtonItem *bookmarkButton;
 @property (nonatomic) UIBarButtonItem *shareButton;
 @property (nonatomic) MWFeedItem *feedItem;
+@property (nonatomic) NSString *shortenedURLString;
 
 - (void)switchArticleView:(id)sender;
 - (void)likeArticle:(id)sender;
@@ -125,6 +126,8 @@
     _readingOriginalLink = YES;
     
     self.likeButton.enabled = !self.feedItem.userLiked;
+    
+    [self shortenURL];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -171,6 +174,20 @@
     }
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Utility methods
+
+- (void)shortenURL
+{
+    NSURL *tinyURLApi = [NSURL URLWithString:[NSString stringWithFormat:@"http://tinyurl.com/api-create.php?url=%@", self.feedItem.link]];
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:tinyURLApi]
+                                       queue:[NSOperationQueue new]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (data && !connectionError) {
+                                   self.shortenedURLString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                               }
+                           }];
 }
 
 #pragma mark - Custom actions
@@ -265,10 +282,40 @@
 
 - (void)shareArticle:(id)sender
 {
-    DebugLog(@"Share article...");
+    DebugLog(@"Sharing article...");
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self]
+                                                                                         applicationActivities:nil];
+    [self.navigationController presentViewController:activityViewController
+                                            animated:YES
+                                          completion:nil];
 }
 
-#pragma mark - UIWebViewDelegate
+#pragma mark - UIActivityItemSource methods
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
+{
+    return [NSURL URLWithString:self.shortenedURLString.length ? self.shortenedURLString : self.feedItem.link];
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
+{
+    if ([activityType isEqualToString:UIActivityTypeAddToReadingList] ||
+        [activityType isEqualToString:UIActivityTypeCopyToPasteboard] ||
+        [activityType isEqualToString:UIActivityTypeAirDrop]) {
+        return [NSURL URLWithString:self.shortenedURLString.length ? self.shortenedURLString : self.feedItem.link];
+    }
+    else {
+        return [NSString stringWithFormat:@"%@: %@", @"I discovered this article using Smart Reader for iOS", self.shortenedURLString.length ? self.shortenedURLString : self.feedItem.link];
+    }
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(NSString *)activityType
+{
+    return self.feedItem.title;
+}
+
+#pragma mark - UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
