@@ -109,12 +109,6 @@
     DebugLog(@"Adding new source...");
     
     self.sources = [self.sources arrayByAddingObject:source];
-    
-    self.sources = [self.sources sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        SRSource *source1 = (SRSource *)obj1;
-        SRSource *source2 = (SRSource *)obj2;
-        return [source1.feedInfo.title compare:source2.feedInfo.title];
-    }];
 }
 
 #pragma mark - SRSourceDelegate

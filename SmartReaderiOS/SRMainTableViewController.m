@@ -177,6 +177,16 @@
 
         cell.textLabel.text = source.feedInfo.title;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
+        
+        // Add long hold gesture recognizer to enable editing (deleting and moving) of table view cells.
+        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startEdit)];
+        [longPressGestureRecognizer setMinimumPressDuration:1.0];
+        [cell addGestureRecognizer:longPressGestureRecognizer];
+        
+        // Add tap gesture recognizer to disable editing of table view cells.
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEdit)];
+        [tapGestureRecognizer setNumberOfTapsRequired:1];
+        [cell addGestureRecognizer:tapGestureRecognizer];
     }
     
     cell.detailTextLabel.font = self.calibriFont;
@@ -208,21 +218,33 @@
     }
 }
 
-/*
-// Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
+        fromIndexPath = [NSIndexPath indexPathForRow:fromIndexPath.row - 1 inSection:fromIndexPath.section];
+        toIndexPath = [NSIndexPath indexPathForRow:toIndexPath.row - 1 inSection:toIndexPath.section];
+    }
+    
+    NSMutableArray *sources = (NSMutableArray *)[[SRSourceManager sharedManager].sources mutableCopy];
+    SRSource *source = sources[fromIndexPath.row];
+    
+    [sources removeObject:source];
+    [sources insertObject:source atIndex:toIndexPath.row];
+    
+    [SRSourceManager sharedManager].sources = sources;
+    [[SRSourceManager sharedManager] saveSources];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    // Return NO if you do not want the specified item to be editable.
+    if ([SRTextFilteringManager sharedManager].interestingFeedItems.count && indexPath.row == 0) {
+        return NO;
+    }
+    else {
+        return YES;
+    }
 }
-*/
 
 #pragma mark - Table view delegate
 
@@ -325,6 +347,16 @@
     secondaryViewController.delegate = self;
     
     [self.navigationController pushViewController:secondaryViewController animated:YES];
+}
+
+- (void)startEdit
+{
+    [self.tableView setEditing:YES animated:YES];
+}
+
+- (void)endEdit
+{
+    [self.tableView setEditing:NO animated:YES];
 }
 
 - (void)menu
