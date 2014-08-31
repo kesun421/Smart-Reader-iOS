@@ -21,11 +21,10 @@
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
 #import "UIViewController+CWPopup.h"
-#import "MBProgressHUD.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
-@interface SRMainTableViewController () <SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
+@interface SRMainTableViewController () <UIGestureRecognizerDelegate, SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 
 @property (nonatomic) UIFont *cronosProBoldFont;
 @property (nonatomic) UIFont *cronosProRegularFont;
@@ -100,6 +99,87 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UI methods
+
+- (void)add
+{
+    SRAddSourceViewController *addSourceViewController = [SRAddSourceViewController new];
+    addSourceViewController.delegate = self;
+    
+    // Disable the access to the UI in the background.
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    self.view.userInteractionEnabled = NO;
+    
+    [self.navigationController presentPopupViewController:addSourceViewController animated:YES completion:nil];
+}
+
+- (void)refreshSources
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl beginRefreshing];
+    });
+    
+    [[SRSourceManager sharedManager] refreshSources];
+}
+
+- (void)showBookmarks
+{
+    SRSource *source = [SRSource new];
+    source.sourceForBookmarkedItems = YES;
+    NSMutableArray *bookmarkedItems = [NSMutableArray new];
+    
+    for (SRSource *src in [SRSourceManager sharedManager].sources) {
+        for (MWFeedItem *feedItem in src.feedItems) {
+            if (feedItem.bookmarked) {
+                feedItem.source = src;
+                [bookmarkedItems addObject:feedItem];
+            }
+        }
+    }
+    
+    [bookmarkedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
+        MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
+        
+        return [feedItem2.bookmarkedDate compare:feedItem1.bookmarkedDate];
+    }];
+    
+    source.feedItems = [bookmarkedItems copy];
+    
+    SRSecondaryTableViewController *secondaryViewController = [[SRSecondaryTableViewController alloc] initWithSource:source];
+    secondaryViewController.delegate = self;
+    
+    [self.navigationController pushViewController:secondaryViewController animated:YES];
+}
+
+- (void)startEdit:(id)sender
+{
+    if (self.tableView.editing) {
+        return;
+    }
+    
+    [self.tableView setEditing:YES animated:YES];
+    
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Tap any news item to end editing"];
+    [self.navigationController.view addSubview:msgController.view];
+    [msgController animate];
+}
+
+- (void)endEdit:(id)sender
+{
+    if (!self.tableView.editing) {
+        return;
+    }
+    
+    [self.tableView setEditing:NO animated:YES];
+}
+
+- (void)menu
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu gotta do these days to get some function assigned!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - Table view data source
@@ -179,12 +259,13 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d unread", count];
         
         // Add long hold gesture recognizer to enable editing (deleting and moving) of table view cells.
-        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startEdit)];
+        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startEdit:)];
         [longPressGestureRecognizer setMinimumPressDuration:1.0];
         [cell addGestureRecognizer:longPressGestureRecognizer];
         
         // Add tap gesture recognizer to disable editing of table view cells.
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEdit)];
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEdit:)];
+        tapGestureRecognizer.delegate = self;
         [tapGestureRecognizer setNumberOfTapsRequired:1];
         [cell addGestureRecognizer:tapGestureRecognizer];
     }
@@ -296,73 +377,21 @@
     self.view.userInteractionEnabled = YES;
 }
 
-#pragma mark - UI related
+#pragma mark - UIGestureRecognizerDelegate methods
 
-- (void)add
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    SRAddSourceViewController *addSourceViewController = [SRAddSourceViewController new];
-    addSourceViewController.delegate = self;
-    
-    // Disable the access to the UI in the background.
-    self.navigationController.navigationBar.userInteractionEnabled = NO;
-    self.view.userInteractionEnabled = NO;
-    
-    [self.navigationController presentPopupViewController:addSourceViewController animated:YES completion:nil];
-}
-
-- (void)refreshSources
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl beginRefreshing];
-    });
-    
-    [[SRSourceManager sharedManager] refreshSources];
-}
-
-- (void)showBookmarks
-{
-    SRSource *source = [SRSource new];
-    source.sourceForBookmarkedItems = YES;
-    NSMutableArray *bookmarkedItems = [NSMutableArray new];
-    
-    for (SRSource *src in [SRSourceManager sharedManager].sources) {
-        for (MWFeedItem *feedItem in src.feedItems) {
-            if (feedItem.bookmarked) {
-                feedItem.source = src;
-                [bookmarkedItems addObject:feedItem];
-            }
-        }
+    // Make sure the tap gesture recognizer is only used when the table is in editing mode.  This will prevent the tap gesture recognizer from
+    // hijacking the default tap behavior for the table view cells.
+    if (![gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        return YES;
     }
     
-    [bookmarkedItems sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        MWFeedItem *feedItem1 = (MWFeedItem *)obj1;
-        MWFeedItem *feedItem2 = (MWFeedItem *)obj2;
-        
-        return [feedItem2.bookmarkedDate compare:feedItem1.bookmarkedDate];
-    }];
+    if (self.tableView.editing) {
+        return YES;
+    }
     
-    source.feedItems = [bookmarkedItems copy];
-    
-    SRSecondaryTableViewController *secondaryViewController = [[SRSecondaryTableViewController alloc] initWithSource:source];
-    secondaryViewController.delegate = self;
-    
-    [self.navigationController pushViewController:secondaryViewController animated:YES];
-}
-
-- (void)startEdit
-{
-    [self.tableView setEditing:YES animated:YES];
-}
-
-- (void)endEdit
-{
-    [self.tableView setEditing:NO animated:YES];
-}
-
-- (void)menu
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu gotta do these days to get some function assigned!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
-    [alert show];
+    return NO;
 }
 
 #pragma mark - SRSourceManagerDelegate methods
