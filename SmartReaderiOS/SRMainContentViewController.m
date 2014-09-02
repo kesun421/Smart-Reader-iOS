@@ -89,6 +89,10 @@
     self.activityIndicatorBackgroundView.clipsToBounds = YES;
     
     self.webView.delegate = self;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
+    _readingOriginalLink = YES;
+    
+    [self shortenURL];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -122,12 +126,7 @@
     
     self.navigationItem.rightBarButtonItems = @[ self.likeButton, self.shareButton, self.bookmarkButton, self.switchArticleViewButton ];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
-    _readingOriginalLink = YES;
-    
     self.likeButton.enabled = !self.feedItem.userLiked;
-    
-    [self shortenURL];
 }
 
 - (void)viewDidAppear:(BOOL)animated
