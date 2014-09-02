@@ -240,7 +240,7 @@
     
     self.likeButton.enabled = NO;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Marked as interesting"];
+    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Marked as interesting :)"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
 }
