@@ -89,7 +89,7 @@
                                                                              action:@selector(menu)];
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh"];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh ;)"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
