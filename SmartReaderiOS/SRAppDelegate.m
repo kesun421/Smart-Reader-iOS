@@ -12,6 +12,7 @@
 #import "SRSource.h"
 #import "MWFeedItem.h"
 #import "SRTextFilteringManager.h"
+#import "GAI.h"
 
 typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
@@ -35,6 +36,13 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SRMainTableViewController new]];
     [self.window makeKeyAndVisible];
+    
+    // Setup Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-54476627-1"];
+    
     return YES;
 }
 

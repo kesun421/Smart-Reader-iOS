@@ -21,6 +21,9 @@
 #import "UIImage+Extensions.h"
 #import "SRMessageViewController.h"
 #import "UIViewController+CWPopup.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -95,6 +98,16 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Setup screen name tracking in GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -122,6 +135,13 @@
     });
     
     [[SRSourceManager sharedManager] refreshSources];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"pull_to_refresh"
+                                                           label:@"Refresh sources"
+                                                           value:nil] build]];
 }
 
 - (void)showBookmarks
@@ -165,6 +185,13 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Tap any news item to end editing"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"hold_to_edit"
+                                                           label:@"Edit sources"
+                                                           value:nil] build]];
 }
 
 - (void)endEdit:(id)sender
@@ -361,6 +388,13 @@
     [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"app_action"
+                                                          action:@"source_added"
+                                                           label:@"Source added"
+                                                           value:nil] build]];
 }
 
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
@@ -368,6 +402,16 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"News source added"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+}
+
+- (void)addSourceViewController:(SRAddSourceViewController *)controller failedToRetrieveSourceWithURL:(NSString *)url
+{
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"app_action"
+                                                          action:@"source_add_failed"
+                                                           label:[NSString stringWithFormat:@"Source add failed for url: %@", url]
+                                                           value:nil] build]];
 }
 
 - (void)addSourceViewControllerDidDismiss
@@ -426,6 +470,13 @@
     });
     
     [self.tableView reloadData];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"app_action"
+                                                          action:@"finished_finding_likeable_feed_items"
+                                                           label:@"Finished finding likeable feed items"
+                                                           value:nil] build]];
 }
 
 #pragma mark - SRSecondaryTableViewControllerDelegate methods

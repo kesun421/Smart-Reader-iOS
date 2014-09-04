@@ -83,6 +83,10 @@
 		9EBD2A51187E097A00F53DED /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A36187E097A00F53DED /* NSDate+InternetDateTime.m */; };
 		9EBD2A52187E097A00F53DED /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A38187E097A00F53DED /* NSString+HTML.m */; };
 		9EBD2A53187E097A00F53DED /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD2A3A187E097A00F53DED /* NSString+XMLEntities.m */; };
+		9ED20EEA19B81C8A009C7541 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED20EE919B81C8A009C7541 /* libGoogleAnalyticsServices.a */; };
+		9ED20EEC19B81CA2009C7541 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED20EEB19B81CA2009C7541 /* CoreData.framework */; };
+		9ED20EEE19B81CAB009C7541 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED20EED19B81CAB009C7541 /* SystemConfiguration.framework */; };
+		9ED20EF019B81CB4009C7541 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED20EEF19B81CB4009C7541 /* libz.dylib */; };
 		9EED5E5418735B01007C922F /* SRTextFilteringManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EED5E5318735B01007C922F /* SRTextFilteringManager.m */; };
 		9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4518451DAE00C0066E /* SRFileUtility.m */; };
 		9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4818452A3B00C0066E /* SRDebug.m */; };
@@ -223,6 +227,19 @@
 		9EBD2A38187E097A00F53DED /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		9EBD2A39187E097A00F53DED /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		9EBD2A3A187E097A00F53DED /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
+		9ED20EE019B81C8A009C7541 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		9ED20EE119B81C8A009C7541 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		9ED20EE219B81C8A009C7541 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		9ED20EE319B81C8A009C7541 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		9ED20EE419B81C8A009C7541 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		9ED20EE519B81C8A009C7541 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		9ED20EE619B81C8A009C7541 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		9ED20EE719B81C8A009C7541 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		9ED20EE819B81C8A009C7541 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		9ED20EE919B81C8A009C7541 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		9ED20EEB19B81CA2009C7541 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9ED20EED19B81CAB009C7541 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9ED20EEF19B81CB4009C7541 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		9EED5E5218735B01007C922F /* SRTextFilteringManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTextFilteringManager.h; sourceTree = "<group>"; };
 		9EED5E5318735B01007C922F /* SRTextFilteringManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRTextFilteringManager.m; sourceTree = "<group>"; };
 		9EEE4E4418451DAE00C0066E /* SRFileUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRFileUtility.h; sourceTree = "<group>"; };
@@ -252,11 +269,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED20EF019B81CB4009C7541 /* libz.dylib in Frameworks */,
+				9ED20EEE19B81CAB009C7541 /* SystemConfiguration.framework in Frameworks */,
+				9ED20EEC19B81CA2009C7541 /* CoreData.framework in Frameworks */,
 				9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */,
 				9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */,
 				9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */,
 				9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */,
 				9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */,
+				9ED20EEA19B81C8A009C7541 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +316,9 @@
 		9E41786F1844063800A9DA60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9ED20EEF19B81CB4009C7541 /* libz.dylib */,
+				9ED20EED19B81CAB009C7541 /* SystemConfiguration.framework */,
+				9ED20EEB19B81CA2009C7541 /* CoreData.framework */,
 				9EF8C000186E260F00AD627F /* MapKit.framework */,
 				9E417A021844108700A9DA60 /* libxml2.dylib */,
 				9E4178701844063800A9DA60 /* Foundation.framework */,
@@ -356,6 +380,7 @@
 		9E4178A41844084900A9DA60 /* External Libs */ = {
 			isa = PBXGroup;
 			children = (
+				9ED20EDF19B81C8A009C7541 /* Google Analytics 3.09 */,
 				9E9C92D219B2508900F98131 /* MBProgressHUD */,
 				9EF9969319AB9DD300BE2F49 /* CWPopup */,
 				9EBD2A17187E097A00F53DED /* AFNetworking */,
@@ -544,6 +569,23 @@
 				9EBD2A3A187E097A00F53DED /* NSString+XMLEntities.m */,
 			);
 			path = MWFeedParser;
+			sourceTree = "<group>";
+		};
+		9ED20EDF19B81C8A009C7541 /* Google Analytics 3.09 */ = {
+			isa = PBXGroup;
+			children = (
+				9ED20EE019B81C8A009C7541 /* GAI.h */,
+				9ED20EE119B81C8A009C7541 /* GAIDictionaryBuilder.h */,
+				9ED20EE219B81C8A009C7541 /* GAIEcommerceProduct.h */,
+				9ED20EE319B81C8A009C7541 /* GAIEcommerceProductAction.h */,
+				9ED20EE419B81C8A009C7541 /* GAIEcommercePromotion.h */,
+				9ED20EE519B81C8A009C7541 /* GAIFields.h */,
+				9ED20EE619B81C8A009C7541 /* GAILogger.h */,
+				9ED20EE719B81C8A009C7541 /* GAITrackedViewController.h */,
+				9ED20EE819B81C8A009C7541 /* GAITracker.h */,
+				9ED20EE919B81C8A009C7541 /* libGoogleAnalyticsServices.a */,
+			);
+			path = "Google Analytics 3.09";
 			sourceTree = "<group>";
 		};
 		9EF9969319AB9DD300BE2F49 /* CWPopup */ = {
@@ -886,7 +928,7 @@
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/SmartReaderiOS/Google Analytics 3.09";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ED280C0-3FB2-414C-BB58-42BFC1723823";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -908,7 +950,7 @@
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/SmartReaderiOS/Google Analytics 3.09";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ED280C0-3FB2-414C-BB58-42BFC1723823";
 				TARGETED_DEVICE_FAMILY = 1;

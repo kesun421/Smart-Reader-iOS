@@ -9,15 +9,16 @@
 #import "SRMainContentViewController.h"
 #import "MWFeedItem.h"
 #import "NSString+HTML.h"
-//#import "AFHTTPRequestOperationManager.h"
 #import "HTMLParser.h"
 #import "HTMLNode.h"
 #import "SRTextFilteringManager.h"
 #import "SRSourceManager.h"
 #import "SRMessageViewController.h"
 #import "UIImage+Extensions.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
-// #define READABILITY_KEY @"c0557e5c516a1c9879affe72fb636dfd2bdef62c"
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
 @interface SRMainContentViewController () <UIWebViewDelegate, UIActivityItemSource>
@@ -136,6 +137,11 @@
     self.feedItem.read = YES;
     
     [[SRSourceManager sharedManager] saveSources];
+    
+    // Setup screen name tracking in GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -230,6 +236,13 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"switch_article_view_button_press"
+                                                           label:_readingOriginalLink ? @"Original" : @"Readability"
+                                                           value:nil] build]];
 }
 
 - (void)likeArticle:(id)sender
@@ -243,6 +256,13 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Marked as interesting :)"];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"like_article_button_press"
+                                                           label:nil
+                                                           value:nil] build]];
 }
 
 - (void)bookmarkArticle:(id)sender
@@ -277,6 +297,13 @@
     [msgController animate];
     
     [self.delegate refresh:self];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"bookmark_article_button_press"
+                                                           label:self.feedItem.bookmarked ? @"Bookmarked" : @"Unbookmarked"
+                                                           value:nil] build]];
 }
 
 - (void)shareArticle:(id)sender
@@ -285,6 +312,19 @@
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self]
                                                                                          applicationActivities:nil];
+    [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed){
+        if (!completed) {
+            return;
+        }
+        
+        // Send event to GA.
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                              action:@"share_article_button_press"
+                                                               label:activityType
+                                                               value:nil] build]];
+    }];
+    
     [self.navigationController presentViewController:activityViewController
                                             animated:YES
                                           completion:nil];

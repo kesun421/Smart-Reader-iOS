@@ -14,6 +14,9 @@
 #import "MWFeedInfo.h"
 #import "MWFeedParser.h"
 #import "UIViewController+CWPopup.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface SRAddSourceViewController () <SRSourceDelegate, UITextFieldDelegate>
 {
@@ -59,6 +62,16 @@
     
     self.sources = [NSMutableArray new];
     sourcesProcessed = 0;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Setup screen name tracking in GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -185,6 +198,8 @@
     
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
+    
+    [self.delegate addSourceViewController:self failedToRetrieveSourceWithURL:self.urlField.text];
 }
 
 #pragma mark - SRSourceDelegate

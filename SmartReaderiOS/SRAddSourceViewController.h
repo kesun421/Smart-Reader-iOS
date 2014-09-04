@@ -12,6 +12,7 @@
 @protocol SRAddSourceViewControllerDelegate <NSObject>
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller didRetrieveSource:(SRSource *)source;
+- (void)addSourceViewController:(SRAddSourceViewController *)controller failedToRetrieveSourceWithURL:(NSString *)url;
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller;
 - (void)addSourceViewControllerDidDismiss;
 

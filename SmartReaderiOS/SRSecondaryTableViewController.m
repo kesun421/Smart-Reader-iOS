@@ -19,6 +19,9 @@
 #import "UIImage+Extensions.h"
 #import "SRFeedItemSpeechPlayer.h"
 #import "SRTableViewCell.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -166,6 +169,27 @@
         _markedAllAsRead = YES;
         self.markAllButton.image = [[UIImage imageNamed:@"tick-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Setup screen name tracking in GA.
+    NSString *screenTitle;
+    if (self.source.sourceForBookmarkedItems) {
+        screenTitle = @"Bookmarked Items";
+    }
+    else if (self.source.sourceForInterestingItems) {
+        screenTitle = @"Interesting Items";
+    }
+    else {
+        screenTitle = @"Feed Item";
+    }
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:[NSString stringWithFormat:@"%@ - %@", NSStringFromClass([self class]), screenTitle]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -432,6 +456,13 @@
     [[SRSourceManager sharedManager] saveSources];
     
     [self.tableView reloadData];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"mark_all_button_press"
+                                                           label:_markedAllAsRead ? @"Marked all as read" : @"Marked all as unread"
+                                                           value:nil] build]];
 }
 
 - (void)playAll:(id)sender
@@ -456,6 +487,13 @@
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
     [self.navigationController.view addSubview:msgController.view];
     [msgController animate];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"play_all_button_press"
+                                                           label:_playing ? @"Stopped reading" : @"Started reading"
+                                                           value:nil] build]];
 }
 
 #pragma mark - Swipe gesture
