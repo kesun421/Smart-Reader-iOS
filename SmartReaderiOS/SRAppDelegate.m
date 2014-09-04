@@ -13,6 +13,7 @@
 #import "MWFeedItem.h"
 #import "SRTextFilteringManager.h"
 #import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
@@ -100,6 +101,14 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     
     [SRTextFilteringManager sharedManager].delegate = self;
     [[SRTextFilteringManager sharedManager] findInterestingFeedItemsFromSources:[SRSourceManager sharedManager].sources];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"app_action"
+                                                          action:@"background_finished_refreshing_all_sources"
+                                                           label:@"Background finished refreshing all sources"
+                                                           value:nil] build]];
+
 }
 
 #pragma mark - SRTextFilteringManagerDelegate methods
@@ -136,6 +145,13 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         
         DebugLog(@"Background fetch completed with no new articles...  Interesting articles count: %lu", (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"app_action"
+                                                          action:@"background_finished_finding_likeable_feed_items"
+                                                           label:@"Background finished finding likeable feed items"
+                                                           value:nil] build]];
 }
 
 @end
