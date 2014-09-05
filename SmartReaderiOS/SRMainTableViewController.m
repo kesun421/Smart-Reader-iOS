@@ -11,6 +11,7 @@
 #import "SRSecondaryTableViewController.h"
 #import "SRSplashScreenViewController.h"
 #import "SRAddSourceViewController.h"
+#import "SRSettingsViewController.h"
 #import "SRSource.h"
 #import "MWFeedInfo.h"
 #import "UIImageView+AFNetworking.h"
@@ -94,7 +95,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"gear-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
-                                                                             action:@selector(menu)];
+                                                                             action:@selector(settings)];
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
         SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh ;)"];
@@ -208,10 +209,10 @@
     [self.tableView setEditing:NO animated:YES];
 }
 
-- (void)menu
+- (void)settings
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Menu" message:@"What's a menu gotta do these days to get some function assigned!?" delegate:nil cancelButtonTitle:@"Okay..." otherButtonTitles:nil];
-    [alert show];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[SRSettingsViewController new]];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
