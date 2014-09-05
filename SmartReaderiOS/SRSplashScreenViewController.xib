@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SRSplashScreenViewController">
             <connections>
                 <outlet property="backgroundImageView" destination="QuX-Kk-0QI" id="smi-4e-ysL"/>
+                <outlet property="starImageView" destination="cxY-hM-ck1" id="kfk-ey-02E"/>
                 <outlet property="textImageView" destination="LA3-IE-ULo" id="hM3-CV-2Ll"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,6 +25,10 @@
                     <rect key="frame" x="53" y="270" width="215" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage_Star.png" id="cxY-hM-ck1" userLabel="Star Image View">
+                    <rect key="frame" x="135" y="259" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -31,6 +36,7 @@
         </view>
     </objects>
     <resources>
+        <image name="LaunchImage_Star.png" width="100" height="100"/>
         <image name="LaunchImage_Text.png" width="430" height="54"/>
     </resources>
 </document>

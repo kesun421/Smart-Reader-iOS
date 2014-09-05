@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *textImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView;
 
 @end
 
@@ -37,6 +38,16 @@
     else {
         self.backgroundImageView.image = [UIImage imageNamed:@"LaunchImage_Background_640x960.png"];
     }
+    
+    // Place the star image at bottom of the screen.
+    self.starImageView.frame = CGRectOffset(self.starImageView.frame, 0.0, [UIScreen mainScreen].bounds.size.height);
+    self.starImageView.alpha = 0.0;
+
+    // Start the rotation animation of the star image.
+    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 4.0];
+    rotationAnimation.duration = 2.0;
+    [self.starImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,9 +57,14 @@
     [UIView animateWithDuration:1.5
                      animations:^{
                          self.textImageView.alpha = 0.0;
+                         self.starImageView.center = self.view.center;
+                         self.starImageView.alpha = 1.0;
                      }
                      completion:^(BOOL finished) {
-                         [self dismissViewControllerAnimated:NO completion:nil];
+                         dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+                         dispatch_after(time, dispatch_get_main_queue(), ^(void){
+                             [self dismissViewControllerAnimated:NO completion:nil];
+                         });
                      }];
 }
 
