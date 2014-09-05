@@ -213,6 +213,13 @@
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[SRSettingsViewController new]];
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    
+    // Send event to GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
+                                                          action:@"opened_settings"
+                                                           label:@"Opened settings"
+                                                           value:nil] build]];
 }
 
 #pragma mark - Table view data source
