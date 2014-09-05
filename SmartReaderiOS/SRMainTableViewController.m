@@ -9,6 +9,7 @@
 #import "SRMainTableViewController.h"
 #import "SRFileUtility.h"
 #import "SRSecondaryTableViewController.h"
+#import "SRSplashScreenViewController.h"
 #import "SRAddSourceViewController.h"
 #import "SRSource.h"
 #import "MWFeedInfo.h"
@@ -24,6 +25,7 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
@@ -69,6 +71,9 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+    
+    // Show the splash screen.
+    [self presentViewController:[SRSplashScreenViewController new] animated:NO completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,7 +91,7 @@
                                                                                action:@selector(add)]
                                                ];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"more-list-7.png"] resizeImageToSize:IMAGE_SIZE]
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"gear-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(menu)];

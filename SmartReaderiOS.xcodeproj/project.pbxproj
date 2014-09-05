@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E316C4119B9537000FA7621 /* SRSplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E316C3F19B9537000FA7621 /* SRSplashScreenViewController.m */; };
+		9E316C4219B9537000FA7621 /* SRSplashScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4019B9537000FA7621 /* SRSplashScreenViewController.xib */; };
+		9E316C4719B954FB00FA7621 /* LaunchImage_Background_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4319B954FB00FA7621 /* LaunchImage_Background_640x1136.png */; };
+		9E316C4819B954FB00FA7621 /* LaunchImage_Background_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4419B954FB00FA7621 /* LaunchImage_Background_640x960.png */; };
+		9E316C4919B954FB00FA7621 /* LaunchImage_Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4519B954FB00FA7621 /* LaunchImage_Text.png */; };
+		9E316C4A19B954FB00FA7621 /* LaunchImage_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4619B954FB00FA7621 /* LaunchImage_640x1136.png */; };
 		9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178701844063800A9DA60 /* Foundation.framework */; };
 		9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178721844063800A9DA60 /* CoreGraphics.framework */; };
 		9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178741844063800A9DA60 /* UIKit.framework */; };
@@ -45,7 +51,6 @@
 		9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FA1900D63000914377 /* Calibri.ttf */; };
 		9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FD1900D9B600914377 /* glasses-7@2x.png */; };
 		9E9C92D519B2508900F98131 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C92D419B2508900F98131 /* MBProgressHUD.m */; };
-		9E9C92D719B26AC300F98131 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D619B26AC300F98131 /* LaunchImage.png */; };
 		9E9C92D919B26B0F00F98131 /* LaunchImage_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */; };
 		9E9C92DB19B2BB8400F98131 /* share-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92DA19B2BB8400F98131 /* share-7@2x.png */; };
 		9E9C92DD19B2BBCF00F98131 /* gear-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92DC19B2BBCF00F98131 /* gear-7@2x.png */; };
@@ -113,6 +118,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E316C3E19B9537000FA7621 /* SRSplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSplashScreenViewController.h; sourceTree = "<group>"; };
+		9E316C3F19B9537000FA7621 /* SRSplashScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSplashScreenViewController.m; sourceTree = "<group>"; };
+		9E316C4019B9537000FA7621 /* SRSplashScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRSplashScreenViewController.xib; sourceTree = "<group>"; };
+		9E316C4319B954FB00FA7621 /* LaunchImage_Background_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_Background_640x1136.png; sourceTree = "<group>"; };
+		9E316C4419B954FB00FA7621 /* LaunchImage_Background_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_Background_640x960.png; sourceTree = "<group>"; };
+		9E316C4519B954FB00FA7621 /* LaunchImage_Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_Text.png; sourceTree = "<group>"; };
+		9E316C4619B954FB00FA7621 /* LaunchImage_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x1136.png; sourceTree = "<group>"; };
 		9E41786D1844063800A9DA60 /* Smart Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4178701844063800A9DA60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E4178721844063800A9DA60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -160,7 +172,6 @@
 		9E80D9FD1900D9B600914377 /* glasses-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-7@2x.png"; sourceTree = "<group>"; };
 		9E9C92D319B2508900F98131 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9E9C92D419B2508900F98131 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		9E9C92D619B26AC300F98131 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x960.png; sourceTree = "<group>"; };
 		9E9C92DA19B2BB8400F98131 /* share-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share-7@2x.png"; sourceTree = "<group>"; };
 		9E9C92DC19B2BBCF00F98131 /* gear-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-7@2x.png"; sourceTree = "<group>"; };
@@ -394,27 +405,30 @@
 		9E9898DF186A4BAC00353440 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				9E9C92DE19B2BBEA00F98131 /* list-7@2x.png */,
-				9E9C92DC19B2BBCF00F98131 /* gear-7@2x.png */,
-				9E9C92DA19B2BB8400F98131 /* share-7@2x.png */,
-				9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */,
-				9E9C92D619B26AC300F98131 /* LaunchImage.png */,
-				9E80D9FD1900D9B600914377 /* glasses-7@2x.png */,
-				9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */,
-				9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */,
-				9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */,
-				9E6A6F1218998A0F006E9F35 /* forbidden-7@2x.png */,
-				9E6A6F10189989DC006E9F35 /* star-7@2x.png */,
 				9E6A6F0A18997FB8006E9F35 /* backward-7@2x.png */,
 				9E6A6EF618997EE1006E9F35 /* book-7@2x.png */,
 				9E6A6F0E1899895F006E9F35 /* bookmark-7-active@2x.png */,
 				9E6A6EF818997EED006E9F35 /* bookmark-7@2x.png */,
 				9E6A6EFA18997F00006E9F35 /* box-up-7@2x.png */,
+				9EAAFA6618B006EC008B7D36 /* button-play-7-active@2x.png */,
+				9EAAFA6418B00679008B7D36 /* button-play-7@2x.png */,
 				9E6A6EFC18997F11006E9F35 /* compass-7@2x.png */,
+				9E6A6F1218998A0F006E9F35 /* forbidden-7@2x.png */,
+				9E9C92DC19B2BBCF00F98131 /* gear-7@2x.png */,
+				9E80D9FD1900D9B600914377 /* glasses-7@2x.png */,
 				9E6A6EFE18997F42006E9F35 /* info-7@2x.png */,
+				9E316C4619B954FB00FA7621 /* LaunchImage_640x1136.png */,
+				9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */,
+				9E316C4319B954FB00FA7621 /* LaunchImage_Background_640x1136.png */,
+				9E316C4419B954FB00FA7621 /* LaunchImage_Background_640x960.png */,
+				9E316C4519B954FB00FA7621 /* LaunchImage_Text.png */,
+				9E9C92DE19B2BBEA00F98131 /* list-7@2x.png */,
 				9E6A6F0018997F5F006E9F35 /* more-list-7@2x.png */,
 				9E6A6F0418997F7A006E9F35 /* plus-circle-7@2x.png */,
 				9E6A6F0618997F87006E9F35 /* rss-7@2x.png */,
+				9E9C92DA19B2BB8400F98131 /* share-7@2x.png */,
+				9E6A6F10189989DC006E9F35 /* star-7@2x.png */,
+				9E6A6F1418998A22006E9F35 /* star-circle-7@2x.png */,
 				9E6A6F0C189987E9006E9F35 /* tick-7-active@2x.png */,
 				9E6A6F0818997FA0006E9F35 /* tick-7@2x.png */,
 			);
@@ -438,6 +452,9 @@
 				9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */,
 				9EF6279E188F219700896259 /* SRMessageViewController.h */,
 				9EF6279F188F219700896259 /* SRMessageViewController.m */,
+				9E316C3E19B9537000FA7621 /* SRSplashScreenViewController.h */,
+				9E316C3F19B9537000FA7621 /* SRSplashScreenViewController.m */,
+				9E316C4019B9537000FA7621 /* SRSplashScreenViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -708,6 +725,7 @@
 				9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */,
 				9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */,
 				9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */,
+				9E316C4819B954FB00FA7621 /* LaunchImage_Background_640x960.png in Resources */,
 				9E6A6EF918997EED006E9F35 /* bookmark-7@2x.png in Resources */,
 				9E6A6F0B18997FB8006E9F35 /* backward-7@2x.png in Resources */,
 				9E41787B1844063800A9DA60 /* InfoPlist.strings in Resources */,
@@ -719,12 +737,15 @@
 				9EAAFA6718B006EC008B7D36 /* button-play-7-active@2x.png in Resources */,
 				9E6A6EFF18997F42006E9F35 /* info-7@2x.png in Resources */,
 				9E6A6EFB18997F00006E9F35 /* box-up-7@2x.png in Resources */,
+				9E316C4919B954FB00FA7621 /* LaunchImage_Text.png in Resources */,
 				9E6A6EFD18997F11006E9F35 /* compass-7@2x.png in Resources */,
 				9E6A6F0718997F87006E9F35 /* rss-7@2x.png in Resources */,
 				9E9C92DD19B2BBCF00F98131 /* gear-7@2x.png in Resources */,
 				9EB135E6188F991C00CC4009 /* icon-58.png in Resources */,
+				9E316C4219B9537000FA7621 /* SRSplashScreenViewController.xib in Resources */,
 				9EB135E8188F991C00CC4009 /* icon-120.png in Resources */,
 				9E6A6F1318998A0F006E9F35 /* forbidden-7@2x.png in Resources */,
+				9E316C4719B954FB00FA7621 /* LaunchImage_Background_640x1136.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
 				9E6A6F0518997F7A006E9F35 /* plus-circle-7@2x.png in Resources */,
 				9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */,
@@ -732,6 +753,7 @@
 				9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */,
 				9E6A6EF718997EE1006E9F35 /* book-7@2x.png in Resources */,
 				9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */,
+				9E316C4A19B954FB00FA7621 /* LaunchImage_640x1136.png in Resources */,
 				9EFD300118FF8B16006A8601 /* CronosPro-Bold.otf in Resources */,
 				9E6A6F0118997F5F006E9F35 /* more-list-7@2x.png in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
@@ -739,7 +761,6 @@
 				9E6A6F11189989DC006E9F35 /* star-7@2x.png in Resources */,
 				9EB135E9188F991C00CC4009 /* icon-512.png in Resources */,
 				9E9C92DB19B2BB8400F98131 /* share-7@2x.png in Resources */,
-				9E9C92D719B26AC300F98131 /* LaunchImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,6 +798,7 @@
 				9E41787D1844063800A9DA60 /* main.m in Sources */,
 				9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */,
 				9EBD2A4F187E097A00F53DED /* MWFeedItem.m in Sources */,
+				9E316C4119B9537000FA7621 /* SRSplashScreenViewController.m in Sources */,
 				9EBD2A43187E097A00F53DED /* HTMLParser.m in Sources */,
 				9EBD2A40187E097A00F53DED /* UIProgressView+AFNetworking.m in Sources */,
 				9EBD2A52187E097A00F53DED /* NSString+HTML.m in Sources */,
