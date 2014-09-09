@@ -450,8 +450,7 @@
     
     NSString *message = _markedAllAsRead ? @"Marked all as read" : @"Marked all as unread";
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     [[SRSourceManager sharedManager] saveSources];
     
@@ -485,8 +484,7 @@
     }
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -549,8 +547,7 @@
     [[SRSourceManager sharedManager] saveSources];
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Bookmarked"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     DebugLog(@"Bookmarked by swipping right...");
 }

@@ -99,8 +99,7 @@
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
         SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list down to refresh"];
-        [self.navigationController.view addSubview:msgController.view];
-        [msgController animate];
+        [msgController animateInView:self.navigationController.view];
     }
 }
 
@@ -189,8 +188,7 @@
     [self.tableView setEditing:YES animated:YES];
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Tap any news item to end editing"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -413,8 +411,7 @@
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
 {
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"News source added"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
 }
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller failedToRetrieveSourceWithURL:(NSString *)url
@@ -469,13 +466,11 @@
     
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
         SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting items",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
-        [self.navigationController.view addSubview:msgController.view];
-        [msgController animate];
+        [msgController animateInView:self.navigationController.view];
     }
     else {
         SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me using ☆ in article view"];
-        [self.navigationController.view addSubview:msgController.view];
-        [msgController animate];
+        [msgController animateInView:self.navigationController.view];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

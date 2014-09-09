@@ -85,11 +85,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)animate
+- (void)animateInView:(UIView *)view
 {
-    [self.view setNeedsDisplay];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        [view addSubview:self.view];
+        [self.view setNeedsDisplay];
+        
         [UIView animateWithDuration:0.5
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseOut

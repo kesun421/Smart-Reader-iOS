@@ -234,8 +234,7 @@
     }
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -254,8 +253,7 @@
     self.likeButton.enabled = NO;
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Marked as interesting :)"];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -293,8 +291,7 @@
     [[SRSourceManager sharedManager] saveSources];
     
     SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [self.navigationController.view addSubview:msgController.view];
-    [msgController animate];
+    [msgController animateInView:self.navigationController.view];
     
     [self.delegate refresh:self];
     

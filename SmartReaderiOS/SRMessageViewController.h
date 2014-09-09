@@ -11,6 +11,6 @@
 @interface SRMessageViewController : UIViewController
 
 - (instancetype)initWithMessage:(NSString *)message;
-- (void)animate;
+- (void)animateInView:(UIView *)view;
 
 @end
