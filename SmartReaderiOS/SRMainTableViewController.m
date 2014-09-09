@@ -98,7 +98,7 @@
                                                                              action:@selector(settings)];
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh ;)"];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list downward to refresh"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
@@ -473,7 +473,7 @@
         [msgController animate];
     }
     else {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me to suggest articles"];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me using ☆ in article view"];
         [self.navigationController.view addSubview:msgController.view];
         [msgController animate];
     }
