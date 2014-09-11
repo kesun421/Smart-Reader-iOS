@@ -1001,7 +1001,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SmartReaderiOS.app/SmartReaderiOS";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Smart Reader.app/Smart Reader";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1024,7 +1024,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SmartReaderiOS.app/SmartReaderiOS";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Smart Reader.app/Smart Reader";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
