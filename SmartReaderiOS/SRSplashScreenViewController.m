@@ -42,17 +42,17 @@
     // Place the star image at bottom of the screen.
     self.starImageView.frame = CGRectOffset(self.starImageView.frame, 0.0, [UIScreen mainScreen].bounds.size.height);
     self.starImageView.alpha = 0.0;
-
-    // Start the rotation animation of the star image.
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 4.0];
-    rotationAnimation.duration = 2.0;
-    [self.starImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Start the rotation animation of the star image.
+    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 4.0];
+    rotationAnimation.duration = 2.0;
+    [self.starImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
     [UIView animateWithDuration:1.5
                      animations:^{
