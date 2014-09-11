@@ -38,14 +38,8 @@
                                                object:nil];
     
     if (self) {
-        if (UIDeviceOrientationIsLandscape(self.interfaceOrientation)) {
-            _width = [UIScreen mainScreen].bounds.size.height;
-            _height = 54.0;
-        }
-        else {
-            _width = [UIScreen mainScreen].bounds.size.width;
-            _height = 68.0;
-        }
+        _width = [UIScreen mainScreen].bounds.size.width;
+        _height = UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? 34.0 : 65.0;
         
         _x = 0.0;
         _y = -_height;
@@ -53,11 +47,11 @@
         self.view = [[UIView alloc] initWithFrame:CGRectMake(_x, _y, _width, _height)];
         self.view.layer.backgroundColor = [[UIColor colorWithRed:164.0f/255.0f green:194.0f/255.0f blue:244.0f/255.0f alpha:1.0] CGColor];
         
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0, 20.0, _width, _height - 20.0)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0, 5.0, _width, _height - 5.0)];
         textField.textAlignment = NSTextAlignmentCenter;
         textField.textColor = [UIColor whiteColor];
         textField.text = [message lowercaseString];
-        textField.font = [UIFont fontWithName:@"Calibri-Bold" size:20];
+        textField.font = [UIFont fontWithName:@"Calibri-Bold" size:18];
 
         [self.view addSubview:textField];
     }
