@@ -99,6 +99,8 @@
 			<string>{320, 568}</string>
 		</dict>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>SRSplashScreenViewController</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
