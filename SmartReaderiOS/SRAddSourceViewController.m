@@ -30,6 +30,7 @@
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) IBOutlet UITextField *urlField;
 @property (nonatomic) NSMutableArray *sources;
+@property (nonatomic) AFHTTPRequestOperationManager *manager;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)add:(id)sender;
@@ -82,6 +83,7 @@
 
 - (IBAction)dismiss:(id)sender
 {
+    [self.manager.operationQueue cancelAllOperations];
     [self.delegate addSourceViewControllerDidDismiss];
 }
 
@@ -104,15 +106,15 @@
 - (void)parseForFeedFromUrl:(NSURL *)feedUrl
 {
     // Check if url is pointing to a website or a feed.  If it is pointing to a website, parse HTML for feed url.
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    self.manager = [AFHTTPRequestOperationManager manager];
     
     // Customize the user agent string so the returned HTML is always for desktop, where there will most likely be an embedded link to the feed.
     AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
     [requestSerializer setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.73.11 (KHTML, like Gecko) Version/7.0.1 Safari/537.73.11" forHTTPHeaderField:@"User-Agent"];
     
-    [manager setRequestSerializer:requestSerializer];
-    [manager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
-    [manager GET:feedUrl.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.manager setRequestSerializer:requestSerializer];
+    [self.manager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
+    [self.manager GET:feedUrl.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSError *error = nil;
         HTMLParser *parser = [[HTMLParser alloc] initWithString:operation.responseString error:&error];
         if (error) {
