@@ -359,14 +359,14 @@
     MWFeedItem *feedItem = self.feedItems[indexPath.row];
     if (feedItem.summary.length) {
         if (self.source.sourceForInterestingItems || self.source.sourceForBookmarkedItems) {
-            return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 125.0 : 115.0;
+            return UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 125.0 : 115.0;
         }
         else {
-            return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 115 : 105.0;
+            return UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 115 : 105.0;
         }
     }
     else {
-        return UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? 88.0 : 58.0;
+        return UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? 88.0 : 58.0;
     }
 }
 

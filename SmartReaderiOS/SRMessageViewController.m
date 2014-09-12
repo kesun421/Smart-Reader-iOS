@@ -39,7 +39,7 @@
     
     if (self) {
         _width = [UIScreen mainScreen].bounds.size.width;
-        _height = UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? 34.0 : 65.0;
+        _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 34.0 : 65.0;
         
         _x = 0.0;
         _y = -_height;

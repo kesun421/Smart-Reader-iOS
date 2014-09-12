@@ -56,7 +56,7 @@
                                                                       action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = backButton;
         
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             self.navigationItem.title = self.feedItem.title;
         }
     }
