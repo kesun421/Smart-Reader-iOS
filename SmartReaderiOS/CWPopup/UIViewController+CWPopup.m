@@ -248,11 +248,7 @@ NSString const *CWPopupViewOffset = @"CWPopupViewOffset";
             [self addBlurView];
         } else {
             UIView *fadeView = [UIImageView new];
-            if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-                fadeView.frame = [UIScreen mainScreen].bounds;
-            } else {
-                fadeView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width);
-            }
+            fadeView.frame = [UIScreen mainScreen].bounds;
             fadeView.backgroundColor = [UIColor blackColor];
             fadeView.alpha = 0.0f;
             [self.view addSubview:fadeView];
