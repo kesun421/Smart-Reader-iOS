@@ -220,7 +220,6 @@ NSString const *CWPopupViewOffset = @"CWPopupViewOffset";
         self.popupViewController = viewControllerToPresent;
         self.popupViewController.view.autoresizesSubviews = NO;
         self.popupViewController.view.autoresizingMask = UIViewAutoresizingNone;
-        [self addChildViewController:viewControllerToPresent];
 
         CGRect finalFrame = [self getPopupFrameForViewController:viewControllerToPresent];
         // parallax setup if iOS7+
@@ -327,26 +326,19 @@ NSString const *CWPopupViewOffset = @"CWPopupViewOffset";
     CGRect frame = viewController.view.frame;
     CGFloat x;
     CGFloat y;
-    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-        x = ([UIScreen mainScreen].bounds.size.width - frame.size.width)/2;
-        y = ([UIScreen mainScreen].bounds.size.height - frame.size.height)/2;
-    } else {
-        x = ([UIScreen mainScreen].bounds.size.height - frame.size.width)/2;
-        y = ([UIScreen mainScreen].bounds.size.width - frame.size.height)/2;
-    }
+    
+    x = ([UIScreen mainScreen].bounds.size.width - frame.size.width)/2;
+    y = ([UIScreen mainScreen].bounds.size.height - frame.size.height)/2;
+    
     return CGRectMake(x + viewController.popupViewOffset.x, y + viewController.popupViewOffset.y, frame.size.width, frame.size.height);
 }
 
-- (void)screenOrientationChanged {
+- (void)screenOrientationChanged {    
     // make blur view go away so that we can re-blur the original back
     UIView *blurView = objc_getAssociatedObject(self, &CWBlurViewKey);
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
         self.popupViewController.view.frame = [self getPopupFrameForViewController:self.popupViewController];
-        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            blurView.frame = [UIScreen mainScreen].bounds;
-        } else {
-            blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width);
-        }
+        blurView.frame = [UIScreen mainScreen].bounds;
         if (self.useBlurForPopup) {
             [UIView animateWithDuration:1.0f animations:^{
                 // for delay

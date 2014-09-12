@@ -429,6 +429,8 @@
     // Enable the access to the UI that was in the background of the popup view.
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     self.view.userInteractionEnabled = YES;
+    
+    [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIGestureRecognizerDelegate methods

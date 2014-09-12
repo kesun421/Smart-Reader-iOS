@@ -80,14 +80,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (IBAction)dismiss:(id)sender
 {
-    [self.navigationController dismissPopupViewControllerAnimated:YES completion:nil];
     [self.delegate addSourceViewControllerDidDismiss];
 }
 
