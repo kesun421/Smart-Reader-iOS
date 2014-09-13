@@ -43,7 +43,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     // Setup Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-54476627-1"];
     
     return YES;
