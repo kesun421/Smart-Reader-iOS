@@ -13,6 +13,8 @@
 
 @interface SRSettingsViewController ()
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation SRSettingsViewController
@@ -30,14 +32,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -56,17 +57,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)cancel
-{
-    [self dismiss];
-}
-
 - (void)done
-{
-    [self dismiss];
-}
-
-- (void)dismiss
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
