@@ -72,9 +72,6 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
-    
-    // Show the splash screen.
-    [self presentViewController:[SRSplashScreenViewController new] animated:NO completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,6 +108,10 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    // Register for notifications for the app.  Doing it here so the pop up won't interfere with the launch screen.
+    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
 }
 
 - (void)didReceiveMemoryWarning

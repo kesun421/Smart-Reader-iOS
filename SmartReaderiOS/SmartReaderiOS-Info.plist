@@ -31,8 +31,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>com.Ke-Sun.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -100,7 +98,7 @@
 		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>SRSplashScreenViewController</string>
+	<string>SRLaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

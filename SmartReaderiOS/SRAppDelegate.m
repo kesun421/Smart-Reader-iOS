@@ -7,7 +7,9 @@
 //
 
 #import "SRAppDelegate.h"
+#import "SRSplashScreenViewController.h"
 #import "SRMainTableViewController.h"
+#import "SRNavigationController.h"
 #import "SRSourceManager.h"
 #import "SRSource.h"
 #import "MWFeedItem.h"
@@ -31,15 +33,12 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 {
     [[UIView appearance] setTintColor:[UIColor grayColor]];
     
-    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-    
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60 * 60 * 2];
-    
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SRMainTableViewController new]];
+    self.window.rootViewController = [[SRNavigationController alloc] initWithRootViewController:[SRSplashScreenViewController new]];
     [self.window makeKeyAndVisible];
+    
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60 * 60 * 2];
     
     // Setup Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -61,6 +60,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
+    // The initial request for allowing notifications is in the main table view view controller.
     UIUserNotificationSettings* notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
     if (notificationSettings.types | UIUserNotificationTypeBadge) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[SRTextFilteringManager sharedManager].interestingFeedItems.count];

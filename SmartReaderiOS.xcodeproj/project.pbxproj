@@ -53,6 +53,8 @@
 		9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9F91900D63000914377 /* Calibri Bold.ttf */; };
 		9E80D9FC1900D63000914377 /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FA1900D63000914377 /* Calibri.ttf */; };
 		9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FD1900D9B600914377 /* glasses-7@2x.png */; };
+		9E943D0D19C4B72100ABA598 /* SRLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */; };
+		9E943D1019C4BC4400ABA598 /* SRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E943D0F19C4BC4400ABA598 /* SRNavigationController.m */; };
 		9E9C92D519B2508900F98131 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C92D419B2508900F98131 /* MBProgressHUD.m */; };
 		9E9C92D919B26B0F00F98131 /* LaunchImage_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */; };
 		9E9C92DB19B2BB8400F98131 /* share-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92DA19B2BB8400F98131 /* share-7@2x.png */; };
@@ -176,6 +178,9 @@
 		9E80D9F91900D63000914377 /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		9E80D9FA1900D63000914377 /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
 		9E80D9FD1900D9B600914377 /* glasses-7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glasses-7@2x.png"; sourceTree = "<group>"; };
+		9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRLaunchScreen.xib; sourceTree = "<group>"; };
+		9E943D0E19C4BC4400ABA598 /* SRNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRNavigationController.h; sourceTree = "<group>"; };
+		9E943D0F19C4BC4400ABA598 /* SRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRNavigationController.m; sourceTree = "<group>"; };
 		9E9C92D319B2508900F98131 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9E9C92D419B2508900F98131 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x960.png; sourceTree = "<group>"; };
@@ -443,6 +448,8 @@
 		9E9898E3186A5EF100353440 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E943D0E19C4BC4400ABA598 /* SRNavigationController.h */,
+				9E943D0F19C4BC4400ABA598 /* SRNavigationController.m */,
 				9E417A04184410ED00A9DA60 /* SRMainTableViewController.h */,
 				9E417A05184410ED00A9DA60 /* SRMainTableViewController.m */,
 				9E417A06184410ED00A9DA60 /* SRMainTableViewController.xib */,
@@ -463,6 +470,7 @@
 				9E316C4D19B96DF400FA7621 /* SRSettingsViewController.h */,
 				9E316C4E19B96DF400FA7621 /* SRSettingsViewController.m */,
 				9E316C4F19B96DF400FA7621 /* SRSettingsViewController.xib */,
+				9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -763,6 +771,7 @@
 				9E6A6EF718997EE1006E9F35 /* book-7@2x.png in Resources */,
 				9EAAFA6518B00679008B7D36 /* button-play-7@2x.png in Resources */,
 				9E316C4A19B954FB00FA7621 /* LaunchImage_640x1136.png in Resources */,
+				9E943D0D19C4B72100ABA598 /* SRLaunchScreen.xib in Resources */,
 				9EFD300118FF8B16006A8601 /* CronosPro-Bold.otf in Resources */,
 				9E6A6F0118997F5F006E9F35 /* more-list-7@2x.png in Resources */,
 				9E417A1218441E7600A9DA60 /* SRMainContentViewController.xib in Resources */,
@@ -814,6 +823,7 @@
 				9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */,
 				9E4178811844063800A9DA60 /* SRAppDelegate.m in Sources */,
 				9EBD2A4D187E097A00F53DED /* GTMNSString+HTML.m in Sources */,
+				9E943D1019C4BC4400ABA598 /* SRNavigationController.m in Sources */,
 				9EBD2A46187E097A00F53DED /* AFHTTPSessionManager.m in Sources */,
 				9EBD2A51187E097A00F53DED /* NSDate+InternetDateTime.m in Sources */,
 				9EBD2A4E187E097A00F53DED /* MWFeedInfo.m in Sources */,
