@@ -50,10 +50,10 @@
         // Start the rotation animation of the star image.
         CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 4.0];
-        rotationAnimation.duration = 2.0;
+        rotationAnimation.duration = 1.5;
         [self.starImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
         
-        [UIView animateWithDuration:2.0
+        [UIView animateWithDuration:1.5
                          animations:^{
                              self.textImageView.alpha = 0.0;
                              self.starImageView.center = self.view.center;
