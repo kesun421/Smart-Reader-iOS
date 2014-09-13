@@ -60,7 +60,7 @@
                              self.starImageView.alpha = 1.0;
                          }
                          completion:^(BOOL finished) {
-                             dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+                             dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
                              dispatch_after(time, dispatch_get_main_queue(), ^(void){
                                  // Unhide the navigation bar so it shows in the main table view.
                                  self.navigationController.navigationBar.hidden = NO;
