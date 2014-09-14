@@ -22,7 +22,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 @interface SRAppDelegate () <SRSourceManagerDelegate, SRTextFilteringManagerDelegate>
 {
     BackgroundFetchBlock backgroundFetchResultBlock;
-    int _totalNewCount;
+    BOOL _showNewCount;
 }
 
 @end
@@ -70,7 +70,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     // The initial request for allowing notifications is in the main table view view controller.
     UIUserNotificationSettings* notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
     if (notificationSettings.types | UIUserNotificationTypeBadge) {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[SRTextFilteringManager sharedManager].interestingFeedItems.count];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: _showNewCount ? [self totalNewCount] : [SRTextFilteringManager sharedManager].interestingFeedItems.count];
     }
 }
 
@@ -89,11 +89,25 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     
     NSNumber *interestingArticlesCap = (NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"interestingArticlesCap"];
     [SRTextFilteringManager sharedManager].interestingArticlesCap = interestingArticlesCap.intValue;
+    
+    NSString *iconBadgeCount = (NSString *)[[NSUserDefaults standardUserDefaults] valueForKey:@"iconBadgeCount"];
+    _showNewCount = [iconBadgeCount isEqualToString:@"New Articles"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (int)totalNewCount
+{
+    int totalNewCount = 0;
+    
+    for (SRSource *source in [SRSourceManager sharedManager].sources) {
+        totalNewCount += source.newCount;
+    }
+    
+    return totalNewCount;
 }
 
 #pragma mark - Background fetch
@@ -114,11 +128,6 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 
 - (void)didFinishRefreshingAllSourcesWithError:(NSError *)error
 {
-    _totalNewCount = 0;
-    for (SRSource *source in [SRSourceManager sharedManager].sources) {
-        _totalNewCount += source.newCount;
-    }
-    
     [SRTextFilteringManager sharedManager].delegate = self;
     [[SRTextFilteringManager sharedManager] findInterestingFeedItemsFromSources:[SRSourceManager sharedManager].sources];
     
@@ -139,14 +148,16 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     
     NSString *message = nil;
     
-    if (_totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count == 0) {
-        message = [NSString stringWithFormat:@"Added %d new articles!", _totalNewCount];
+    int totalNewCount = [self totalNewCount];
+    
+    if (totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count == 0) {
+        message = [NSString stringWithFormat:@"Added %d new articles!", totalNewCount];
     }
-    else if (_totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count != 0){
-        message = [NSString stringWithFormat:@"Added %d new articles! %lu are interesting...", _totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count];
+    else if (totalNewCount != 0 && [SRTextFilteringManager sharedManager].interestingFeedItems.count != 0){
+        message = [NSString stringWithFormat:@"Added %d new articles! %lu are interesting...", totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count];
     }
     
-    if (_totalNewCount || [SRTextFilteringManager sharedManager].interestingFeedItems.count) {
+    if (totalNewCount || [SRTextFilteringManager sharedManager].interestingFeedItems.count) {
         [[SRSourceManager sharedManager] saveSources];
     }
     
@@ -158,7 +169,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
         
         backgroundFetchResultBlock(UIBackgroundFetchResultNewData);
         
-        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %lu", _totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count);
+        DebugLog(@"Background fetch completed with new articles count: %d, and interesting articles count: %lu", totalNewCount, (unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count);
     }
     else {
         backgroundFetchResultBlock(UIBackgroundFetchResultNoData);

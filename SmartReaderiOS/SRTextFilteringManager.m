@@ -17,7 +17,6 @@
 #import "HTMLParser.h"
 
 #define kLikedFeedItemTokensFileName @"liked.bin"
-#define kUnlikedFeedItemTokensFileName @"unliked.bin"
 
 @interface SRTextFilteringManager ()
 
