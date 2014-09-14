@@ -10,7 +10,7 @@
 
 @interface SRMessageViewController : UIViewController
 
-- (instancetype)initWithParentView:(UIView *)view message:(NSString *)message;
+- (instancetype)initWithParentViewControllr:(UIViewController *)viewController message:(NSString *)message;
 - (void)show;
 
 @end

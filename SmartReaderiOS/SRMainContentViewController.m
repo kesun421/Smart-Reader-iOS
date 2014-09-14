@@ -237,7 +237,7 @@
         message = @"Reading through Readability";
     }
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:message];
     [self.messageViewController show];
     
     // Send event to GA.
@@ -256,7 +256,7 @@
     
     self.likeButton.enabled = NO;
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Marked as interesting :)"];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Marked as interesting :)"];
     [self.messageViewController show];
     
     // Send event to GA.
@@ -294,7 +294,7 @@
     
     [[SRSourceManager sharedManager] saveSources];
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:message];
     [self.messageViewController show];
     
     [self.delegate refresh:self];

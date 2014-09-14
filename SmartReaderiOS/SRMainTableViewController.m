@@ -76,36 +76,6 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(add)];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(showBookmarks)];
-
-    if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
-        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Pull list down to refresh"];
-        [self.messageViewController show];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    // Setup screen name tracking in GA.
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     // Setup reachability detection.
     self.networkReachabilityManager = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
@@ -125,8 +95,38 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Reestablished" message:@"Smart Reader has reestablished network connection, app functions are now normal." delegate:nil cancelButtonTitle:@"Yay!" otherButtonTitles:nil];
             [alert show];
         }
-     }];
+    }];
     [self.networkReachabilityManager startMonitoring];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(add)];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(showBookmarks)];
+
+    if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Pull list down to refresh"];
+        [self.messageViewController show];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Setup screen name tracking in GA.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     // Register for notifications for the app.  Doing it here so the pop up won't interfere with the launch screen.
     UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
@@ -207,7 +207,7 @@
     
     [self.tableView setEditing:YES animated:YES];
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Tap any news item to end editing"];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Tap any news item to end editing"];
     [self.messageViewController show];
     
     // Send event to GA.
@@ -417,7 +417,7 @@
 
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
 {
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"News source added"];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"News source added"];
     [self.messageViewController show];
 }
 
@@ -474,12 +474,12 @@
     DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].interestingFeedItems);
     
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
-        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController
                                                                                  message:[NSString stringWithFormat:@"Found %lu interesting articles",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
         [self.messageViewController show];
     }
     else {
-        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Train me using ☆ in article view"];
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Train me using ☆ in article view"];
         [self.messageViewController show];
     }
     

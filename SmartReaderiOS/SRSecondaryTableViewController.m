@@ -452,7 +452,7 @@
     
     NSString *message = _markedAllAsRead ? @"Marked all as read" : @"Marked all as unread";
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:message];
     [self.messageViewController show];
     
     [[SRSourceManager sharedManager] saveSources];
@@ -486,7 +486,7 @@
         [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:message];
     [self.messageViewController show];
     
     // Send event to GA.
@@ -549,7 +549,7 @@
     
     [[SRSourceManager sharedManager] saveSources];
     
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Bookmarked"];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Bookmarked"];
     [self.messageViewController show];
     
     DebugLog(@"Bookmarked by swipping right...");

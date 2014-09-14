@@ -15,20 +15,29 @@
 }
 
 @property (weak, nonatomic) UIView *parentView;
+@property (weak, nonatomic) UIViewController *msgParentViewController;
 @property (nonatomic) UITextField *textField;
 
 @end
 
 @implementation SRMessageViewController
 
-- (instancetype)initWithParentView:(UIView *)view message:(NSString *)message
+- (instancetype)initWithParentViewControllr:(UIViewController *)viewController message:(NSString *)message
 {
     self = [super init];
     
     if (self) {
-        self.parentView = view;
+        self.msgParentViewController = viewController;
+        self.parentView = self.msgParentViewController.view;
+        
         _width = self.parentView.frame.size.width;
-        _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 34.0 : 65.0;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            _height = ((UINavigationController *)self.msgParentViewController).navigationBar.frame.size.height;
+            _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? _height : _height + ((UINavigationController *)self.msgParentViewController).navigationBar.frame.origin.y;
+        }
+        else {
+            _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 34.0 : 65.0;
+        }
         
         _x = 0.0;
         _y = -_height;
@@ -108,7 +117,13 @@
 {
     // Adjust the size of the message view by the orientation of the device.
     _width = self.parentView.frame.size.width;
-    _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 34.0 : 65.0;
+    if ([self.msgParentViewController isKindOfClass:[UINavigationController class]]) {
+        _height = ((UINavigationController *)self.msgParentViewController).navigationBar.frame.size.height;
+        _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? _height : _height + ((UINavigationController *)self.msgParentViewController).navigationBar.frame.origin.y;
+    }
+    else {
+        _height = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 34.0 : 65.0;
+    }
     
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, _width, _height);
     self.textField.frame = CGRectMake(0.0, 5.0, _width, _height - 5.0);
