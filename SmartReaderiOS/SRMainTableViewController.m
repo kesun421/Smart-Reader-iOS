@@ -40,6 +40,8 @@
 
 @property (nonatomic) SRMessageViewController *messageViewController;
 
+@property (nonatomic) AFNetworkReachabilityManager *networkReachabilityManager;
+
 @end
 
 @implementation SRMainTableViewController
@@ -106,13 +108,25 @@
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     // Setup reachability detection.
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Unreachable" message:@"Smart Reader can not connect to the network, so app functions will be limited until network connection is reestablished." delegate:nil cancelButtonTitle:@"Cool, got it" otherButtonTitles:nil];
+    self.networkReachabilityManager = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
+    [self.networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        static BOOL _networkUnreachable;
+        
+        if (!_networkUnreachable && status == AFNetworkReachabilityStatusNotReachable) {
+            _networkUnreachable = YES;
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Unreachable" message:@"Smart Reader can not connect to the network, app functions will be limited until network connection is reestablished." delegate:nil cancelButtonTitle:@"Cool, got it" otherButtonTitles:nil];
             [alert show];
         }
-    }];
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        
+        if (_networkUnreachable && (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN)) {
+            _networkUnreachable = NO;
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Reestablished" message:@"Smart Reader has reestablished network connection, app functions are now normal." delegate:nil cancelButtonTitle:@"Yay!" otherButtonTitles:nil];
+            [alert show];
+        }
+     }];
+    [self.networkReachabilityManager startMonitoring];
     
     // Register for notifications for the app.  Doing it here so the pop up won't interfere with the launch screen.
     UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
