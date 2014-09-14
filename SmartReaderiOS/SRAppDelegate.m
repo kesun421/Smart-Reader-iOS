@@ -70,7 +70,7 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     // The initial request for allowing notifications is in the main table view view controller.
     UIUserNotificationSettings* notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
     if (notificationSettings.types | UIUserNotificationTypeBadge) {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: _showUnreadCount ? [self totalUnreadCount] : [SRTextFilteringManager sharedManager].interestingFeedItems.count];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: _showUnreadCount ? [self totalUnreadCount] : [self totalInterestingUnreadCount]];
     }
 }
 
@@ -113,6 +113,20 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     
     return totalUnreadCount;
 }
+
+- (int)totalInterestingUnreadCount
+{
+    int totalInterestingUnreadCount = 0;
+    
+    for (MWFeedItem *item in [SRTextFilteringManager sharedManager].interestingFeedItems) {
+        if (!item.read) {
+            totalInterestingUnreadCount += 1;
+        }
+    }
+    
+    return totalInterestingUnreadCount;
+}
+
 
 #pragma mark - Background fetch
 
