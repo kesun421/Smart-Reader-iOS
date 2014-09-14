@@ -11,17 +11,18 @@
 #import "SRSecondaryTableViewController.h"
 #import "SRSplashScreenViewController.h"
 #import "SRAddSourceViewController.h"
+#import "SRMessageViewController.h"
 #import "SRSource.h"
+#import "SRSourceManager.h"
+#import "SRTextFilteringManager.h"
 #import "MWFeedInfo.h"
-#import "UIImageView+AFNetworking.h"
 #import "MWFeedParser.h"
 #import "MWFeedInfo.h"
 #import "MWFeedItem.h"
-#import "SRSourceManager.h"
-#import "SRTextFilteringManager.h"
 #import "UIImage+Extensions.h"
-#import "SRMessageViewController.h"
 #import "UIViewController+CWPopup.h"
+#import "AFNetworkReachabilityManager.h"
+#import "UIImageView+AFNetworking.h"
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
@@ -103,6 +104,15 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:NSStringFromClass([self class])];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    // Setup reachability detection.
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusNotReachable || status == AFNetworkReachabilityStatusUnknown) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Unreachable" message:@"Smart Reader can not connect to the network, so app functions will be limited until network connection is reestablished." delegate:nil cancelButtonTitle:@"Cool, got it" otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     // Register for notifications for the app.  Doing it here so the pop up won't interfere with the launch screen.
     UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
