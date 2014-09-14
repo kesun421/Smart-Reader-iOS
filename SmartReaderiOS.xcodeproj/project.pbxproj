@@ -14,8 +14,6 @@
 		9E316C4919B954FB00FA7621 /* LaunchImage_Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4519B954FB00FA7621 /* LaunchImage_Text.png */; };
 		9E316C4A19B954FB00FA7621 /* LaunchImage_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4619B954FB00FA7621 /* LaunchImage_640x1136.png */; };
 		9E316C4C19B9648800FA7621 /* LaunchImage_Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4B19B9648800FA7621 /* LaunchImage_Star.png */; };
-		9E316C5019B96DF400FA7621 /* SRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E316C4E19B96DF400FA7621 /* SRSettingsViewController.m */; };
-		9E316C5119B96DF400FA7621 /* SRSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E316C4F19B96DF400FA7621 /* SRSettingsViewController.xib */; };
 		9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178701844063800A9DA60 /* Foundation.framework */; };
 		9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178721844063800A9DA60 /* CoreGraphics.framework */; };
 		9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4178741844063800A9DA60 /* UIKit.framework */; };
@@ -55,6 +53,7 @@
 		9E80D9FE1900D9B600914377 /* glasses-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E80D9FD1900D9B600914377 /* glasses-7@2x.png */; };
 		9E943D0D19C4B72100ABA598 /* SRLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */; };
 		9E943D1019C4BC4400ABA598 /* SRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E943D0F19C4BC4400ABA598 /* SRNavigationController.m */; };
+		9E99C6D219C4CDC70058BCF3 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9E99C6D119C4CDC70058BCF3 /* Settings.bundle */; };
 		9E9C92D519B2508900F98131 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C92D419B2508900F98131 /* MBProgressHUD.m */; };
 		9E9C92D919B26B0F00F98131 /* LaunchImage_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */; };
 		9E9C92DB19B2BB8400F98131 /* share-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9C92DA19B2BB8400F98131 /* share-7@2x.png */; };
@@ -130,9 +129,6 @@
 		9E316C4519B954FB00FA7621 /* LaunchImage_Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_Text.png; sourceTree = "<group>"; };
 		9E316C4619B954FB00FA7621 /* LaunchImage_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x1136.png; sourceTree = "<group>"; };
 		9E316C4B19B9648800FA7621 /* LaunchImage_Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_Star.png; sourceTree = "<group>"; };
-		9E316C4D19B96DF400FA7621 /* SRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSettingsViewController.h; sourceTree = "<group>"; };
-		9E316C4E19B96DF400FA7621 /* SRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSettingsViewController.m; sourceTree = "<group>"; };
-		9E316C4F19B96DF400FA7621 /* SRSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRSettingsViewController.xib; sourceTree = "<group>"; };
 		9E41786D1844063800A9DA60 /* Smart Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4178701844063800A9DA60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E4178721844063800A9DA60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -181,6 +177,7 @@
 		9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRLaunchScreen.xib; sourceTree = "<group>"; };
 		9E943D0E19C4BC4400ABA598 /* SRNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRNavigationController.h; sourceTree = "<group>"; };
 		9E943D0F19C4BC4400ABA598 /* SRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRNavigationController.m; sourceTree = "<group>"; };
+		9E99C6D119C4CDC70058BCF3 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9E9C92D319B2508900F98131 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9E9C92D419B2508900F98131 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9E9C92D819B26B0F00F98131 /* LaunchImage_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage_640x960.png; sourceTree = "<group>"; };
@@ -364,6 +361,7 @@
 				9E9898E5186A5F2B00353440 /* Utilities */,
 				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
 				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
+				9E99C6D119C4CDC70058BCF3 /* Settings.bundle */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";
@@ -467,9 +465,6 @@
 				9E316C3E19B9537000FA7621 /* SRSplashScreenViewController.h */,
 				9E316C3F19B9537000FA7621 /* SRSplashScreenViewController.m */,
 				9E316C4019B9537000FA7621 /* SRSplashScreenViewController.xib */,
-				9E316C4D19B96DF400FA7621 /* SRSettingsViewController.h */,
-				9E316C4E19B96DF400FA7621 /* SRSettingsViewController.m */,
-				9E316C4F19B96DF400FA7621 /* SRSettingsViewController.xib */,
 				9E943D0C19C4B72100ABA598 /* SRLaunchScreen.xib */,
 			);
 			name = "View Controllers";
@@ -756,13 +751,13 @@
 				9E6A6EFD18997F11006E9F35 /* compass-7@2x.png in Resources */,
 				9E6A6F0718997F87006E9F35 /* rss-7@2x.png in Resources */,
 				9E9C92DD19B2BBCF00F98131 /* gear-7@2x.png in Resources */,
-				9E316C5119B96DF400FA7621 /* SRSettingsViewController.xib in Resources */,
 				9EB135E6188F991C00CC4009 /* icon-58.png in Resources */,
 				9E316C4219B9537000FA7621 /* SRSplashScreenViewController.xib in Resources */,
 				9EB135E8188F991C00CC4009 /* icon-120.png in Resources */,
 				9E6A6F1318998A0F006E9F35 /* forbidden-7@2x.png in Resources */,
 				9E316C4719B954FB00FA7621 /* LaunchImage_Background_640x1136.png in Resources */,
 				9E417A0D18441E6000A9DA60 /* SRSecondaryTableViewController.xib in Resources */,
+				9E99C6D219C4CDC70058BCF3 /* Settings.bundle in Resources */,
 				9E6A6F0518997F7A006E9F35 /* plus-circle-7@2x.png in Resources */,
 				9E80D9FB1900D63000914377 /* Calibri Bold.ttf in Resources */,
 				9E6A6F1518998A22006E9F35 /* star-circle-7@2x.png in Resources */,
@@ -828,7 +823,6 @@
 				9EBD2A51187E097A00F53DED /* NSDate+InternetDateTime.m in Sources */,
 				9EBD2A4E187E097A00F53DED /* MWFeedInfo.m in Sources */,
 				9EBD2A3B187E097A00F53DED /* AFNetworkActivityIndicatorManager.m in Sources */,
-				9E316C5019B96DF400FA7621 /* SRSettingsViewController.m in Sources */,
 				9EED5E5418735B01007C922F /* SRTextFilteringManager.m in Sources */,
 				9EBD2A3F187E097A00F53DED /* UIImageView+AFNetworking.m in Sources */,
 				9EBD2A45187E097A00F53DED /* AFHTTPRequestOperationManager.m in Sources */,

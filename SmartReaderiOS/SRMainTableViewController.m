@@ -11,7 +11,6 @@
 #import "SRSecondaryTableViewController.h"
 #import "SRSplashScreenViewController.h"
 #import "SRAddSourceViewController.h"
-#import "SRSettingsViewController.h"
 #import "SRSource.h"
 #import "MWFeedInfo.h"
 #import "UIImageView+AFNetworking.h"
@@ -78,21 +77,15 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.leftBarButtonItems = @[
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(showBookmarks)],
-                                               [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
-                                                                                style:UIBarButtonItemStylePlain
-                                                                               target:self
-                                                                               action:@selector(add)]
-                                               ];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(add)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"gear-7.png"] resizeImageToSize:IMAGE_SIZE]
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"book-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
-                                                                             action:@selector(settings)];
+                                                                             action:@selector(showBookmarks)];
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
         SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list down to refresh"];
@@ -206,19 +199,6 @@
     }
     
     [self.tableView setEditing:NO animated:YES];
-}
-
-- (void)settings
-{
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[SRSettingsViewController new]];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
-    
-    // Send event to GA.
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"
-                                                          action:@"opened_settings"
-                                                           label:@"Opened settings"
-                                                           value:nil] build]];
 }
 
 #pragma mark - Table view data source
@@ -468,7 +448,7 @@
     DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].interestingFeedItems);
     
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting items",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
+        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting articles",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
         [msgController animateInView:self.navigationController.view];
     }
     else {

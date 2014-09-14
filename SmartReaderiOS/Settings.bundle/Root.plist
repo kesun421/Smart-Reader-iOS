@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>2</integer>
+			<key>Title</key>
+			<string>Update Feeds</string>
+			<key>Key</key>
+			<string>feedUpdateFrequency</string>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>10</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Every 1 hour</string>
+				<string>Every 2 hours</string>
+				<string>Every 3 hours</string>
+				<string>Every 4 hours</string>
+				<string>Every 5 hours</string>
+				<string>Every 10 hours</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>25</integer>
+			<key>Title</key>
+			<string>Interesting Articles Cap</string>
+			<key>Key</key>
+			<string>interestingArticlesCap</string>
+			<key>Values</key>
+			<array>
+				<integer>10</integer>
+				<integer>25</integer>
+				<integer>50</integer>
+				<integer>100</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Top 10</string>
+				<string>Top 25</string>
+				<string>Top 50</string>
+				<string>Top 100</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Interesting Articles</string>
+			<key>Title</key>
+			<string>Icon Badge Count</string>
+			<key>Key</key>
+			<string>iconBadgeCount</string>
+			<key>Values</key>
+			<array>
+				<string>Interesting Articles</string>
+				<string>New Articles</string>
+			</array>
+            <key>Titles</key>
+            <array>
+                <string>Interesting Articles</string>
+                <string>New Articles</string>
+            </array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

@@ -38,7 +38,14 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
     self.window.rootViewController = [[SRNavigationController alloc] initWithRootViewController:[SRSplashScreenViewController new]];
     [self.window makeKeyAndVisible];
     
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60 * 60 * 2];
+    // Register app setting defaults. Settings value are applied in applicationDidBecomeActive.
+    NSDictionary *appSettings = @{
+                                  @"feedUpdateFrequency" : @(2),
+                                  @"interestingArticlesCap" : @(25),
+                                  @"iconBadgeCount" : @"Interesting Articles",
+                                  };
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appSettings];
     
     // Setup Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -75,6 +82,13 @@ typedef void(^BackgroundFetchBlock)(UIBackgroundFetchResult);
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    // Apply app settings values.
+    NSNumber *feedUpdateFrequency = (NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"feedUpdateFrequency"];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:60 * 60 * feedUpdateFrequency.intValue];
+    
+    NSNumber *interestingArticlesCap = (NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"interestingArticlesCap"];
+    [SRTextFilteringManager sharedManager].interestingArticlesCap = interestingArticlesCap.intValue;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

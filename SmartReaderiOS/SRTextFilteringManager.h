@@ -19,6 +19,7 @@
 
 @property (nonatomic, weak) id<SRTextFilteringManagerDelegate> delegate;
 @property (nonatomic) NSArray *interestingFeedItems;
+@property (nonatomic) int interestingArticlesCap;
 
 @end
 

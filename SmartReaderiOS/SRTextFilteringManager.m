@@ -157,11 +157,15 @@
             return (NSComparisonResult)NSOrderedSame;
         }];
         
-        // Only show as much as 10 percent of the total feed items.
-        int likableFeedItemsLimit = floorf(totalFeedItemsCount * 0.1);
+        // Only show as much as 20 percent of the total feed items.
+        int likableFeedItemsLimit = floorf(totalFeedItemsCount * 0.2);
         
-        if (likableFeedItemsLimit > 25) {
-            likableFeedItemsLimit = 25;
+        if (_interestingArticlesCap == 0) {
+            _interestingArticlesCap = 25;
+        }
+        
+        if (likableFeedItemsLimit > _interestingArticlesCap) {
+            likableFeedItemsLimit = _interestingArticlesCap;
         }
         
         if (feedItems.count > likableFeedItemsLimit) {
