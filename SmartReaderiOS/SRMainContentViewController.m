@@ -95,6 +95,8 @@
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.link]]];
     _readingOriginalLink = YES;
     
+    self.webView.scalesPageToFit = YES;
+    
     [self shortenURL];
 }
 
