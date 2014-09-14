@@ -66,13 +66,13 @@
 			<key>Values</key>
 			<array>
 				<string>Interesting Articles</string>
-				<string>New Articles</string>
+				<string>Unread Articles</string>
 			</array>
-            <key>Titles</key>
-            <array>
-                <string>Interesting Articles</string>
-                <string>New Articles</string>
-            </array>
+			<key>Titles</key>
+			<array>
+				<string>Interesting Articles</string>
+				<string>Unread Articles</string>
+			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>
