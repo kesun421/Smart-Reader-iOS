@@ -76,6 +76,14 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 		</dict>
+        <dict>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+            <key>FooterText</key>
+            <string>Changes to settings will take effect the next time Smart Reader is used.</string>
+            <key>Title</key>
+            <string>NOTE</string>
+        </dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
