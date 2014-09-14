@@ -103,6 +103,8 @@
 {
     [super viewWillAppear:animated];
     
+    self.navigationItem.title = @"Smart Reader";
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plus-circle-7.png"] resizeImageToSize:IMAGE_SIZE]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
