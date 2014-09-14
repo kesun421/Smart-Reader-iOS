@@ -351,17 +351,17 @@
 			isa = PBXGroup;
 			children = (
 				9EFD300218FF92FE006A8601 /* Custom Views */,
-				9E4178771844063800A9DA60 /* Supporting Files */,
+				9E4178A41844084900A9DA60 /* External Libs */,
 				9EFD2FFD18FF88A6006A8601 /* Fonts */,
 				9EB135E1188F990D00CC4009 /* Icons */,
 				9E9898DF186A4BAC00353440 /* Images */,
-				9E4178A41844084900A9DA60 /* External Libs */,
-				9E9898E3186A5EF100353440 /* View Controllers */,
 				9E9898E4186A5F1B00353440 /* Models */,
-				9E9898E5186A5F2B00353440 /* Utilities */,
+				9E99C6D119C4CDC70058BCF3 /* Settings.bundle */,
 				9E41787F1844063800A9DA60 /* SRAppDelegate.h */,
 				9E4178801844063800A9DA60 /* SRAppDelegate.m */,
-				9E99C6D119C4CDC70058BCF3 /* Settings.bundle */,
+				9E4178771844063800A9DA60 /* Supporting Files */,
+				9E9898E5186A5F2B00353440 /* Utilities */,
+				9E9898E3186A5EF100353440 /* View Controllers */,
 			);
 			path = SmartReaderiOS;
 			sourceTree = "<group>";

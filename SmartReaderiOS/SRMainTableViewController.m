@@ -37,6 +37,8 @@
 @property (nonatomic) UIFont *calibriBoldFont;
 @property (nonatomic) UIFont *calibriFont;
 
+@property (nonatomic) SRMessageViewController *messageViewController;
+
 @end
 
 @implementation SRMainTableViewController
@@ -88,8 +90,8 @@
                                                                              action:@selector(showBookmarks)];
 
     if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Pull list down to refresh"];
-        [msgController animateInView:self.navigationController.view];
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Pull list down to refresh"];
+        [self.messageViewController show];
     }
 }
 
@@ -181,8 +183,8 @@
     
     [self.tableView setEditing:YES animated:YES];
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Tap any news item to end editing"];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Tap any news item to end editing"];
+    [self.messageViewController show];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -391,8 +393,8 @@
 
 - (void)addSourceViewControllerDidFinishAddingAllSources:(SRAddSourceViewController *)controller
 {
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"News source added"];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"News source added"];
+    [self.messageViewController show];
 }
 
 - (void)addSourceViewController:(SRAddSourceViewController *)controller failedToRetrieveSourceWithURL:(NSString *)url
@@ -448,12 +450,13 @@
     DebugLog(@"Found these likable items: %@", [SRTextFilteringManager sharedManager].interestingFeedItems);
     
     if ([SRTextFilteringManager sharedManager].interestingFeedItems.count) {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:[NSString stringWithFormat:@"Found %lu interesting articles",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
-        [msgController animateInView:self.navigationController.view];
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view
+                                                                                 message:[NSString stringWithFormat:@"Found %lu interesting articles",(unsigned long)[SRTextFilteringManager sharedManager].interestingFeedItems.count]];
+        [self.messageViewController show];
     }
     else {
-        SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Train me using ☆ in article view"];
-        [msgController animateInView:self.navigationController.view];
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Train me using ☆ in article view"];
+        [self.messageViewController show];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

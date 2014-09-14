@@ -36,6 +36,8 @@
 @property (nonatomic) MWFeedItem *feedItem;
 @property (nonatomic) NSString *shortenedURLString;
 
+@property (nonatomic) SRMessageViewController *messageViewController;
+
 - (void)switchArticleView:(id)sender;
 - (void)likeArticle:(id)sender;
 
@@ -233,8 +235,8 @@
         message = @"Reading through Readability";
     }
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    [self.messageViewController show];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -252,8 +254,8 @@
     
     self.likeButton.enabled = NO;
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Marked as interesting :)"];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Marked as interesting :)"];
+    [self.messageViewController show];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -290,8 +292,8 @@
     
     [[SRSourceManager sharedManager] saveSources];
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    [self.messageViewController show];
     
     [self.delegate refresh:self];
     
@@ -309,7 +311,7 @@
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self]
                                                                                          applicationActivities:nil];
-    [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed){
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
         if (!completed) {
             return;
         }

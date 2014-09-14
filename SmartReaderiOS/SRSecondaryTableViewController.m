@@ -45,6 +45,8 @@
 
 @property (nonatomic, copy) NSIndexPath *indexPathOfFeedItemBeingRead;
 
+@property (nonatomic) SRMessageViewController *messageViewController;
+
 - (void)refresh:(id)sender;
 - (void)markAll:(id)sender;
 - (void)playAll:(id)sender;
@@ -449,8 +451,9 @@
     
     
     NSString *message = _markedAllAsRead ? @"Marked all as read" : @"Marked all as unread";
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [msgController animateInView:self.navigationController.view];
+    
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    [self.messageViewController show];
     
     [[SRSourceManager sharedManager] saveSources];
     
@@ -483,8 +486,8 @@
         [[SRFeedItemSpeechPlayer sharedInstance] stop];
     }
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:message];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:message];
+    [self.messageViewController show];
     
     // Send event to GA.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -546,8 +549,8 @@
     
     [[SRSourceManager sharedManager] saveSources];
     
-    SRMessageViewController *msgController = [[SRMessageViewController alloc] initWithMessage:@"Bookmarked"];
-    [msgController animateInView:self.navigationController.view];
+    self.messageViewController = [[SRMessageViewController alloc] initWithParentView:self.navigationController.view message:@"Bookmarked"];
+    [self.messageViewController show];
     
     DebugLog(@"Bookmarked by swipping right...");
 }
