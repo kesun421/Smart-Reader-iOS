@@ -83,7 +83,7 @@
     
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:utteranceString];
     utterance.postUtteranceDelay = 1.0;
-    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.5;
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.35;
     [self.speechSynth speakUtterance:utterance];
 }
 
