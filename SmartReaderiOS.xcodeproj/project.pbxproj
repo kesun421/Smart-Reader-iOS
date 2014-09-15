@@ -101,6 +101,8 @@
 		9EEE4E4D184547F600C0066E /* SRSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4C184547F600C0066E /* SRSource.m */; };
 		9EEE4E68184550C800C0066E /* SRAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */; };
 		9EEE4E69184550C800C0066E /* SRAddSourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */; };
+		9EF44D7E19C65ADD005A1B2E /* SRViewTransitionInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF44D7D19C65ADD005A1B2E /* SRViewTransitionInAnimator.m */; };
+		9EF44D8119C66D66005A1B2E /* SRViewTransitionOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF44D8019C66D66005A1B2E /* SRViewTransitionOutAnimator.m */; };
 		9EF627A0188F219700896259 /* SRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF6279F188F219700896259 /* SRMessageViewController.m */; };
 		9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF8C000186E260F00AD627F /* MapKit.framework */; };
 		9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8C003186E281900AD627F /* SRSourceManager.m */; };
@@ -269,6 +271,10 @@
 		9EEE4E65184550C800C0066E /* SRAddSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAddSourceViewController.h; sourceTree = "<group>"; };
 		9EEE4E66184550C800C0066E /* SRAddSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAddSourceViewController.m; sourceTree = "<group>"; };
 		9EEE4E67184550C800C0066E /* SRAddSourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRAddSourceViewController.xib; sourceTree = "<group>"; };
+		9EF44D7C19C65ADD005A1B2E /* SRViewTransitionInAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRViewTransitionInAnimator.h; sourceTree = "<group>"; };
+		9EF44D7D19C65ADD005A1B2E /* SRViewTransitionInAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRViewTransitionInAnimator.m; sourceTree = "<group>"; };
+		9EF44D7F19C66D66005A1B2E /* SRViewTransitionOutAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRViewTransitionOutAnimator.h; sourceTree = "<group>"; };
+		9EF44D8019C66D66005A1B2E /* SRViewTransitionOutAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRViewTransitionOutAnimator.m; sourceTree = "<group>"; };
 		9EF6279E188F219700896259 /* SRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMessageViewController.h; sourceTree = "<group>"; };
 		9EF6279F188F219700896259 /* SRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMessageViewController.m; sourceTree = "<group>"; };
 		9EF8C000186E260F00AD627F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -350,6 +356,7 @@
 		9E4178761844063800A9DA60 /* SmartReaderiOS */ = {
 			isa = PBXGroup;
 			children = (
+				9EF44D7B19C65ABC005A1B2E /* Animators */,
 				9EFD300218FF92FE006A8601 /* Custom Views */,
 				9E4178A41844084900A9DA60 /* External Libs */,
 				9EFD2FFD18FF88A6006A8601 /* Fonts */,
@@ -616,6 +623,17 @@
 			path = "Google Analytics 3.09";
 			sourceTree = "<group>";
 		};
+		9EF44D7B19C65ABC005A1B2E /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				9EF44D7C19C65ADD005A1B2E /* SRViewTransitionInAnimator.h */,
+				9EF44D7D19C65ADD005A1B2E /* SRViewTransitionInAnimator.m */,
+				9EF44D7F19C66D66005A1B2E /* SRViewTransitionOutAnimator.h */,
+				9EF44D8019C66D66005A1B2E /* SRViewTransitionOutAnimator.m */,
+			);
+			name = Animators;
+			sourceTree = "<group>";
+		};
 		9EF9969319AB9DD300BE2F49 /* CWPopup */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,12 +828,14 @@
 				9EEE4E4918452A3B00C0066E /* SRDebug.m in Sources */,
 				9E41787D1844063800A9DA60 /* main.m in Sources */,
 				9EEE4E4618451DAE00C0066E /* SRFileUtility.m in Sources */,
+				9EF44D8119C66D66005A1B2E /* SRViewTransitionOutAnimator.m in Sources */,
 				9EBD2A4F187E097A00F53DED /* MWFeedItem.m in Sources */,
 				9E316C4119B9537000FA7621 /* SRSplashScreenViewController.m in Sources */,
 				9EBD2A43187E097A00F53DED /* HTMLParser.m in Sources */,
 				9EBD2A40187E097A00F53DED /* UIProgressView+AFNetworking.m in Sources */,
 				9EBD2A52187E097A00F53DED /* NSString+HTML.m in Sources */,
 				9E655FFF188E1F16004FF3D0 /* UIImage+Extensions.m in Sources */,
+				9EF44D7E19C65ADD005A1B2E /* SRViewTransitionInAnimator.m in Sources */,
 				9E4178811844063800A9DA60 /* SRAppDelegate.m in Sources */,
 				9EBD2A4D187E097A00F53DED /* GTMNSString+HTML.m in Sources */,
 				9E943D1019C4BC4400ABA598 /* SRNavigationController.m in Sources */,

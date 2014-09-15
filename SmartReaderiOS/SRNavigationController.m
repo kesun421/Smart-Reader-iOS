@@ -7,8 +7,13 @@
 //
 
 #import "SRNavigationController.h"
+#import "SRViewTransitionInAnimator.h"
+#import "SRViewTransitionOutAnimator.h"
 
-@interface SRNavigationController ()
+@interface SRNavigationController () <UINavigationControllerDelegate>
+
+@property (nonatomic) id<UIViewControllerAnimatedTransitioning> transitionInAnimator;
+@property (nonatomic) id<UIViewControllerAnimatedTransitioning> transitionOutAnimator;
 
 @end
 
@@ -17,6 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.delegate = self;
+    self.transitionInAnimator = [SRViewTransitionInAnimator new];
+    self.transitionOutAnimator = [SRViewTransitionOutAnimator new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,9 +37,25 @@
 {
     return [self.topViewController shouldAutorotate];
 }
+
 - (NSUInteger)supportedInterfaceOrientations
 {
     return [self.topViewController supportedInterfaceOrientations];
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    if (operation == UINavigationControllerOperationPush) {
+        return self.transitionInAnimator;
+    }
+    else if (operation == UINavigationControllerOperationPop) {
+        return self.transitionOutAnimator;
+    }
+    
+    return nil;
 }
 
 @end
