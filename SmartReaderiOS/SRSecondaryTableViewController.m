@@ -70,7 +70,7 @@
         self.navigationItem.leftBarButtonItem = backButton;
         
         if (self.source.sourceForInterestingItems) {
-            self.navigationItem.title = @"Interesting Articles...";
+            self.navigationItem.title = @"Interesting";
             
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(refresh:)
@@ -78,7 +78,7 @@
                                                        object:nil];
         }
         else if (self.source.sourceForBookmarkedItems) {
-            self.navigationItem.title = @"Bookmarked Items";
+            self.navigationItem.title = @"Bookmarked";
         }
         else {
             self.navigationItem.title = self.source.feedInfo.title;
