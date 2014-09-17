@@ -24,7 +24,7 @@
     self = [super initWithRootViewController:rootViewController];
     UIColor *darkColor = [UIColor colorWithRed:66.0f/255.0f green:66.0f/255.0f blue:66.0f/255.0f alpha:1.0];
     self.navigationBar.tintColor = darkColor;
-    self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : darkColor };
+    self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : darkColor, NSFontAttributeName : [UIFont fontWithName:@"Lucida Sans" size:18] };
     return self;
 }
 

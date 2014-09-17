@@ -54,6 +54,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lucida Sans.ttf</string>
 		<string>CronosPro-Regular.otf</string>
 		<string>CronosPro-Bold.otf</string>
 		<string>Calibri Bold.ttf</string>
