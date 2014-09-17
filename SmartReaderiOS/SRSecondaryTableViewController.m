@@ -285,7 +285,7 @@
         cell.detailTextLabel.textColor = [UIColor colorWithRed:190.0f/255.0f green:190.0f/255.0f blue:190.0f/255.0f alpha:1.0];
     }
     else {
-        cell.textLabel.textColor = [UIColor blackColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:66.0f/255.0f green:66.0f/255.0f blue:66.0f/255.0f alpha:1.0];;
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }
     

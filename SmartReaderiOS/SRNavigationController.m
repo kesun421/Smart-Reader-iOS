@@ -19,6 +19,15 @@
 
 @implementation SRNavigationController
 
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
+{
+    self = [super initWithRootViewController:rootViewController];
+    UIColor *darkColor = [UIColor colorWithRed:66.0f/255.0f green:66.0f/255.0f blue:66.0f/255.0f alpha:1.0];
+    self.navigationBar.tintColor = darkColor;
+    self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : darkColor };
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

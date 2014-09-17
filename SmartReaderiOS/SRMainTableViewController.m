@@ -253,6 +253,7 @@
     // Set back to default.
     float titleFontSize = 18.0;
     cell.textLabel.font = [self.calibriFont fontWithSize:titleFontSize];
+    cell.textLabel.textColor = [UIColor colorWithRed:66.0f/255.0f green:66.0f/255.0f blue:66.0f/255.0f alpha:1.0];
     cell.backgroundColor = [UIColor whiteColor];
     
     // Add rounded corner to favicons.
