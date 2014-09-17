@@ -87,11 +87,6 @@
     [self.speechSynth speakUtterance:utterance];
 }
 
-- (void)pause
-{
-    
-}
-
 - (void)stop
 {
     [UIApplication sharedApplication].idleTimerDisabled = NO;
