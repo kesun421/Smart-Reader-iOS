@@ -40,7 +40,7 @@
 
 @property (nonatomic) SRMessageViewController *messageViewController;
 
-@property (nonatomic) AFNetworkReachabilityManager *networkReachabilityManager;
+@property (nonatomic) BOOL online;
 
 @end
 
@@ -78,25 +78,24 @@
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
     
     // Setup reachability detection.
-    self.networkReachabilityManager = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
-    [self.networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        static BOOL _networkUnreachable;
-        
-        if (!_networkUnreachable && status == AFNetworkReachabilityStatusNotReachable) {
-            _networkUnreachable = YES;
+    self.online = YES;
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (self.online && status == AFNetworkReachabilityStatusNotReachable) {
+            self.online = NO;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Unreachable" message:@"Smart Reader can not connect to the network, app functions will be limited until network connection is reestablished." delegate:nil cancelButtonTitle:@"Cool, got it" otherButtonTitles:nil];
             [alert show];
         }
         
-        if (_networkUnreachable && (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN)) {
-            _networkUnreachable = NO;
+        if (!self.online && (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN)) {
+            self.online = YES;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Reestablished" message:@"Smart Reader has reestablished network connection, app functions are now normal." delegate:nil cancelButtonTitle:@"Yay!" otherButtonTitles:nil];
             [alert show];
         }
+
     }];
-    [self.networkReachabilityManager startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated
