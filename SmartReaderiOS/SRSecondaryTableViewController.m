@@ -127,12 +127,6 @@
                                                                                                 action:@selector(handleSwipeLeft:)];
         swipeToMarkAsRead.direction = UISwipeGestureRecognizerDirectionLeft;
         [self.tableView addGestureRecognizer:swipeToMarkAsRead];
-        
-        // Add a left swipe gesture recognizer for bookmarking items.
-        UISwipeGestureRecognizer *swipeToBookmark = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                                action:@selector(handleSwipeRight:)];
-        swipeToBookmark.direction = UISwipeGestureRecognizerDirectionRight;
-        [self.tableView addGestureRecognizer:swipeToBookmark];
     }
     
     self.tableView.separatorColor = [UIColor clearColor];
@@ -519,40 +513,6 @@
     [[SRSourceManager sharedManager] saveSources];
     
     DebugLog(@"Marked as read by swipping left...");
-}
-
-- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
-{
-    CGPoint location = [gestureRecognizer locationInView:self.tableView];
-    
-    // Make sure that the swipe gesture does not conflict with the gesture to signal the view to go back.
-    if (location.x < self.tableView.center.x) {
-        [self dismiss:gestureRecognizer];
-        return;
-    }
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    
-    MWFeedItem *feedItem = (MWFeedItem *)self.feedItems[indexPath.row];
-    feedItem.read = YES;
-    feedItem.bookmarked = YES;
-    feedItem.bookmarkedDate = [NSDate date];
-    
-    NSMutableArray *feedItems = [self.feedItems mutableCopy];
-    [feedItems removeObjectAtIndex:indexPath.row];
-    self.feedItems = [feedItems copy];
-    
-    [self.tableView endUpdates];
-    
-    [[SRSourceManager sharedManager] saveSources];
-    
-    self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Bookmarked"];
-    [self.messageViewController show];
-    
-    DebugLog(@"Bookmarked by swipping right...");
 }
 
 @end
