@@ -104,7 +104,8 @@
 {
     [super viewWillAppear:animated];
     
-    self.likeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star-7.png"] resizeImageToSize:IMAGE_SIZE]
+    UIImage *likeButtonImage = self.feedItem.userLiked ? [[UIImage imageNamed:@"star-7-active.png"] resizeImageToSize:IMAGE_SIZE] : [[UIImage imageNamed:@"star-7.png"] resizeImageToSize:IMAGE_SIZE];
+    self.likeButton = [[UIBarButtonItem alloc] initWithImage:likeButtonImage
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(likeArticle:)];
@@ -255,6 +256,7 @@
     [[SRTextFilteringManager sharedManager] processFeedItemAsLiked:self.feedItem];
     
     self.likeButton.enabled = NO;
+    self.likeButton.image = [[UIImage imageNamed:@"star-7-active.png"] resizeImageToSize:IMAGE_SIZE];
     
     self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Marked as interesting :)"];
     [self.messageViewController show];
