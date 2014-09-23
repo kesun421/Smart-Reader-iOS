@@ -26,8 +26,8 @@
         self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         // Setup the view hierarchy, where one subview holds three smaller views which acts as indicators.
-        float dotWidth = 8.0;
-        float dotMargin = 10.0;
+        float dotWidth = 12.0;
+        float dotMargin = 15.0;
         
         UIView *mainSubView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, dotWidth * 3 + dotMargin * 2, dotWidth)];
         mainSubView.center = self.view.center;
@@ -49,6 +49,7 @@
                                              options:UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAutoreverse
                                           animations:^{
                                               dotView.alpha = 0.0;
+                                              dotView.frame = CGRectInset(dotView.frame, 4.0, 4.0);
                                           }
                                           completion:nil];
             });
