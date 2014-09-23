@@ -31,7 +31,7 @@
 
 #define IMAGE_SIZE CGSizeMake(25.0, 25.0)
 
-@interface SRMainTableViewController () <UIGestureRecognizerDelegate, SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
+@interface SRMainTableViewController () <UIGestureRecognizerDelegate, UIScrollViewDelegate, SRAddSourceViewControllerDelegate, SRSourceManagerDelegate, SRTextFilteringManagerDelegate, SRSecondaryTableViewControllerDelegate>
 
 @property (nonatomic) UIFont *cronosProBoldFont;
 @property (nonatomic) UIFont *cronosProRegularFont;
@@ -59,6 +59,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -78,9 +80,6 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
-    
-    self.refreshViewController = [[SRRefreshViewController alloc] initWithFrame:self.refreshControl.frame];;
-    [self.refreshControl addSubview:self.refreshViewController.view];
     
     // Setup reachability detection.
     self.online = YES;
@@ -510,6 +509,15 @@
 - (void)refresh:(id)sender
 {
     [self.tableView reloadData];
+}
+
+#pragma mark - UIScrollViewDelegate methods
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.refreshViewController.view removeFromSuperview];
+    self.refreshViewController = [[SRRefreshViewController alloc] initWithFrame:self.refreshControl.frame];;
+    [self.refreshControl addSubview:self.refreshViewController.view];
 }
 
 @end
