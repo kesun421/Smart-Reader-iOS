@@ -39,6 +39,7 @@
 @property (nonatomic) UIFont *calibriBoldFont;
 @property (nonatomic) UIFont *calibriFont;
 
+@property (nonatomic) SRRefreshViewController *refreshViewController;
 @property (nonatomic) SRMessageViewController *messageViewController;
 
 @property (nonatomic) BOOL online;
@@ -78,8 +79,8 @@
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
     
-    SRRefreshViewController *refreshViewController = [[SRRefreshViewController alloc] initWithFrame:self.refreshControl.frame];;
-    [self.refreshControl addSubview:refreshViewController.view];
+    self.refreshViewController = [[SRRefreshViewController alloc] initWithFrame:self.refreshControl.frame];;
+    [self.refreshControl addSubview:self.refreshViewController.view];
     
     // Setup reachability detection.
     self.online = YES;
