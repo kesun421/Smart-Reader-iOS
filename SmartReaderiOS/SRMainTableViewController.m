@@ -12,6 +12,7 @@
 #import "SRSplashScreenViewController.h"
 #import "SRAddSourceViewController.h"
 #import "SRMessageViewController.h"
+#import "SRRefreshViewController.h"
 #import "SRSource.h"
 #import "SRSourceManager.h"
 #import "SRTextFilteringManager.h"
@@ -76,6 +77,9 @@
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+    
+    SRRefreshViewController *refreshViewController = [[SRRefreshViewController alloc] initWithFrame:self.refreshControl.frame];;
+    [self.refreshControl addSubview:refreshViewController.view];
     
     // Setup reachability detection.
     self.online = YES;
