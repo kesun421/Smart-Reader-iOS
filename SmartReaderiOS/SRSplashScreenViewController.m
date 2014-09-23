@@ -64,7 +64,7 @@
                              dispatch_after(time, dispatch_get_main_queue(), ^(void){
                                  // Unhide the navigation bar so it shows in the main table view.
                                  self.navigationController.navigationBar.hidden = NO;
-                                 [self.navigationController pushViewController:[SRMainTableViewController new] animated:NO];
+                                 [self.navigationController pushViewController:[SRMainTableViewController new] animated:YES];
                              });
                          }];
         
