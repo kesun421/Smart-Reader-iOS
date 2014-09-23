@@ -34,9 +34,11 @@
     
     if ([fromViewController isKindOfClass:[SRSplashScreenViewController class]] && [toViewController isKindOfClass:[SRMainTableViewController class]]) {
         toViewController.view.alpha = 0.0;
+        toViewController.navigationController.navigationBar.alpha = 0.0;
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             toViewController.view.alpha = 1.0;
+            toViewController.navigationController.navigationBar.alpha = 1.0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];

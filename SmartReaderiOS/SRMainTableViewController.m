@@ -113,11 +113,6 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(showBookmarks)];
-
-    if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
-        self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Pull list down to refresh"];
-        [self.messageViewController show];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -132,6 +127,11 @@
     // Register for notifications for the app.  Doing it here so the pop up won't interfere with the launch screen.
     UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    
+    if (![SRTextFilteringManager sharedManager].interestingFeedItems.count && !self.refreshControl.refreshing) {
+        self.messageViewController = [[SRMessageViewController alloc] initWithParentViewControllr:self.navigationController message:@"Pull list down to refresh"];
+        [self.messageViewController show];
+    }
 }
 
 - (void)didReceiveMemoryWarning
