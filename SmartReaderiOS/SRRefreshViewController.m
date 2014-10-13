@@ -44,12 +44,12 @@
             [mainSubView addSubview:dotView];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [UIView animateKeyframesWithDuration:0.75
-                                               delay:0.30 * i
+                [UIView animateKeyframesWithDuration:0.5
+                                               delay:0.25 * i
                                              options:UIViewKeyframeAnimationOptionRepeat | UIViewKeyframeAnimationOptionAutoreverse
                                           animations:^{
                                               dotView.alpha = 0.0;
-                                              dotView.frame = CGRectInset(dotView.frame, 4.0, 4.0);
+                                              dotView.transform = CGAffineTransformMakeScale(0.25, 0.25);
                                           }
                                           completion:nil];
             });
