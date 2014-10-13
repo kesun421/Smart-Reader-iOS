@@ -24,6 +24,7 @@
 @interface SRMainContentViewController () <UIWebViewDelegate, UIActivityItemSource>
 {
     BOOL _readingOriginalLink;
+    int _activityCount;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -103,6 +104,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    _activityCount = 0;
     
     UIImage *likeButtonImage = self.feedItem.userLiked ? [[UIImage imageNamed:@"star-7-active.png"] resizeImageToSize:IMAGE_SIZE] : [[UIImage imageNamed:@"star-7.png"] resizeImageToSize:IMAGE_SIZE];
     self.likeButton = [[UIBarButtonItem alloc] initWithImage:likeButtonImage
@@ -366,16 +369,30 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    self.activityIndicatorBackgroundView.hidden = NO;
-    self.activityIndicator.hidden = NO;
-    [self.activityIndicator startAnimating];
+    if (_activityCount == 0) {
+        self.activityIndicatorBackgroundView.hidden = NO;
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator startAnimating];
+        
+        _activityCount = 1;
+    }
+    else {
+        _activityCount++;
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [self.activityIndicator stopAnimating];
-    self.activityIndicator.hidden = YES;
-    self.activityIndicatorBackgroundView.hidden = YES;
+    if (_activityCount == 1) {
+        [self.activityIndicator stopAnimating];
+        self.activityIndicator.hidden = YES;
+        self.activityIndicatorBackgroundView.hidden = YES;
+        
+        _activityCount = 0;
+    }
+    else {
+        _activityCount--;
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
