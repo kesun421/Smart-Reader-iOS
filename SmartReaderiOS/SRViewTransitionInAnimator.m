@@ -44,23 +44,13 @@
         }];
     }
     else {
-        // Rotate off screen.
-        CATransform3D tp = CATransform3DIdentity;
-        tp.m34 = 1.0/ -500;
-        tp = CATransform3DTranslate(tp, toViewController.view.frame.size.width, 0.0, 300.0f);
-        tp = CATransform3DRotate(tp, M_PI * 30 /180, 0.0f, 1.0f, 0.8f);
-        toViewController.view.layer.transform = tp;
-        
-        // Add shadow.
-        toViewController.view.layer.masksToBounds = NO;
-        toViewController.view.layer.shadowOffset = CGSizeMake(-10, 10);
-        toViewController.view.layer.shadowColor = [[UIColor darkGrayColor] CGColor];
-        toViewController.view.layer.shadowRadius = 5;
-        toViewController.view.layer.shadowOpacity = 0.5;
+        toViewController.view.transform = CGAffineTransformMakeTranslation(toViewController.view.frame.size.width, 0.0);
         
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            toViewController.view.layer.transform = CATransform3DIdentity;
+            toViewController.view.transform = CGAffineTransformIdentity;
+            fromViewController.view.transform = CGAffineTransformMakeTranslation(-fromViewController.view.frame.size.width, 0.0);
         } completion:^(BOOL finished) {
+            fromViewController.view.transform = CGAffineTransformIdentity;
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }

@@ -21,12 +21,11 @@
     UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     [[transitionContext containerView] addSubview:toViewController.view];
     
+    toViewController.view.transform = CGAffineTransformMakeTranslation(-toViewController.view.frame.size.width, 0.0);
+    
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        CATransform3D tp = CATransform3DIdentity;
-        tp.m34 = 1.0/ -500;
-        tp = CATransform3DTranslate(tp, toViewController.view.frame.size.width, 0.0, 300.0f);
-        tp = CATransform3DRotate(tp, M_PI * 30 /180, 0.0f, 1.0f, 0.8f);
-        fromViewController.view.layer.transform = tp;
+        toViewController.view.transform = CGAffineTransformIdentity;
+        fromViewController.view.transform = CGAffineTransformMakeTranslation(fromViewController.view.frame.size.width, 0.0);
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
