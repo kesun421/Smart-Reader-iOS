@@ -91,7 +91,7 @@
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
                              self.view.alpha = 1.0;
-                             self.view.frame = CGRectMake(_x, 0.0, _width, _height);
+                             self.view.transform = CGAffineTransformMakeTranslation(0.0, _height);
                          }
                          completion:^(BOOL finished) {
                              
@@ -100,8 +100,8 @@
                                                        delay:1.5
                                                      options:UIViewAnimationOptionCurveEaseOut
                                                   animations:^{
-                                                      self.view.frame = CGRectMake(_x, _y, _width, _height);
                                                       self.view.alpha = 0.0;
+                                                      self.view.transform = CGAffineTransformMakeTranslation(0.0, -_height);
                                                   } completion:^(BOOL finished) {
                                                       
                                                       dispatch_async(dispatch_get_main_queue(), ^{
