@@ -107,7 +107,6 @@
 		9EF44D8119C66D66005A1B2E /* SRViewTransitionOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF44D8019C66D66005A1B2E /* SRViewTransitionOutAnimator.m */; };
 		9EF44D8319C93C24005A1B2E /* Lucida Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EF44D8219C93C24005A1B2E /* Lucida Sans.ttf */; };
 		9EF627A0188F219700896259 /* SRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF6279F188F219700896259 /* SRMessageViewController.m */; };
-		9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF8C000186E260F00AD627F /* MapKit.framework */; };
 		9EF8C004186E281900AD627F /* SRSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8C003186E281900AD627F /* SRSourceManager.m */; };
 		9EF9969619AB9DD300BE2F49 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9969519AB9DD300BE2F49 /* UIViewController+CWPopup.m */; };
 		9EFD2FFF18FF88A6006A8601 /* CronosPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD2FFE18FF88A6006A8601 /* CronosPro-Regular.otf */; };
@@ -284,7 +283,6 @@
 		9EF44D8219C93C24005A1B2E /* Lucida Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Sans.ttf"; sourceTree = "<group>"; };
 		9EF6279E188F219700896259 /* SRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMessageViewController.h; sourceTree = "<group>"; };
 		9EF6279F188F219700896259 /* SRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMessageViewController.m; sourceTree = "<group>"; };
-		9EF8C000186E260F00AD627F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9EF8C002186E281900AD627F /* SRSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSourceManager.h; sourceTree = "<group>"; };
 		9EF8C003186E281900AD627F /* SRSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSourceManager.m; sourceTree = "<group>"; };
 		9EF9969419AB9DD300BE2F49 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 				9ED20EEC19B81CA2009C7541 /* CoreData.framework in Frameworks */,
 				9E417A031844108700A9DA60 /* libxml2.dylib in Frameworks */,
 				9E4178731844063800A9DA60 /* CoreGraphics.framework in Frameworks */,
-				9EF8C001186E260F00AD627F /* MapKit.framework in Frameworks */,
 				9E4178751844063800A9DA60 /* UIKit.framework in Frameworks */,
 				9E4178711844063800A9DA60 /* Foundation.framework in Frameworks */,
 				9ED20EEA19B81C8A009C7541 /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -350,7 +347,6 @@
 				9ED20EEF19B81CB4009C7541 /* libz.dylib */,
 				9ED20EED19B81CAB009C7541 /* SystemConfiguration.framework */,
 				9ED20EEB19B81CA2009C7541 /* CoreData.framework */,
-				9EF8C000186E260F00AD627F /* MapKit.framework */,
 				9E417A021844108700A9DA60 /* libxml2.dylib */,
 				9E4178701844063800A9DA60 /* Foundation.framework */,
 				9E4178721844063800A9DA60 /* CoreGraphics.framework */,
@@ -727,6 +723,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
 							com.apple.iOS = {
 								enabled = 1;
 							};
@@ -989,7 +988,7 @@
 		9E41789A1844063900A9DA60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Min He (U2KH5V55NE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: BleepBlop LLC (243U7PR279)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1001,7 +1000,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/SmartReaderiOS/Google\\ Analytics\\ 3.09";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "12d44b73-0f62-4387-8aa4-d3e7c4f79a25";
+				PROVISIONING_PROFILE = "916676ae-2bdb-44b9-a0df-dceef7ce4d6f";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -1011,7 +1010,7 @@
 		9E41789B1844063900A9DA60 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Min He (U2KH5V55NE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: BleepBlop LLC (243U7PR279)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartReaderiOS/SmartReaderiOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1023,7 +1022,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/SmartReaderiOS/Google\\ Analytics\\ 3.09";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "12d44b73-0f62-4387-8aa4-d3e7c4f79a25";
+				PROVISIONING_PROFILE = "916676ae-2bdb-44b9-a0df-dceef7ce4d6f";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
