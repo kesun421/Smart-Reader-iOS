@@ -11,20 +11,20 @@ Smart Reader does what any standard RSS app does, but also applies machine learn
 * Have a comfortable, elegant user interface.
 
 * Use bayesian text filtering algorithm (similar to spam filtering), combined with PageRank algorithm to determine if a news article falls into user’s interest.
-  
+
 * Filter out similar news reports from different sources.
 
 * Runs smoothly on iPhone, iPad.  With future Mac port.
 
-* Backup interest db to iCloud.
+* Show summary text for news articles if there are any.  Else, directly show the news article, but with button to render through readability mobilizer.
+
+###Future Features###
 
 * Online plans (paid services):
 	- Better recommendation through friend’s suggestions.
 	- Better recommendation from friend’s shared interests (sharing interest concept?).
-	
-* Show summary text for news articles if there are any.  Else, directly show the news article, but with button to render through readability mobilizer.
 
-* Elegant fonts for title and summary text.
+* Backup interest db to iCloud.
 
 ###Technology###
 
