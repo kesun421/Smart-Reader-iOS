@@ -18,4 +18,6 @@ Smart Reader does what all standard RSS app does - allows user to follow RSS fee
 
 * Uses async and background processing techniques to reduce impact to app’s UI thread.
 
+### Demo
+
 <img src="https://github.com/kesun421/smart-reader-ios/blob/master/demo.gif?raw=true">
