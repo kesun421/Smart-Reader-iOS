@@ -994,6 +994,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/usr/include/libxml2/**",
+					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1016,6 +1017,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/usr/include/libxml2/**",
+					"${SDK_DIR}/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SmartReaderiOS/SmartReaderiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

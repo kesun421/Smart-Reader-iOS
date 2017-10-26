@@ -1,35 +1,19 @@
-##SmartReaderiOS##
+### SmartReaderiOS
 
-Smart Reader is a RSS app with intelligence :)
+Smart Reader is an iOS RSS app that uses machine learning to reduce information overload.
 
-Smart Reader does what any standard RSS app does, but also applies machine learning algorithms to the news items, in order to suggest to the user what to read first among a sea of articles.
+Smart Reader does what all standard RSS app does - allows user to follow RSS feeds - but it also applies machine learning algorithms to the news articles, learns what the user like to read, then further suggests articles to read among a sea of news.
 
-###Features###
+### Features
 
-* Add/remove/update RSS feeds.
+* Comfortable, elegant user interface.
 
-* Have a comfortable, elegant user interface.
+* Allows adding/removing/updating of RSS feeds.
 
-* Use bayesian text filtering algorithm (similar to spam filtering), combined with PageRank algorithm to determine if a news article falls into user’s interest.
+* Uses bayesian text filtering algorithm to filter news articles based on user's interests.
 
-* Filter out similar news reports from different sources.
+* Performs smoothly on iPhone, targeting baseline of iPhone 5s.
 
-* Runs smoothly on iPhone, iPad.  With future Mac port.
+* Uses Grand Central Dispatch as much as possible for parallel processing of articles.
 
-* Show summary text for news articles if there are any.  Else, directly show the news article, but with button to render through readability mobilizer.
-
-###Future Features###
-
-* Online plans (paid services):
-	- Better recommendation through friend’s suggestions.
-	- Better recommendation from friend’s shared interests (sharing interest concept?).
-
-* Backup interest db to iCloud.
-
-###Technology###
-
-* Use GCD as much as possible, along with async and background processing techniques to reduce impact to app’s UI thread.
-
-* From user input URL, parse page to determine if it is feed (Atom/RSS), or HTML.
-	- If URL points to a feed, parse the feed, and add the URL to feed library.
-	- If URL points to HTML, parse HTML for feed URL, then carry out step 1.
+* Uses async and background processing techniques to reduce impact to app’s UI thread.
